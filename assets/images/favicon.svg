@@ -1,0 +1,12 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="gradMobpie" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ff88" />
+      <stop offset="100%" stop-color="#00b4d8" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0b0c10" />
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" />
+  <path d="M16 45V19L27 34L32 27L37 34L48 19V45" fill="none" stroke="url(#gradMobpie)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="32" cy="46" r="3" fill="#00ff88" />
+</svg>
