@@ -181,14 +181,17 @@ body::before {
   background: #ffffff;
   color: #070709;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 0.65rem 1.4rem;
+  letter-spacing: 0.08em;
+  padding: 0.65rem 1.3rem;
   border-radius: var(--radius-pill);
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
   animation: bannerPulse 2s infinite ease-in-out;
+  max-width: calc(100vw - 2rem);
+  box-sizing: border-box;
+  text-align: center;
 }
 
 @keyframes bannerPulse {
@@ -4021,6 +4024,18 @@ footer {
     grid-template-columns: 1fr !important;
   }
 
+  /* Autoplay Unlock Banner positioned safely above mobile bottom dock */
+  .unlock-audio-banner {
+    bottom: calc(68px + env(safe-area-inset-bottom)) !important;
+    width: calc(100vw - 2rem) !important;
+    max-width: 360px !important;
+    white-space: normal !important;
+    text-align: center !important;
+    font-size: 0.68rem !important;
+    padding: 0.55rem 0.85rem !important;
+    line-height: 1.35 !important;
+  }
+
   /* 12. DEDICATED MOBILE BOTTOM ACTION DOCK */
   .mobile-portfolio-bottom-bar {
     display: flex !important;
@@ -4925,4 +4940,132 @@ footer {
 
 .details-section {
   scroll-margin-top: 85px !important;
+}
+
+/* ==========================================================================
+   ADVANCED MOBILE HARDENING & OVERFLOW PREVENTION (ALL SCREENS <= 640px)
+   ========================================================================== */
+@media (max-width: 640px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box !important;
+  }
+
+  .blueprint-viewport {
+    padding: 4.25rem 0.85rem 1.25rem !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+
+  .hero-minimal-bar {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1rem 0.85rem !important;
+  }
+
+  .hero-mini-kicker {
+    flex-wrap: wrap !important;
+    font-size: 0.62rem !important;
+    gap: 0.3rem !important;
+    word-break: break-word !important;
+  }
+
+  .hero-mini-title {
+    font-size: 1.12rem !important;
+    line-height: 1.25 !important;
+    word-break: break-word !important;
+  }
+
+  .hero-minimal-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+
+  .hero-scroll-link, .hero-wa-pill {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+  }
+
+  .avatar-stage-area {
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 270px !important;
+  }
+
+  .hero-avatar-frame {
+    max-width: min(260px, 75vw) !important;
+    height: auto !important;
+    aspect-ratio: 280 / 370 !important;
+  }
+
+  .remake-showcase-box {
+    padding: 1rem 0.75rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    border-radius: var(--radius-sm) !important;
+  }
+
+  .browser-window-header {
+    padding: 0 0.5rem !important;
+    gap: 0.35rem !important;
+  }
+
+  .browser-url-pill {
+    max-width: 125px !important;
+    font-size: 0.56rem !important;
+    padding: 0.2rem 0.4rem !important;
+  }
+
+  .browser-status-chip {
+    font-size: 0.54rem !important;
+    white-space: nowrap !important;
+  }
+
+  .browser-viewport-screen {
+    height: 200px !important;
+  }
+
+  .plan-card {
+    padding: 1.5rem 1rem !important;
+  }
+
+  .blueprint-console {
+    padding: 0.75rem !important;
+  }
+
+  .console-left-compartment,
+  .console-right-compartment {
+    padding: 0.75rem !important;
+  }
+
+  .console-headline {
+    font-size: 1.1rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .browser-url-pill {
+    max-width: 95px !important;
+  }
+  .browser-traffic-lights {
+    gap: 3px !important;
+  }
+  .traffic-dot {
+    width: 8px !important;
+    height: 8px !important;
+  }
+  .hero-mini-title {
+    font-size: 1rem !important;
+  }
 }

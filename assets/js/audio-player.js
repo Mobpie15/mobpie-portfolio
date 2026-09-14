@@ -38,9 +38,10 @@ class MobpieAudioEngine {
   }
 
   initAudioContext() {
+    if (this.ctx) return;
     try {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (AudioContextClass && !this.ctx) {
+      if (AudioContextClass) {
         this.ctx = new AudioContextClass();
         this.analyser = this.ctx.createAnalyser();
         this.analyser.fftSize = this.fftBins * 2;
@@ -60,6 +61,9 @@ class MobpieAudioEngine {
   }
 
   ensureContextRunning() {
+    if (!this.ctx) {
+      this.initAudioContext();
+    }
     if (this.ctx && this.ctx.state === 'suspended') {
       this.ctx.resume().catch(() => {});
     }
@@ -111,8 +115,8 @@ class MobpieAudioEngine {
       window.addEventListener('load', tryPlay);
     }
 
-    // Trusted user gesture events: 'click', 'touchend', 'pointerup', 'keydown'
-    const gestureEvents = ['click', 'touchend', 'pointerup', 'keydown'];
+    // Trusted user gesture events: 'click', 'touchstart', 'touchend', 'pointerup', 'keydown'
+    const gestureEvents = ['click', 'touchstart', 'touchend', 'pointerup', 'keydown'];
     const onUserGesture = () => {
       if (this.isPlaying) return;
       this.ensureContextRunning();
@@ -131,14 +135,20 @@ class MobpieAudioEngine {
     });
 
     if (unlockBanner) {
-      unlockBanner.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+      const handleBannerTap = (e) => {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         this.ensureContextRunning();
         this.audio.play().then(() => {
           this.onPlaySuccess();
-        }).catch(() => {});
+        }).catch(err => {
+          console.warn('Banner tap playback error:', err);
+        });
       };
+      unlockBanner.addEventListener('click', handleBannerTap);
+      unlockBanner.addEventListener('touchend', handleBannerTap);
     }
   }
 
@@ -180,12 +190,13 @@ class MobpieAudioEngine {
     const soundBtns = document.querySelectorAll('.sound-toggle-btn');
     soundBtns.forEach(btn => {
       const text = btn.querySelector('.btn-label');
+      const isMobilePill = btn.classList.contains('mobile-sound-pill');
       if (this.isPlaying) {
         btn.classList.add('active');
-        if (text) text.textContent = 'SOUND: ON';
+        if (text) text.textContent = isMobilePill ? 'SOUND ON' : 'SOUND: ON';
       } else {
         btn.classList.remove('active');
-        if (text) text.textContent = 'SOUND: MUTED';
+        if (text) text.textContent = isMobilePill ? 'SOUND OFF' : 'SOUND: MUTED';
       }
     });
 
