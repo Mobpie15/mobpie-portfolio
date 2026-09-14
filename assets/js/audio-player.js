@@ -86,39 +86,59 @@ class MobpieAudioEngine {
   }
 
   setupAutoplay() {
-    const tryAutoplay = () => {
+    const unlockBanner = document.getElementById('unlock-audio-banner');
+
+    const tryPlay = () => {
+      if (this.isPlaying) return;
+      this.ensureContextRunning();
+
+      const playPromise = this.audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          this.onPlaySuccess();
+        }).catch(() => {
+          // Autoplay was blocked by browser policy; prompt user with banner
+          if (unlockBanner) {
+            unlockBanner.style.display = 'flex';
+          }
+        });
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      tryPlay();
+    } else {
+      window.addEventListener('load', tryPlay);
+    }
+
+    // Trusted user gesture events: 'click', 'touchend', 'pointerup', 'keydown'
+    const gestureEvents = ['click', 'touchend', 'pointerup', 'keydown'];
+    const onUserGesture = () => {
       if (this.isPlaying) return;
       this.ensureContextRunning();
 
       this.audio.play().then(() => {
         this.onPlaySuccess();
-      }).catch(() => {
-        const unlockBanner = document.getElementById('unlock-audio-banner');
-        if (unlockBanner) unlockBanner.style.display = 'flex';
-
-        const unlock = () => {
-          this.ensureContextRunning();
-          this.audio.play().then(() => {
-            this.onPlaySuccess();
-          }).catch(() => {});
-
-          if (unlockBanner) unlockBanner.style.display = 'none';
-          cleanup();
-        };
-
-        const events = ['click', 'touchstart', 'scroll', 'keydown', 'pointerdown'];
-        const cleanup = () => {
-          events.forEach(evt => window.removeEventListener(evt, unlock));
-        };
-
-        events.forEach(evt => window.addEventListener(evt, unlock, { once: true, passive: true }));
+        // Remove gesture listeners ONLY after playback has successfully started
+        gestureEvents.forEach(evt => window.removeEventListener(evt, onUserGesture));
+      }).catch(err => {
+        console.warn('Playback waiting for explicit interaction:', err);
       });
     };
 
-    if (document.readyState === 'complete') {
-      tryAutoplay();
-    } else {
-      window.addEventListener('load', tryAutoplay);
+    gestureEvents.forEach(evt => {
+      window.addEventListener(evt, onUserGesture, { passive: true });
+    });
+
+    if (unlockBanner) {
+      unlockBanner.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.ensureContextRunning();
+        this.audio.play().then(() => {
+          this.onPlaySuccess();
+        }).catch(() => {});
+      };
     }
   }
 
