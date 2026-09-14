@@ -129,6 +129,16 @@ body::before {
   text-decoration: none;
 }
 
+.brand-avatar-mini {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 255, 200, 0.4);
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(0, 255, 200, 0.2);
+  flex-shrink: 0;
+}
+
 .brand-dot {
   width: 7px;
   height: 7px;
