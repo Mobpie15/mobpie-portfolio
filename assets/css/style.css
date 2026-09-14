@@ -3735,19 +3735,34 @@ footer {
 
   /* 4. HERO VIEWPORT COMPACTING ON MOBILE */
   .blueprint-viewport {
-    padding: 4.25rem 1rem 1rem !important;
-    min-height: auto !important;
+    padding: 4.25rem 1rem 1.25rem !important;
+    min-height: calc(100svh - 60px) !important;
+    min-height: calc(100vh - 60px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
   }
 
   .avatar-stage-area {
-    height: 320px !important;
-    max-width: 300px !important;
+    flex: 1 1 auto !important;
+    height: 340px !important;
+    min-height: 320px !important;
+    max-width: 340px !important;
     margin-top: 0.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
   }
 
   .hero-avatar-frame {
-    height: 310px !important;
-    max-width: 260px !important;
+    height: 330px !important;
+    width: min(290px, 80vw) !important;
+    max-width: 320px !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
   }
 
   .avatar-live-chip {
@@ -4957,16 +4972,24 @@ footer {
   }
 
   .blueprint-viewport {
+    min-height: calc(100svh - 60px) !important;
+    min-height: calc(100vh - 60px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
     padding: 4.25rem 0.85rem 1.25rem !important;
     width: 100% !important;
     max-width: 100vw !important;
     overflow-x: hidden !important;
+    box-sizing: border-box !important;
   }
 
   .hero-minimal-bar {
     width: 100% !important;
     max-width: 100% !important;
     padding: 1rem 0.85rem !important;
+    margin-top: auto !important;
   }
 
   .hero-mini-kicker {
@@ -4997,15 +5020,37 @@ footer {
   }
 
   .avatar-stage-area {
+    flex: 1 1 auto !important;
+    width: 100% !important;
     max-width: 100% !important;
-    height: auto !important;
-    min-height: 270px !important;
+    min-height: 330px !important;
+    height: 340px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    position: relative !important;
+    margin: 0.5rem 0 !important;
   }
 
   .hero-avatar-frame {
-    max-width: min(260px, 75vw) !important;
-    height: auto !important;
-    aspect-ratio: 280 / 370 !important;
+    width: min(290px, 80vw) !important;
+    max-width: 320px !important;
+    height: 330px !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    aspect-ratio: auto !important;
+  }
+
+  .hero-avatar-static {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 330px !important;
+    object-fit: contain !important;
+    object-position: center bottom !important;
+    display: block !important;
   }
 
   .remake-showcase-box {

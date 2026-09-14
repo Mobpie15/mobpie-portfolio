@@ -50,9 +50,8 @@
       { id: 'hero', tab: 'hero' },
       { id: 'about', tab: 'hero' },
       { id: 'capabilities', tab: 'capabilities' },
-      { id: 'remakes', tab: 'remakes' },
+      { id: 'remakes', tab: 'demos' },
       { id: 'why-us', tab: 'capabilities' },
-      { id: 'plans', tab: 'plans' },
       { id: 'contact', tab: 'whatsapp' }
     ];
 

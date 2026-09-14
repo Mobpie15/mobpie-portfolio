@@ -150,6 +150,79 @@ class MobpieAudioEngine {
       unlockBanner.addEventListener('click', handleBannerTap);
       unlockBanner.addEventListener('touchend', handleBannerTap);
     }
+
+    // Stop music immediately when user leaves the site or switches tabs
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (this.isPlaying) {
+          this.wasPlayingBeforeHidden = true;
+          this.audio.pause();
+          this.isPlaying = false;
+          this.metrics.isPlaying = false;
+          cancelAnimationFrame(this.animId);
+          this.updateUIButtons();
+        }
+      } else {
+        if (this.wasPlayingBeforeHidden) {
+          this.ensureContextRunning();
+          this.audio.play().then(() => {
+            this.onPlaySuccess();
+          }).catch(() => {});
+        }
+      }
+    });
+
+    window.addEventListener('pagehide', () => {
+      if (this.isPlaying) {
+        this.audio.pause();
+        this.isPlaying = false;
+        this.metrics.isPlaying = false;
+        cancelAnimationFrame(this.animId);
+        this.updateUIButtons();
+      }
+    });
+
+    window.addEventListener('blur', () => {
+      if (this.isPlaying) {
+        this.wasPlayingBeforeHidden = true;
+        this.audio.pause();
+        this.isPlaying = false;
+        this.metrics.isPlaying = false;
+        cancelAnimationFrame(this.animId);
+        this.updateUIButtons();
+      }
+    });
+
+    window.addEventListener('focus', () => {
+      if (this.wasPlayingBeforeHidden && !document.hidden) {
+        this.ensureContextRunning();
+        this.audio.play().then(() => {
+          this.onPlaySuccess();
+        }).catch(() => {});
+      }
+    });
+
+    // Pause audio when clicking any external demo/whatsapp links
+    const bindExternalLinks = () => {
+      document.querySelectorAll('a[href^="http"], a[target="_blank"], a[href*="vercel.app"], a[href*="wa.me"]').forEach(link => {
+        link.addEventListener('click', () => {
+          if (this.isPlaying) {
+            this.wasPlayingBeforeHidden = false; // User intentionally navigated away
+            this.audio.pause();
+            this.isPlaying = false;
+            this.metrics.isPlaying = false;
+            cancelAnimationFrame(this.animId);
+            this.updateUIButtons();
+          }
+        });
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindExternalLinks);
+    } else {
+      bindExternalLinks();
+    }
   }
 
   onPlaySuccess() {
