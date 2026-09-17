@@ -668,8 +668,19 @@ button, input, select, textarea {
 }
 
 .headline-volt {
-  color: var(--accent-volt);
-  text-shadow: 0 0 40px var(--accent-volt-glow);
+  background: linear-gradient(135deg, #d4ff00 0%, #ffffff 35%, #d4ff00 70%);
+  background-size: 240% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: volt-shimmer 7s linear infinite;
+  filter: drop-shadow(0 0 28px rgba(212, 255, 0, 0.28));
+  display: inline-block;
+}
+
+@keyframes volt-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .hero-subline {
@@ -1308,6 +1319,25 @@ button, input, select, textarea {
   color: var(--accent-volt);
   font-weight: 700;
   background: rgba(212, 255, 0, 0.03);
+  transition: all 180ms ease;
+}
+
+.moat-matrix-table tbody tr {
+  transition: background 180ms ease;
+}
+
+.moat-matrix-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.moat-matrix-table tbody tr:hover .val-good {
+  background: rgba(212, 255, 0, 0.1);
+  color: #ffffff;
+  text-shadow: 0 0 16px var(--accent-volt);
+}
+
+.moat-matrix-table tbody tr:hover .val-bad {
+  opacity: 0.6;
 }
 
 /* --------------------------------------------------------------------------

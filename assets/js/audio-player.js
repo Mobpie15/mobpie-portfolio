@@ -312,16 +312,16 @@ class MobpieAudioEngine {
   updateUIButtons() {
     const soundBtns = document.querySelectorAll('.sound-toggle-btn');
     soundBtns.forEach(btn => {
-      const text = btn.querySelector('.sound-label') || btn.querySelector('.btn-label');
+      const text = btn.querySelector('.sound-label') || btn.querySelector('#sound-btn-text') || btn.querySelector('.btn-label') || btn.querySelector('span:last-child');
       const isMobilePill = btn.classList.contains('mobile-sound-pill');
       if (this.isPlaying) {
         btn.classList.add('active');
         btn.classList.add('playing');
-        if (text) text.textContent = isMobilePill ? 'AURA ON' : 'AURA: ON';
+        if (text) text.textContent = isMobilePill ? 'SOUND [ON]' : 'SOUND [ON]';
       } else {
         btn.classList.remove('active');
         btn.classList.remove('playing');
-        if (text) text.textContent = isMobilePill ? 'AURA OFF' : 'AURA: OFF';
+        if (text) text.textContent = isMobilePill ? 'SOUND [OFF]' : 'SOUND [OFF]';
       }
     });
 
