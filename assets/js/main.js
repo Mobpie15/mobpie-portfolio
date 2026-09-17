@@ -1,11 +1,9 @@
 /**
- * MOBPIE ATELIER // KINETIC CORE (v20.0)
- * Quiet Luxury & Precision Engineering
+ * MOBPIE // MINIMALIST MAIN CONTROLLER (v30.0)
  * - Live Atomic IST Clock (New Delhi, Asia/Kolkata)
- * - Minimalist Precision Cursor (Dual-Tier Dot & Halo)
- * - Navigation Scroll Elevation & Blur
+ * - Precision Spatial Cursor (Dot & Interactive Ring)
  * - Mobile Drawer State Controller
- * - Direct Concierge Brief Dispatcher via WhatsApp
+ * - Video Performance Observer (Low-End PC Safeguard)
  */
 
 (function () {
@@ -46,19 +44,19 @@
   }
 
   // -------------------------------------------------------------------------
-  // 2. MINIMALIST PRECISION CURSOR
+  // 2. PRECISION SPATIAL CURSOR
   // -------------------------------------------------------------------------
-  function initPrecisionCursor() {
+  function initSpatialCursor() {
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
     const dot = document.getElementById('cursor-dot');
-    const halo = document.getElementById('cursor-halo');
-    if (!dot || !halo) return;
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
 
     let mouseX = -100;
     let mouseY = -100;
-    let haloX = -100;
-    let haloY = -100;
+    let ringX = -100;
+    let ringY = -100;
     let isVisible = false;
 
     window.addEventListener('mousemove', (e) => {
@@ -68,7 +66,7 @@
       if (!isVisible) {
         isVisible = true;
         dot.style.opacity = '1';
-        halo.style.opacity = '1';
+        ring.style.opacity = '1';
       }
 
       dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
@@ -77,51 +75,35 @@
     document.addEventListener('mouseleave', () => {
       isVisible = false;
       dot.style.opacity = '0';
-      halo.style.opacity = '0';
+      ring.style.opacity = '0';
     });
 
-    function renderHalo() {
-      requestAnimationFrame(renderHalo);
-      haloX += (mouseX - haloX) * 0.18;
-      haloY += (mouseY - haloY) * 0.18;
-      halo.style.transform = `translate3d(${haloX.toFixed(2)}px, ${haloY.toFixed(2)}px, 0) translate(-50%, -50%)`;
+    function renderRing() {
+      requestAnimationFrame(renderRing);
+      ringX += (mouseX - ringX) * 0.2;
+      ringY += (mouseY - ringY) * 0.2;
+      ring.style.transform = `translate3d(${ringX.toFixed(2)}px, ${ringY.toFixed(2)}px, 0) translate(-50%, -50%)`;
     }
-    renderHalo();
+    renderRing();
 
-    // Hover Magnification on Interactive Elements
-    const targets = document.querySelectorAll('a, button, input, select, textarea, .btn-gold-primary, .btn-ghost-secondary, .btn-folio-launch');
+    // Hover Expansion on Interactive Targets
+    const targets = document.querySelectorAll('a, button, .btn-spatial-primary, .btn-spatial-ghost, .btn-card-launch, .btn-wa-monolith');
     targets.forEach(el => {
-      el.addEventListener('mouseenter', () => halo.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => halo.classList.remove('cursor-hover'));
+      el.addEventListener('mouseenter', () => ring.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('cursor-hover'));
     });
   }
 
   // -------------------------------------------------------------------------
-  // 3. NAVIGATION SCROLL ELEVATION
-  // -------------------------------------------------------------------------
-  function initNavScroll() {
-    const nav = document.getElementById('main-nav');
-    if (!nav) return;
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 40) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    }, { passive: true });
-  }
-
-  // -------------------------------------------------------------------------
-  // 4. MOBILE NAVIGATION DRAWER
+  // 3. MOBILE NAVIGATION DRAWER
   // -------------------------------------------------------------------------
   function initMobileDrawer() {
-    const openBtn = document.getElementById('mobile-menu-toggle');
-    const closeBtn = document.getElementById('mobile-close-btn');
-    const drawer = document.getElementById('mobile-nav-panel');
-    if (!openBtn || !drawer) return;
+    const toggleBtn = document.getElementById('mobile-toggle-btn');
+    const closeBtn = document.getElementById('drawer-close-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    if (!toggleBtn || !drawer) return;
 
-    openBtn.addEventListener('click', () => {
+    toggleBtn.addEventListener('click', () => {
       drawer.classList.add('open');
       drawer.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -135,55 +117,13 @@
 
     if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
 
-    document.querySelectorAll('.m-link').forEach(link => {
+    document.querySelectorAll('.d-link').forEach(link => {
       link.addEventListener('click', closeDrawer);
     });
   }
 
   // -------------------------------------------------------------------------
-  // 5. RAPID INQUIRY & WHATSAPP DISPATCHER
-  // -------------------------------------------------------------------------
-  window.handleInquirySubmit = function (event) {
-    event.preventDefault();
-
-    const name = document.getElementById('founder-name')?.value.trim();
-    const brand = document.getElementById('brand-name')?.value.trim();
-    const contact = document.getElementById('founder-contact')?.value.trim();
-    const cadence = document.getElementById('sprint-cadence')?.value || '72h';
-    const vision = document.getElementById('brand-vision')?.value.trim() || 'Not specified';
-    const feedback = document.getElementById('form-feedback');
-
-    if (!name || !brand || !contact) {
-      if (feedback) {
-        feedback.className = 'form-feedback error';
-        feedback.textContent = 'Please provide your name, brand, and contact information.';
-      }
-      return;
-    }
-
-    const cadenceText = cadence === '72h'
-      ? '72-Hour Rapid Prototype (Proof-First / ₹0 Risk)'
-      : cadence === '30d'
-        ? '30-Day Full Production Launch'
-        : 'Concept Architecture Exploration';
-
-    const message = `Hello Mobpie!%0A%0AI would like to commission a digital flagship for my brand:%0A%0A• Founder: ${encodeURIComponent(name)}%0A• Brand: ${encodeURIComponent(brand)}%0A• Contact: ${encodeURIComponent(contact)}%0A• Timeline: ${encodeURIComponent(cadenceText)}%0A• Vision / URL: ${encodeURIComponent(vision)}%0A%0ALet's schedule the 1:1 briefing and initiate the private staging sprint.`;
-
-    const waUrl = `https://wa.me/918957420306?text=${message}`;
-
-    if (feedback) {
-      feedback.className = 'form-feedback success';
-      feedback.textContent = 'Brief compiled. Opening VIP WhatsApp Hotline...';
-    }
-
-    setTimeout(() => {
-      window.open(waUrl, '_blank');
-      event.target.reset();
-    }, 600);
-  };
-
-  // -------------------------------------------------------------------------
-  // 6. VIDEO PERFORMANCE OBSERVER (LOW-END PC SAFEGUARD)
+  // 4. VIDEO PERFORMANCE OBSERVER (LOW-END PC SAFEGUARD)
   // -------------------------------------------------------------------------
   function initVideoPerformance() {
     if (!('IntersectionObserver' in window)) return;
@@ -207,8 +147,7 @@
   // -------------------------------------------------------------------------
   function init() {
     initLiveClock();
-    initPrecisionCursor();
-    initNavScroll();
+    initSpatialCursor();
     initMobileDrawer();
     initVideoPerformance();
   }

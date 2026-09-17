@@ -1,28 +1,28 @@
 /**
- * MOBPIE // HERO 3D COCKPIT ENGINE (Three.js WebGL)
- * Aesthetic: Ice Azure (#00f2fe), Prismatic Titanium (#ffffff), Celestial Obsidian (#07090e)
- * - Interactive 3D Icosahedron Core with metallic chrome finish
- * - Counter-rotating gyroscopic astrolabe rings
- * - 600-point interactive cyan/white particle cloud
- * - 3 Interactive visual modes: SOLID CORE, WIREFRAME MATRIX, PARTICLE VORTEX
- * - Hardware safeguard: IntersectionObserver automatically pauses rendering when scrolled away
+ * MOBPIE // MINIMALIST 3D WEBGL ENGINE (v30.0)
+ * Aesthetic: Deep Obsidian Void, Liquid Chrome, Lunar Specular Lighting
+ * Features:
+ * - Floating Liquid-Chrome Sculptural Core (Physical Metallic Shader)
+ * - Concentric Ethereal Wireframe Exoskeleton
+ * - Spatial Coordinate Particle Constellation (250 nodes)
+ * - Interactive Mouse Drift & Click-and-Drag Orbit Physics
+ * - Smooth Scroll-Driven Spatial Choreography (Hero -> Works -> Expertise -> Contact)
+ * - Low-End PC Hardware Protection (Capped DPR, auto-pause when hidden)
  */
 
 (function () {
   'use strict';
 
-  function initHero3D() {
-    const canvas = document.getElementById('hero-3d-canvas');
-    const container = document.getElementById('hero-3d-stage');
-    if (!canvas || !container || typeof THREE === 'undefined') return;
-
-    let width = container.clientWidth || 460;
-    let height = container.clientHeight || 460;
+  function initMinimal3D() {
+    const canvas = document.getElementById('webgl-canvas');
+    if (!canvas || typeof THREE === 'undefined') return;
 
     // 1. Scene & Camera
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(0, 0, 4.8);
+    scene.fog = new THREE.FogExp2(0x050608, 0.12);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 5.2);
 
     // 2. WebGL Renderer
     let renderer;
@@ -33,127 +33,88 @@
         antialias: true,
         powerPreference: 'high-performance'
       });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.3;
+      renderer.toneMappingExposure = 1.25;
     } catch (e) {
-      console.warn('WebGL initialization skipped:', e);
+      console.warn('WebGL initialization failed:', e);
       return;
     }
 
     // 3. Dynamic Studio Lighting
-    const ambientLight = new THREE.AmbientLight(0x0a101d, 1.8);
+    const ambientLight = new THREE.AmbientLight(0x0c1017, 1.5);
     scene.add(ambientLight);
 
-    // Key Light: Electric Ice Azure
-    const keyAzure = new THREE.DirectionalLight(0x00f2fe, 4.2);
-    keyAzure.position.set(4, 6, 5);
-    scene.add(keyAzure);
+    // Key Specular Light: Pure Platinum White
+    const keyLight = new THREE.DirectionalLight(0xffffff, 3.8);
+    keyLight.position.set(4, 5, 4);
+    scene.add(keyLight);
 
-    // Rim Light: Pure Specular White
-    const rimWhite = new THREE.DirectionalLight(0xffffff, 3.2);
-    rimWhite.position.set(-5, -4, -3);
-    scene.add(rimWhite);
+    // Ethereal Rim Light: Cool Lunar Cyan
+    const rimLight = new THREE.DirectionalLight(0x38bdf8, 2.6);
+    rimLight.position.set(-5, -3, -3);
+    scene.add(rimLight);
 
-    // Deep Cobalt Fill Light
-    const fillCobalt = new THREE.DirectionalLight(0x1e3a8a, 2.0);
-    fillCobalt.position.set(0, -5, 3);
-    scene.add(fillCobalt);
+    // Warm Titanium Fill Light
+    const fillLight = new THREE.DirectionalLight(0xe2e8f0, 1.4);
+    fillLight.position.set(0, -4, 3);
+    scene.add(fillLight);
 
-    // 4. Geometry Group
+    // 4. Master Geometry Group
     const masterGroup = new THREE.Group();
     scene.add(masterGroup);
 
-    // A. Faceted Crystal Core
-    const coreGeo = new THREE.IcosahedronGeometry(1.25, 1);
-    const coreMat = new THREE.MeshPhysicalMaterial({
-      color: 0x080d1a,
-      emissive: 0x020814,
+    // A. Sculptural Liquid Chrome Centerpiece (Torus Knot)
+    const knotGeo = new THREE.TorusKnotGeometry(1.15, 0.32, 128, 28, 2, 3);
+    const chromeMat = new THREE.MeshPhysicalMaterial({
+      color: 0x0f131c,
+      emissive: 0x020408,
       roughness: 0.12,
-      metalness: 0.94,
+      metalness: 0.95,
       clearcoat: 1.0,
       clearcoatRoughness: 0.08,
-      flatShading: true
+      reflectivity: 0.9,
+      flatShading: false
     });
-    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-    masterGroup.add(coreMesh);
+    const chromeMesh = new THREE.Mesh(knotGeo, chromeMat);
+    masterGroup.add(chromeMesh);
 
-    // B. Outer Electric Cyan Wireframe Exoskeleton
-    const wireGeo = new THREE.IcosahedronGeometry(1.32, 1);
+    // B. Delicate Wireframe Exoskeleton
+    const wireGeo = new THREE.TorusKnotGeometry(1.18, 0.33, 64, 16, 2, 3);
     const wireMat = new THREE.MeshBasicMaterial({
-      color: 0x00f2fe,
+      color: 0xffffff,
       wireframe: true,
       transparent: true,
-      opacity: 0.55
+      opacity: 0.12
     });
     const wireMesh = new THREE.Mesh(wireGeo, wireMat);
     masterGroup.add(wireMesh);
 
-    // C. Gyroscopic Astrolabe Rings
-    const ringGroup = new THREE.Group();
-    masterGroup.add(ringGroup);
-
-    // Ring 1 (Azure)
-    const ring1Geo = new THREE.TorusGeometry(1.85, 0.016, 16, 100);
-    const ring1Mat = new THREE.MeshStandardMaterial({
-      color: 0x00f2fe,
-      metalness: 0.9,
-      roughness: 0.2,
-      emissive: 0x00f2fe,
-      emissiveIntensity: 0.3
-    });
-    const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-    ringGroup.add(ring1);
-
-    // Ring 2 (Titanium White)
-    const ring2Geo = new THREE.TorusGeometry(2.1, 0.014, 16, 100);
-    const ring2Mat = new THREE.MeshStandardMaterial({
-      color: 0xffffff,
-      metalness: 0.8,
-      roughness: 0.25,
-      emissive: 0xffffff,
-      emissiveIntensity: 0.2
-    });
-    const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-    ring2.rotation.x = Math.PI / 3;
-    ringGroup.add(ring2);
-
-    // D. Particle Swarm (600 glowing particles)
-    const particleCount = 600;
+    // C. Ethereal Particle Constellation
+    const particleCount = 250;
     const particleGeo = new THREE.BufferGeometry();
-    const posArray = new Float32Array(particleCount * 3);
-    const colorArray = new Float32Array(particleCount * 3);
+    const positions = new Float32Array(particleCount * 3);
+    const scales = new Float32Array(particleCount);
 
     for (let i = 0; i < particleCount; i++) {
+      const radius = 2.0 + Math.random() * 3.5;
       const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos((Math.random() * 2) - 1);
-      const radius = 2.2 + Math.random() * 1.6;
+      const phi = (Math.random() - 0.5) * Math.PI;
 
-      posArray[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-      posArray[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      posArray[i * 3 + 2] = radius * Math.cos(phi);
+      positions[i * 3] = radius * Math.cos(theta) * Math.cos(phi);
+      positions[i * 3 + 1] = radius * Math.sin(phi);
+      positions[i * 3 + 2] = radius * Math.sin(theta) * Math.cos(phi);
 
-      // Gradient between Azure (#00f2fe) and Pure White (#ffffff)
-      if (Math.random() > 0.4) {
-        colorArray[i * 3] = 0.0;
-        colorArray[i * 3 + 1] = 0.95;
-        colorArray[i * 3 + 2] = 1.0;
-      } else {
-        colorArray[i * 3] = 1.0;
-        colorArray[i * 3 + 1] = 1.0;
-        colorArray[i * 3 + 2] = 1.0;
-      }
+      scales[i] = Math.random() * 0.03 + 0.01;
     }
 
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    particleGeo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
-
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const particleMat = new THREE.PointsMaterial({
-      size: 0.038,
-      vertexColors: true,
+      color: 0xffffff,
+      size: 0.03,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.45,
       blending: THREE.AdditiveBlending
     });
     const particleMesh = new THREE.Points(particleGeo, particleMat);
@@ -164,166 +125,163 @@
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
+
     let isDragging = false;
-    let prevMouseX = 0;
-    let prevMouseY = 0;
-    let dragVelocityX = 0;
-    let dragVelocityY = 0;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragRotationX = 0;
+    let dragRotationY = 0;
 
-    container.addEventListener('mousedown', (e) => {
+    window.addEventListener('mousemove', (e) => {
+      const halfW = window.innerWidth / 2;
+      const halfH = window.innerHeight / 2;
+      mouseX = (e.clientX - halfW) / halfW;
+      mouseY = (e.clientY - halfH) / halfH;
+    }, { passive: true });
+
+    window.addEventListener('mousedown', (e) => {
+      // Don't drag if clicking buttons or links
+      if (e.target.closest('a, button, input, select, textarea')) return;
       isDragging = true;
-      prevMouseX = e.clientX;
-      prevMouseY = e.clientY;
-      container.style.cursor = 'grabbing';
-      if (window.audioEngine) window.audioEngine.playActionThud();
-    });
-
-    window.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
-        container.style.cursor = 'grab';
-      }
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
     });
 
     window.addEventListener('mousemove', (e) => {
-      const rect = container.getBoundingClientRect();
-      const relX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-      const relY = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-
-      if (isDragging) {
-        const deltaX = e.clientX - prevMouseX;
-        const deltaY = e.clientY - prevMouseY;
-        dragVelocityX = deltaX * 0.005;
-        dragVelocityY = deltaY * 0.005;
-        masterGroup.rotation.y += dragVelocityX;
-        masterGroup.rotation.x += dragVelocityY;
-        prevMouseX = e.clientX;
-        prevMouseY = e.clientY;
-      } else {
-        targetX = relX * 0.45;
-        targetY = relY * 0.45;
-      }
-
-      // Track specular light position with mouse
-      keyAzure.position.x = 4 + relX * 3;
-      keyAzure.position.y = 6 - relY * 3;
+      if (!isDragging) return;
+      const deltaX = e.clientX - dragStartX;
+      const deltaY = e.clientY - dragStartY;
+      dragRotationY += deltaX * 0.005;
+      dragRotationX += deltaY * 0.005;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
     });
 
-    // Touch Support
-    container.addEventListener('touchstart', (e) => {
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Touch events for mobile
+    window.addEventListener('touchstart', (e) => {
+      if (e.target.closest('a, button, input, select, textarea')) return;
       if (e.touches.length === 1) {
         isDragging = true;
-        prevMouseX = e.touches[0].clientX;
-        prevMouseY = e.touches[0].clientY;
+        dragStartX = e.touches[0].clientX;
+        dragStartY = e.touches[0].clientY;
       }
     }, { passive: true });
-
-    window.addEventListener('touchend', () => { isDragging = false; });
 
     window.addEventListener('touchmove', (e) => {
-      if (isDragging && e.touches.length === 1) {
-        const deltaX = e.touches[0].clientX - prevMouseX;
-        const deltaY = e.touches[0].clientY - prevMouseY;
-        masterGroup.rotation.y += deltaX * 0.006;
-        masterGroup.rotation.x += deltaY * 0.006;
-        prevMouseX = e.touches[0].clientX;
-        prevMouseY = e.touches[0].clientY;
-      }
+      if (!isDragging || e.touches.length !== 1) return;
+      const deltaX = e.touches[0].clientX - dragStartX;
+      const deltaY = e.touches[0].clientY - dragStartY;
+      dragRotationY += deltaX * 0.006;
+      dragRotationX += deltaY * 0.006;
+      dragStartX = e.touches[0].clientX;
+      dragStartY = e.touches[0].clientY;
     }, { passive: true });
 
-    // 6. Interactive Mode Switcher
-    window.setHero3DMode = function (mode, btn) {
-      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-
-      if (mode === 'solid') {
-        coreMesh.visible = true;
-        wireMesh.visible = true;
-        wireMesh.material.opacity = 0.35;
-        particleMesh.visible = true;
-        particleMesh.material.opacity = 0.6;
-        ringGroup.visible = true;
-      } else if (mode === 'wire') {
-        coreMesh.visible = false;
-        wireMesh.visible = true;
-        wireMesh.material.opacity = 0.85;
-        ringGroup.visible = true;
-        particleMesh.visible = false;
-      } else if (mode === 'particles') {
-        coreMesh.visible = false;
-        wireMesh.visible = false;
-        ringGroup.visible = false;
-        particleMesh.visible = true;
-        particleMesh.material.opacity = 1.0;
-        particleMesh.material.size = 0.048;
-      }
-
-      if (window.audioEngine) window.audioEngine.playActionThud();
-    };
-
-    // 7. Resize Observer
-    const resizeObserver = new ResizeObserver(() => {
-      width = container.clientWidth || 460;
-      height = container.clientHeight || 460;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
+    window.addEventListener('touchend', () => {
+      isDragging = false;
     });
-    resizeObserver.observe(container);
 
-    // 8. Low-End PC Hardware Protection: IntersectionObserver
-    let isRendering = true;
-    let animId = null;
+    // 6. Smooth Scroll Choreography
+    let scrollProgress = 0;
 
-    if ('IntersectionObserver' in window) {
-      const viewObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          isRendering = entry.isIntersecting;
-          if (isRendering && !animId) {
-            clock.start();
-            animId = requestAnimationFrame(animate);
-          }
-        });
-      }, { threshold: 0.1 });
-      viewObserver.observe(container);
+    function onScroll() {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
     }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
-    // 9. Animation Loop
+    // 7. Window Resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // 8. Low-End PC Hardware Protection
+    let isVisible = true;
+    document.addEventListener('visibilitychange', () => {
+      isVisible = !document.hidden;
+    });
+
+    // 9. Main Animation Loop
     const clock = new THREE.Clock();
 
     function animate() {
-      if (!isRendering) {
-        animId = null;
-        return;
-      }
+      requestAnimationFrame(animate);
+      if (!isVisible) return;
 
-      animId = requestAnimationFrame(animate);
       const delta = clock.getDelta();
 
-      if (!isDragging) {
-        // Smooth rotation momentum
-        masterGroup.rotation.y += (targetX - masterGroup.rotation.y * 0.1) * 0.05 + 0.004;
-        masterGroup.rotation.x += (targetY - masterGroup.rotation.x * 0.1) * 0.05;
+      // Mouse damping interpolation
+      targetX += (mouseX * 0.45 - targetX) * 0.05;
+      targetY += (mouseY * 0.35 - targetY) * 0.05;
 
-        // Counter-rotating astrolabe rings
-        ring1.rotation.z += delta * 0.45;
-        ring1.rotation.x += delta * 0.25;
-        ring2.rotation.z -= delta * 0.35;
-        ring2.rotation.y += delta * 0.3;
+      // Base idle spin
+      masterGroup.rotation.y += delta * 0.25;
+      masterGroup.rotation.x += delta * 0.1;
 
-        // Particle field wave rotation
-        particleMesh.rotation.y -= delta * 0.08;
+      // Apply drag rotation with spring damping
+      masterGroup.rotation.y += dragRotationY;
+      masterGroup.rotation.x += dragRotationX;
+      dragRotationX *= 0.94;
+      dragRotationY *= 0.94;
+
+      // Parallax mouse tilt
+      masterGroup.position.x = targetX * 0.6;
+      masterGroup.position.y = -targetY * 0.4;
+
+      // Scroll choreography:
+      // Hero (0.0): Center, scale 1.0
+      // Works (0.2 - 0.5): Shifts to right (x: 1.4), scale 0.9
+      // Expertise (0.5 - 0.8): Shifts back to left (x: -1.2), rotates faster
+      // Contact (0.8 - 1.0): Floats high center (y: 0.8), scale 0.8
+      const isMobile = window.innerWidth < 768;
+      
+      if (!isMobile) {
+        if (scrollProgress < 0.25) {
+          // Hero Zone
+          const t = scrollProgress / 0.25;
+          camera.position.z = 5.2 + t * 0.5;
+          masterGroup.position.x += (0 - masterGroup.position.x) * 0.08;
+        } else if (scrollProgress < 0.6) {
+          // Works Zone
+          const t = (scrollProgress - 0.25) / 0.35;
+          const targetPosX = 1.35;
+          masterGroup.position.x += (targetPosX - masterGroup.position.x) * 0.08;
+          camera.position.z = 5.7 - t * 0.3;
+        } else if (scrollProgress < 0.85) {
+          // Expertise Zone
+          const targetPosX = -1.2;
+          masterGroup.position.x += (targetPosX - masterGroup.position.x) * 0.08;
+        } else {
+          // Contact Zone
+          masterGroup.position.x += (0 - masterGroup.position.x) * 0.08;
+          masterGroup.position.y += (0.6 - masterGroup.position.y) * 0.08;
+        }
+      } else {
+        // Mobile: Keep centered, subtle depth shift
+        camera.position.z = 6.2;
+        masterGroup.position.x = 0;
       }
+
+      // Orbital Particle rotation
+      particleMesh.rotation.y -= delta * 0.08;
+      wireMesh.rotation.z += delta * 0.15;
 
       renderer.render(scene, camera);
     }
 
-    animId = requestAnimationFrame(animate);
+    animate();
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHero3D);
+    document.addEventListener('DOMContentLoaded', initMinimal3D);
   } else {
-    initHero3D();
+    initMinimal3D();
   }
 })();
