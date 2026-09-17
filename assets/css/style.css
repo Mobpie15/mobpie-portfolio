@@ -4960,6 +4960,30 @@ footer {
   box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
 }
 
+.btn-live-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.35);
+  padding: 0.8rem 1.25rem;
+  border-radius: var(--radius-xs);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-live-secondary:hover {
+  background: rgba(0, 255, 136, 0.12);
+  border-color: #00ff88;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 136, 0.2);
+}
+
 .remake-meta-note {
   font-size: 0.65rem;
   color: var(--text-low);
@@ -5383,3 +5407,255 @@ footer {
   display: inline-block;
   font-weight: 600;
 }
+
+/* =========================================================================
+   ZERO-RISK SPRINT PROTOCOL & BESPOKE CONTROL PANEL EXTENSIONS
+   ========================================================================= */
+
+.hero-subtext {
+  font-size: 0.96rem;
+  color: var(--text-medium);
+  line-height: 1.6;
+  max-width: 620px;
+  margin-top: 0.75rem;
+}
+
+.protocol-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.protocol-card {
+  background: rgba(15, 16, 21, 0.85);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all var(--transition-smooth);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.protocol-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+}
+
+.protocol-card.featured-protocol {
+  background: linear-gradient(180deg, rgba(24, 27, 38, 0.92) 0%, rgba(15, 16, 21, 0.95) 100%);
+  border-color: rgba(0, 255, 136, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 255, 136, 0.08);
+}
+
+.protocol-card.featured-protocol:hover {
+  border-color: #00ff88;
+  box-shadow: 0 16px 40px rgba(0, 255, 136, 0.16);
+}
+
+.protocol-highlight-badge {
+  position: absolute;
+  top: -11px;
+  left: 1.25rem;
+  background: #00ff88;
+  color: #070709;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 10px rgba(0, 255, 136, 0.4);
+}
+
+.protocol-step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.protocol-step-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-low);
+  padding: 0.25rem 0.55rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-xs);
+}
+
+.protocol-step-badge.highlight {
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.08);
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.protocol-timeline {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-medium);
+  letter-spacing: 0.06em;
+}
+
+.protocol-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-high);
+  margin-bottom: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.protocol-icon-box.highlight {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: rgba(0, 255, 136, 0.35);
+  color: #00ff88;
+}
+
+.protocol-card:hover .protocol-icon-box {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.protocol-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.protocol-desc {
+  font-size: 0.85rem;
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.protocol-check-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.65rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-pill);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-medium);
+  margin-top: auto;
+}
+
+.protocol-check-pill .pill-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-low);
+}
+
+.protocol-check-pill.highlight {
+  color: #00ff88;
+  border-color: rgba(0, 255, 136, 0.3);
+  background: rgba(0, 255, 136, 0.05);
+}
+
+.protocol-check-pill.highlight .pill-dot {
+  background: #00ff88;
+  box-shadow: 0 0 6px #00ff88;
+}
+
+/* Control Panel Feature Styling */
+.cap-badge.highlight-cp {
+  background: rgba(0, 255, 136, 0.12);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.cp-demo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #00ff88;
+  text-decoration: none;
+  margin-top: 0.85rem;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.cp-demo-link:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
+/* Upgraded Aura Soundscape Banner */
+.unlock-audio-banner {
+  display: none;
+  position: fixed;
+  bottom: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  background: rgba(15, 16, 21, 0.94);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 255, 136, 0.15);
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.25s ease;
+  max-width: calc(100vw - 2rem);
+  box-sizing: border-box;
+}
+
+.unlock-audio-banner:hover {
+  border-color: #00ff88;
+  background: rgba(22, 24, 32, 0.98);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 255, 136, 0.25);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.aura-hint {
+  color: #00ff88;
+  font-weight: 700;
+}
+
+/* Responsive adjustments for Protocol Grid */
+@media (max-width: 1024px) {
+  .protocol-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .protocol-grid {
+    grid-template-columns: 1fr;
+  }
+  .protocol-card {
+    padding: 1.4rem 1.15rem;
+  }
+}
+
