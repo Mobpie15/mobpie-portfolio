@@ -61,55 +61,75 @@
   scene.add(sculptureGroup);
 
   // -------------------------------------------------------------------------
-  // LAYER 1: Inner Crystal Core (Champagne Gold Translucent Mesh)
+  // LAYER 1: Liquid Obsidian & Gold Shader Sphere (GPU Wave Displaced)
   // -------------------------------------------------------------------------
-  const coreGeo = new THREE.IcosahedronGeometry(isMobile ? 1.3 : 1.5, 0);
+  const coreRadius = isMobile ? 1.25 : 1.48;
+  const coreGeo = new THREE.SphereGeometry(coreRadius, 64, 64);
+
+  const customUniforms = {
+    uTime: { value: 0 },
+    uBass: { value: 0 }
+  };
+
   const coreMat = new THREE.MeshPhysicalMaterial({
-    color: 0x14120f,
-    emissive: 0x3d3216,
-    emissiveIntensity: 0.4,
-    metalness: 0.85,
-    roughness: 0.15,
+    color: 0x09090d,
+    emissive: 0x221a08,
+    emissiveIntensity: 0.45,
+    metalness: 0.92,
+    roughness: 0.16,
     clearcoat: 1.0,
-    clearcoatRoughness: 0.1,
-    transparent: true,
-    opacity: 0.88,
-    wireframe: false
+    clearcoatRoughness: 0.08,
+    reflectivity: 0.95
   });
+
+  // Inject GPU Vertex Shader Harmonic Wave Displacement
+  coreMat.onBeforeCompile = function (shader) {
+    shader.uniforms.uTime = customUniforms.uTime;
+    shader.uniforms.uBass = customUniforms.uBass;
+
+    shader.vertexShader = `
+      uniform float uTime;
+      uniform float uBass;
+      ${shader.vertexShader}
+    `;
+
+    shader.vertexShader = shader.vertexShader.replace(
+      '#include <begin_vertex>',
+      `
+      #include <begin_vertex>
+      float wave1 = sin(transformed.x * 2.6 + uTime * 2.2) * cos(transformed.y * 2.6 + uTime * 1.8);
+      float wave2 = sin(transformed.z * 3.0 + uTime * 1.5) * cos(transformed.x * 3.0 + uTime * 2.0);
+      float displacement = (wave1 + wave2) * (0.075 + uBass * 0.15);
+      transformed += normal * displacement;
+      `
+    );
+  };
+
   const innerCore = new THREE.Mesh(coreGeo, coreMat);
   sculptureGroup.add(innerCore);
 
   // -------------------------------------------------------------------------
-  // LAYER 2: Outer Wireframe Cage (Surgical Platinum Lines)
+  // LAYER 2: Outer Astrolabe Precision Rings (Brushed Platinum & Champagne Gold)
   // -------------------------------------------------------------------------
-  const wireGeo = new THREE.IcosahedronGeometry(isMobile ? 1.6 : 1.85, 1);
-  const wireMat = new THREE.MeshBasicMaterial({
-    color: 0xe8e4dc,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.35
-  });
-  const wireCage = new THREE.Mesh(wireGeo, wireMat);
-  sculptureGroup.add(wireCage);
-
-  // -------------------------------------------------------------------------
-  // LAYER 3: Secondary Orbital Rings (Kinetic Champagne Gyroscope)
-  // -------------------------------------------------------------------------
-  const ringGeo1 = new THREE.TorusGeometry(isMobile ? 2.1 : 2.4, 0.015, 16, 100);
-  const ringMat1 = new THREE.MeshBasicMaterial({
+  const ringGeo1 = new THREE.TorusGeometry(isMobile ? 2.1 : 2.45, 0.016, 16, 120);
+  const ringMat1 = new THREE.MeshStandardMaterial({
     color: 0xd4af37,
-    transparent: true,
-    opacity: 0.65
+    metalness: 0.95,
+    roughness: 0.2,
+    emissive: 0x3d3216,
+    emissiveIntensity: 0.25
   });
   const orbitRing1 = new THREE.Mesh(ringGeo1, ringMat1);
   orbitRing1.rotation.x = Math.PI / 3;
   sculptureGroup.add(orbitRing1);
 
-  const ringGeo2 = new THREE.TorusGeometry(isMobile ? 2.25 : 2.55, 0.012, 16, 100);
-  const ringMat2 = new THREE.MeshBasicMaterial({
+  const ringGeo2 = new THREE.TorusGeometry(isMobile ? 2.3 : 2.7, 0.012, 16, 120);
+  const ringMat2 = new THREE.MeshStandardMaterial({
     color: 0xe8e4dc,
+    metalness: 0.9,
+    roughness: 0.25,
     transparent: true,
-    opacity: 0.4
+    opacity: 0.75
   });
   const orbitRing2 = new THREE.Mesh(ringGeo2, ringMat2);
   orbitRing2.rotation.y = Math.PI / 4;
@@ -117,29 +137,32 @@
   sculptureGroup.add(orbitRing2);
 
   // -------------------------------------------------------------------------
-  // LAYER 4: Glowing Vertex Particle Nodes
+  // LAYER 3: Ambient Stardust Constellation
   // -------------------------------------------------------------------------
-  const nodeCount = 30;
-  const nodeGeo = new THREE.BufferGeometry();
-  const nodePositions = new Float32Array(nodeCount * 3);
-  const corePos = coreGeo.attributes.position.array;
+  const particleCount = isMobile ? 45 : 90;
+  const particleGeo = new THREE.BufferGeometry();
+  const particlePositions = new Float32Array(particleCount * 3);
 
-  for (let i = 0; i < nodeCount; i++) {
-    const srcIdx = (i % (corePos.length / 3)) * 3;
-    nodePositions[i * 3] = corePos[srcIdx] * 1.25;
-    nodePositions[i * 3 + 1] = corePos[srcIdx + 1] * 1.25;
-    nodePositions[i * 3 + 2] = corePos[srcIdx + 2] * 1.25;
+  for (let i = 0; i < particleCount; i++) {
+    const radius = 2.0 + Math.random() * 2.2;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos((Math.random() * 2) - 1);
+
+    particlePositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+    particlePositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+    particlePositions[i * 3 + 2] = radius * Math.cos(phi);
   }
 
-  nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePositions, 3));
-  const nodeMat = new THREE.PointsMaterial({
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+  const particleMat = new THREE.PointsMaterial({
     color: 0xd4af37,
-    size: 0.08,
+    size: 0.045,
     transparent: true,
-    opacity: 0.9
+    opacity: 0.65,
+    blending: THREE.AdditiveBlending
   });
-  const nodes = new THREE.Points(nodeGeo, nodeMat);
-  sculptureGroup.add(nodes);
+  const stardust = new THREE.Points(particleGeo, particleMat);
+  sculptureGroup.add(stardust);
 
   // -------------------------------------------------------------------------
   // INTERACTION & MOMENTUM PHYSICS (Mouse Drag & Hover Tilt)
@@ -226,38 +249,41 @@
 
     // Low-end PC optimization: Pause render when user scrolls past hero
     const scrollY = window.scrollY || window.pageYOffset;
-    if (scrollY > window.innerHeight * 1.1) return;
+    if (scrollY > window.innerHeight * 1.05) return;
 
-    time += 0.01;
+    time += 0.016;
 
     // Audio reactive expansion
     const audio = window.getAudioMetrics ? window.getAudioMetrics() : { bass: 0, isPlaying: false };
-    const targetBass = audio.isPlaying ? audio.bass : 0.03;
-    smoothedBass += (targetBass - smoothedBass) * 0.15;
+    const targetBass = audio.isPlaying ? audio.bass : 0.025;
+    smoothedBass += (targetBass - smoothedBass) * 0.16;
+
+    // Update GPU vertex shader uniforms
+    customUniforms.uTime.value = time;
+    customUniforms.uBass.value = smoothedBass;
 
     // Inertia decay if not dragging
     if (!isDragging) {
       velocityX *= 0.94;
       velocityY *= 0.94;
-      sculptureGroup.rotation.y += velocityY + 0.0035; // Gentle continuous orbit
+      sculptureGroup.rotation.y += velocityY + 0.0036; // Gentle continuous orbit
       sculptureGroup.rotation.x += velocityX;
     }
 
     // Secondary ring independent kinetic rotations
-    orbitRing1.rotation.z += 0.005;
-    orbitRing2.rotation.x -= 0.004;
-    wireCage.rotation.y -= 0.002;
-    innerCore.rotation.y += 0.004;
+    orbitRing1.rotation.z += 0.006;
+    orbitRing2.rotation.x -= 0.005;
+    stardust.rotation.y += 0.0015;
+    innerCore.rotation.y += 0.003;
 
     // Smooth cursor tilt damping
     currentTiltX += (targetTiltX - currentTiltX) * 0.08;
     currentTiltY += (targetTiltY - currentTiltY) * 0.08;
-    sculptureGroup.position.x = currentTiltY * 0.5;
-    sculptureGroup.position.y = -currentTiltX * 0.5;
+    sculptureGroup.position.x = currentTiltY * 0.45;
+    sculptureGroup.position.y = -currentTiltX * 0.45;
 
-    // Subtle scale breathing
-    const scale = 1.0 + smoothedBass * 0.08 + Math.sin(time * 1.5) * 0.02;
-    innerCore.scale.set(scale, scale, scale);
+    // Audio-reactive light glow
+    centerPointLight.intensity = 1.5 + smoothedBass * 2.4;
 
     renderer.render(scene, camera);
   }

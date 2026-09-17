@@ -124,7 +124,7 @@
     const sections = [
       { id: 'hero', tab: 'home' },
       { id: 'works', tab: 'works' },
-      { id: 'protocol', tab: 'protocol' }
+      { id: 'configurator', tab: 'config' }
     ];
     const dockBtns = document.querySelectorAll('.dock-btn:not(.dock-btn-gold)');
 
@@ -146,7 +146,90 @@
   }
 
   // -------------------------------------------------------------------------
-  // 5. STRUCTURED LUXURY INQUIRY DISPATCHER
+  // 5. MULTI-VIEW WORK SWITCHER (ATELIER ORA)
+  // -------------------------------------------------------------------------
+  window.switchOraView = function (view) {
+    const storeView = document.getElementById('ora-view-store');
+    const adminView = document.getElementById('ora-view-admin');
+    const storeTab = document.getElementById('ora-tab-store');
+    const adminTab = document.getElementById('ora-tab-admin');
+
+    if (view === 'admin') {
+      if (storeView) storeView.style.display = 'none';
+      if (adminView) adminView.style.display = 'block';
+      if (storeTab) storeTab.classList.remove('active');
+      if (adminTab) adminTab.classList.add('active');
+    } else {
+      if (storeView) storeView.style.display = 'block';
+      if (adminView) adminView.style.display = 'none';
+      if (storeTab) storeTab.classList.add('active');
+      if (adminTab) adminTab.classList.remove('active');
+    }
+
+    if (window.audioEngine) window.audioEngine.playActionThud();
+  };
+
+  // -------------------------------------------------------------------------
+  // 6. INTERACTIVE FLAGSHIP SPEC CONFIGURATOR
+  // -------------------------------------------------------------------------
+  let currentSprint = '72h';
+
+  window.toggleSpecModule = function (el) {
+    el.classList.toggle('selected');
+    if (window.audioEngine) window.audioEngine.playActionThud();
+    updateBlueprintSummary();
+  };
+
+  window.selectSprintOption = function (btn, type) {
+    document.querySelectorAll('.sprint-option-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    currentSprint = type;
+    if (window.audioEngine) window.audioEngine.playActionThud();
+
+    const deliveryEl = document.getElementById('spec-delivery-val');
+    const riskEl = document.getElementById('spec-risk-val');
+
+    if (type === '72h') {
+      if (deliveryEl) deliveryEl.textContent = '72 Hours On Private Staging';
+      if (riskEl) riskEl.textContent = '₹0 / $0 (Proof-First Model)';
+    } else {
+      if (deliveryEl) deliveryEl.textContent = '30-Day Turnkey Production Launch';
+      if (riskEl) riskEl.textContent = 'Milestone-Based Founder Sign-off';
+    }
+  };
+
+  function updateBlueprintSummary() {
+    const selectedModules = document.querySelectorAll('.spec-module-card.selected');
+    const countEl = document.getElementById('spec-modules-count');
+    const latencyEl = document.getElementById('spec-latency-val');
+
+    if (countEl) {
+      countEl.textContent = `${selectedModules.length} Enterprise Modules Selected`;
+    }
+
+    const hasSpeed = document.querySelector('.spec-module-card[data-module="speed"]')?.classList.contains('selected');
+    if (latencyEl) {
+      latencyEl.textContent = hasSpeed ? 'Sub-380ms // 99+ Lighthouse' : 'Standard 600ms Edge';
+    }
+  }
+
+  window.dispatchConfiguredSpec = function () {
+    const selected = Array.from(document.querySelectorAll('.spec-module-card.selected')).map(el => {
+      return el.querySelector('.module-title')?.textContent?.trim() || '';
+    }).filter(Boolean);
+
+    const sprintName = currentSprint === '72h' ? '72-Hour Rapid Prototype (Zero Upfront Risk)' : 'Full 30-Day Production Launch';
+    const moduleList = selected.length ? selected.map(s => `• ${s}`).join('%0A') : '• Core Luxury Flagship Architecture';
+
+    const message = `Hello Mobpie!%0A%0AI configured a custom Digital Flagship Spec on your portfolio:%0A%0ACadence:%0A${encodeURIComponent(sprintName)}%0A%0ASelected Capabilities:%0A${moduleList}%0A%0ALet's schedule the 1:1 briefing and initiate the private staging sprint.`;
+    const waUrl = `https://wa.me/918957420306?text=${message}`;
+
+    if (window.audioEngine) window.audioEngine.playActionThud();
+    window.open(waUrl, '_blank');
+  };
+
+  // -------------------------------------------------------------------------
+  // 7. STRUCTURED LUXURY INQUIRY DISPATCHER
   // -------------------------------------------------------------------------
   window.handleLuxuryInquiry = function (event) {
     event.preventDefault();
@@ -181,13 +264,13 @@
   };
 
   // -------------------------------------------------------------------------
-  // 6. PRECISION CURSOR EXPANSION ON SHOWCASE CARDS
+  // 8. PRECISION CURSOR EXPANSION ON SHOWCASE CARDS & MODULES
   // -------------------------------------------------------------------------
   function initCursorShowcaseHover() {
     const ring = document.getElementById('cursor-ring');
     if (!ring) return;
 
-    document.querySelectorAll('.work-visual-stage').forEach(stage => {
+    document.querySelectorAll('.work-visual-stage, .concept-card').forEach(stage => {
       stage.addEventListener('mouseenter', () => ring.classList.add('cursor-work-hover'));
       stage.addEventListener('mouseleave', () => ring.classList.remove('cursor-work-hover'));
     });

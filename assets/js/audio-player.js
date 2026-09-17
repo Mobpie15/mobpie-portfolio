@@ -76,9 +76,11 @@ class MobpieAudioEngine {
         btn.onclick = (e) => {
           e.preventDefault();
           e.stopPropagation();
+          this.playActionThud();
           this.toggle();
         };
       });
+      this.bindTactileSounds();
       this.updateUIButtons();
     };
 
@@ -87,6 +89,54 @@ class MobpieAudioEngine {
     } else {
       attach();
     }
+  }
+
+  playHoverTick() {
+    if (!this.ctx) this.initAudioContext();
+    if (!this.ctx || this.ctx.state !== 'running') return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(1600, now);
+      osc.frequency.exponentialRampToValueAtTime(800, now + 0.012);
+      gain.gain.setValueAtTime(0.018, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.012);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.012);
+    } catch (e) {}
+  }
+
+  playActionThud() {
+    if (!this.ctx) this.initAudioContext();
+    if (!this.ctx || this.ctx.state !== 'running') return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(190, now);
+      osc.frequency.exponentialRampToValueAtTime(45, now + 0.035);
+      gain.gain.setValueAtTime(0.045, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.035);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.035);
+    } catch (e) {}
+  }
+
+  bindTactileSounds() {
+    const interactives = document.querySelectorAll(
+      'a, button, .spec-module-card, .sprint-option-pill, .mv-tab-btn, .nav-item, .dock-btn'
+    );
+    interactives.forEach(el => {
+      el.addEventListener('mouseenter', () => this.playHoverTick(), { passive: true });
+      el.addEventListener('click', () => this.playActionThud(), { passive: true });
+    });
   }
 
   setupAutoplay() {
