@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>MOBPIE // Creative Developer &bull; 3D Digital Craftsman</title>
-  <meta name="description" content="Minimalist 3D WebGL experiences, high-performance web applications, and digital flagships engineered by Mobpie.">
+  <meta name="description" content="Awwwards-level minimalist 3D WebGL experiences, liquid chrome physics, and high-performance digital flagships engineered by Mobpie.">
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png?v=30">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png?v=30">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png?v=30">
-  <link rel="shortcut icon" href="favicon.ico?v=30">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png?v=40">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png?v=40">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png?v=40">
+  <link rel="shortcut icon" href="favicon.ico?v=40">
 
-  <!-- Typography: Syne (Architectural Display), Plus Jakarta Sans (Clean Modern Sans), JetBrains Mono (Telemetry) -->
+  <!-- Typography: Syne (Muscular Architectural Display), Plus Jakarta Sans (Clean Modern Sans), JetBrains Mono (Telemetry) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css?v=30">
+  <link rel="stylesheet" href="assets/css/style.css?v=40">
 </head>
 <body>
 
@@ -58,19 +58,26 @@
 
       <!-- Navigation Links -->
       <nav class="hud-nav font-mono" aria-label="Primary Navigation">
-        <a href="#works" class="hud-link">01 // WORKS</a>
+        <a href="#works" class="hud-link">01 // THEATER</a>
         <a href="#expertise" class="hud-link">02 // EXPERTISE</a>
         <a href="#contact" class="hud-link">03 // CONTACT</a>
       </nav>
 
-      <!-- Direct VIP Action -->
+      <div class="hud-separator"></div>
+
+      <!-- Synthesized Sound Toggle & VIP Action -->
       <div class="hud-actions">
-        <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20a%20founder%20ready%20to%20build%20a%20minimalist%203D%20flagship." target="_blank" rel="noopener noreferrer" class="hud-btn font-mono">
+        <button type="button" id="sound-toggle-btn" class="hud-sound-btn font-mono" onclick="toggleSoundAura()" aria-label="Toggle Synthesized Sound Aura">
+          <span class="sound-eq"><span></span><span></span><span></span></span>
+          <span id="sound-toggle-text">SOUND [OFF]</span>
+        </button>
+
+        <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20ready%20to%20commission%20a%20masterpiece%203D%20flagship." target="_blank" rel="noopener noreferrer" class="hud-vip-btn font-mono">
           <span>VIP DIRECT</span>
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
         </a>
 
-        <!-- Mobile Drawer Toggle -->
+        <!-- Mobile Toggle -->
         <button type="button" id="mobile-toggle-btn" class="hud-mobile-toggle" aria-label="Toggle Menu">
           <span></span><span></span>
         </button>
@@ -87,7 +94,7 @@
     </div>
     <div class="drawer-links font-display">
       <a href="#hero" class="d-link">00 &mdash; HOME</a>
-      <a href="#works" class="d-link">01 &mdash; SELECTED WORKS</a>
+      <a href="#works" class="d-link">01 &mdash; PROJECT THEATER</a>
       <a href="#expertise" class="d-link">02 &mdash; CORE EXPERTISE</a>
       <a href="#contact" class="d-link">03 &mdash; CONTACT</a>
     </div>
@@ -103,59 +110,59 @@
   <main class="spatial-main">
 
     <!-- =======================================================================
-         ACT 01: MINIMALIST 3D HERO
+         ACT 01: AEROSPATIAL 3D HERO
          ======================================================================= -->
     <section id="hero" class="hero-stage">
       <div class="container hero-container">
         
         <div class="hero-content-wrap">
           
-          <div class="hero-kicker-pill font-mono">
-            <span class="kicker-pulse"></span>
-            <span>CREATIVE DEVELOPER // 3D DIGITAL CRAFTSMAN</span>
+          <div class="hero-viewfinder-tag font-mono">
+            <span class="tag-crosshair">+</span>
+            <span>NEW DELHI // 28.6139° N, 77.2090° E &bull; 60 FPS WEBGL</span>
           </div>
 
           <h1 class="hero-sculptural-title font-display">
             CRAFTING <br>
-            <span class="chrome-gradient-text">UNFORGETTABLE</span> <br>
-            3D EXPERIENCES.
+            <span class="chrome-gradient-text">UNFAIR</span> <br>
+            3D WEAPONS.
           </h1>
 
           <p class="hero-subtext font-sans">
-            We partner with ambitious founders to engineer bespoke <strong>Three.js WebGL configurators, high-performance web applications, and category-defining digital flagships.</strong> Pure bare-metal code with zero commodity templates.
+            We partner with category-defining founders to architect <strong>bespoke Three.js WebGL configurators, high-performance web applications, and autonomous Admin Logistics ERPs.</strong> Bare-metal code with zero commodity templates.
           </p>
 
           <div class="hero-orbit-hint font-mono">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-            <span>CLICK &amp; DRAG ANYWHERE TO ORBIT 3D SCULPTURE</span>
+            <span>CLICK &amp; DRAG ANYWHERE TO SPIN LIQUID CHROME MESH</span>
           </div>
 
           <div class="hero-action-strip font-mono">
             <a href="#works" class="btn-spatial-primary">
-              <span>EXPLORE SELECTED WORKS</span>
+              <span>INSPECT PROJECT THEATER</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
-            <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20Let's%20discuss%20a%203D%20web%20flagship." target="_blank" rel="noopener noreferrer" class="btn-spatial-ghost">
+            <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20Let's%20build%20a%20masterpiece%203D%20flagship." target="_blank" rel="noopener noreferrer" class="btn-spatial-ghost">
               <span>WHATSAPP VIP DIRECT</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
             </a>
           </div>
 
-          <!-- Micro Telemetry Strip -->
+          <!-- Micro Telemetry Proof Bar -->
           <div class="hero-micro-telemetry font-mono">
             <div class="tele-item">
               <span class="t-val">&lt;340MS</span>
-              <span class="t-lbl">EDGE LATENCY</span>
+              <span class="t-lbl">EDGE LATENCY SLA</span>
             </div>
             <div class="tele-line"></div>
             <div class="tele-item">
-              <span class="t-val">60 FPS</span>
-              <span class="t-lbl">HARDWARE ACCEL</span>
+              <span class="t-val">0% TAX</span>
+              <span class="t-lbl">100% CLIENT IP</span>
             </div>
             <div class="tele-line"></div>
             <div class="tele-item">
-              <span class="t-val">100% IP</span>
-              <span class="t-lbl">ZERO PLUGIN TAX</span>
+              <span class="t-val">72 HOURS</span>
+              <span class="t-lbl">STAGING PROTOTYPE</span>
             </div>
           </div>
 
@@ -169,198 +176,148 @@
       <div class="ribbon-flow">
         <span>THREE.JS WEBGL ARCHITECTURE</span>
         <span class="ribbon-star">&#10022;</span>
-        <span>SUB-340MS PERFORMANCE</span>
+        <span>SUB-340MS PERFORMANCE AS LUXURY</span>
         <span class="ribbon-star">&#10022;</span>
         <span>ZERO COMMODITY PLUGINS</span>
         <span class="ribbon-star">&#10022;</span>
-        <span>BESPOKE ADMIN LOGISTICS ERPS</span>
+        <span>PROPRIETARY ADMIN LOGISTICS ERPS</span>
         <span class="ribbon-star">&#10022;</span>
         <span>72-HOUR WORKING PROTOTYPE</span>
         <span class="ribbon-star">&#10022;</span>
         <span>THREE.JS WEBGL ARCHITECTURE</span>
         <span class="ribbon-star">&#10022;</span>
-        <span>SUB-340MS PERFORMANCE</span>
+        <span>SUB-340MS PERFORMANCE AS LUXURY</span>
         <span class="ribbon-star">&#10022;</span>
         <span>ZERO COMMODITY PLUGINS</span>
         <span class="ribbon-star">&#10022;</span>
-        <span>BESPOKE ADMIN LOGISTICS ERPS</span>
+        <span>PROPRIETARY ADMIN LOGISTICS ERPS</span>
       </div>
     </div>
 
     <!-- =======================================================================
-         ACT 02: SELECTED WORKS (MINIMALIST SPATIAL FOLIO)
+         ACT 02: PINNED HORIZON PROJECT THEATER
          ======================================================================= -->
-    <section id="works" class="works-stage">
+    <section id="works" class="theater-section">
       <div class="container">
 
         <div class="stage-header font-mono">
-          <span class="stage-kicker">01 // PROVEN FLAGSHIPS</span>
-          <h2 class="stage-title font-display">SELECTED WORKS</h2>
+          <div class="viewfinder-crosshairs">
+            <span class="crosshair-left">+</span>
+            <span class="stage-kicker">01 // THE SPATIAL EXHIBITION</span>
+            <span class="crosshair-right">+</span>
+          </div>
+          <h2 class="stage-title font-display">PINNED PROJECT THEATER</h2>
           <p class="stage-desc font-sans">
-            Every flagship is engineered from bare metal to give ambitious brands an unfair competitive advantage.
+            Select a flagship to morph the 3D WebGL core and inspect high-resolution architecture case studies.
           </p>
         </div>
 
-        <div class="spatial-cards-stream">
+        <div class="theater-grid">
           
-          <!-- Project 01: Atelier Ora -->
-          <article class="spatial-card">
-            <div class="card-video-wrap">
-              <video class="card-video" autoplay loop muted playsinline preload="metadata">
-                <source src="assets/videos/mouse-4-650.webm" type="video/webm">
-              </video>
-              <div class="card-video-overlay"></div>
-              <div class="card-corner-badge font-mono">
-                <span>60 FPS WEBGL &bull; THREE.JS</span>
+          <!-- Left Column: Interactive Project Tabs -->
+          <div class="theater-tabs-col font-mono">
+            
+            <!-- Tab 01: Atelier Ora -->
+            <button type="button" class="theater-tab-btn active" onclick="selectTheaterProject(0, this)">
+              <div class="tab-idx-row">
+                <span class="tab-idx">01</span>
+                <span class="tab-tag">HAUTE COUTURE 3D</span>
               </div>
-            </div>
+              <h3 class="tab-title font-display">Atelier Ora &bull; 3D Garment Studio</h3>
+              <p class="tab-snippet font-sans">Three.js 3D fabric drape orbit with proprietary Admin Logistics ERP.</p>
+              <div class="tab-status-indicator"></div>
+            </button>
 
-            <div class="card-body font-mono">
-              <div class="card-header-row">
-                <span class="card-index">CASE // 01</span>
-                <span class="card-tag">HAUTE COUTURE 3D</span>
+            <!-- Tab 02: Amazon Luxury -->
+            <button type="button" class="theater-tab-btn" onclick="selectTheaterProject(1, this)">
+              <div class="tab-idx-row">
+                <span class="tab-idx">02</span>
+                <span class="tab-tag">ENTERPRISE COMMERCE</span>
               </div>
-              <h3 class="card-title font-display">Atelier Ora &bull; 3D Garment Studio &amp; Logistics ERP</h3>
-              <p class="card-narrative font-sans">
-                Real-time 3D garment inspection with 360° orbit, real-time colorway switching, fabric drape simulation, mobile checkout, and an independent Patron &amp; Inventory Management ERP.
-              </p>
+              <h3 class="tab-title font-display">Amazon Luxury Atelier</h3>
+              <p class="tab-snippet font-sans">Editorial high-ticket retail with zero-reload instantaneous state updates.</p>
+              <div class="tab-status-indicator"></div>
+            </button>
+
+            <!-- Tab 03: Piebot Engine -->
+            <button type="button" class="theater-tab-btn" onclick="selectTheaterProject(2, this)">
+              <div class="tab-idx-row">
+                <span class="tab-idx">03</span>
+                <span class="tab-tag">SYSTEM AUTOMATION</span>
+              </div>
+              <h3 class="tab-title font-display">Piebot Engine &bull; WebSocket Core</h3>
+              <p class="tab-snippet font-sans">Autonomous Node.js WebSocket engine with 99.9% uptime SLA.</p>
+              <div class="tab-status-indicator"></div>
+            </button>
+
+            <!-- Tab 04: Exploit Labs -->
+            <button type="button" class="theater-tab-btn" onclick="selectTheaterProject(3, this)">
+              <div class="tab-idx-row">
+                <span class="tab-idx">04</span>
+                <span class="tab-tag">PROTOCOL AUDIT</span>
+              </div>
+              <h3 class="tab-title font-display">Exploit Labs &bull; Protocol Mechanics</h3>
+              <p class="tab-snippet font-sans">Sandbox game state synchronization and network packet flow studies.</p>
+              <div class="tab-status-indicator"></div>
+            </button>
+
+          </div>
+
+          <!-- Right Column: Cinematic Dynamic Display Stage -->
+          <div class="theater-display-col">
+            <div class="theater-stage-card">
               
-              <div class="card-specs-row font-mono">
-                <span>Three.js WebGL</span>
-                <span>&bull;</span>
-                <span>Sub-340ms Edge</span>
-                <span>&bull;</span>
-                <span class="chrome-text">Zero Monthly Plugin Tax</span>
+              <!-- Video Viewport Frame -->
+              <div class="stage-viewport-frame">
+                <video id="theater-video" class="stage-video" autoplay loop muted playsinline preload="metadata">
+                  <source src="assets/videos/mouse-4-650.webm" type="video/webm">
+                </video>
+                <div class="stage-sheen"></div>
+                <div class="stage-badge font-mono" id="theater-badge">
+                  <span>60 FPS WEBGL &bull; THREE.JS</span>
+                </div>
               </div>
 
-              <div class="card-actions-row">
-                <a href="https://fashion-brand-dun.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-card-launch">
-                  <span>LAUNCH 3D ATELIER</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                </a>
-                <a href="https://fashion-brand-dun.vercel.app/admin.html" target="_blank" rel="noopener noreferrer" class="btn-card-ghost">
-                  <span>INSPECT ADMIN ERP</span>
-                </a>
+              <!-- Content Details Panel -->
+              <div class="stage-content font-mono">
+                <div class="stage-meta-strip">
+                  <span class="stage-idx" id="theater-index">01 / 04</span>
+                  <span class="stage-domain" id="theater-domain">HAUTE COUTURE 3D</span>
+                  <span class="stage-sla">&lt;340MS EDGE</span>
+                </div>
+
+                <h3 class="stage-h font-display" id="theater-title">
+                  Atelier Ora &bull; 3D Garment Studio &amp; Logistics ERP
+                </h3>
+
+                <p class="stage-p font-sans" id="theater-narrative">
+                  Proprietary Three.js 3D garment inspection with 360° orbit, real-time colorway switching, fabric drape physics simulation, mobile checkout, and an independent Patron &amp; Inventory Management ERP.
+                </p>
+
+                <div class="stage-specs-strip font-mono" id="theater-specs">
+                  <span>Three.js WebGL</span>
+                  <span class="spec-dot">&bull;</span>
+                  <span>Sub-340ms Edge</span>
+                  <span class="spec-dot">&bull;</span>
+                  <span class="chrome-text">Zero Plugin Tax</span>
+                  <span class="spec-dot">&bull;</span>
+                  <span>Stripe Webhooks</span>
+                </div>
+
+                <div class="stage-actions-row">
+                  <a href="https://fashion-brand-dun.vercel.app" target="_blank" rel="noopener noreferrer" id="theater-launch-btn" class="btn-stage-primary font-mono">
+                    <span>LAUNCH 3D ATELIER</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                  </a>
+                  <a href="https://fashion-brand-dun.vercel.app/admin.html" target="_blank" rel="noopener noreferrer" id="theater-sec-btn" class="btn-stage-ghost font-mono">
+                    INSPECT ADMIN ERP
+                  </a>
+                </div>
+
               </div>
+
             </div>
-          </article>
-
-          <!-- Project 02: Amazon Luxury -->
-          <article class="spatial-card">
-            <div class="card-video-wrap">
-              <video class="card-video" autoplay loop muted playsinline preload="metadata">
-                <source src="assets/videos/sliders-7-650.webm" type="video/webm">
-              </video>
-              <div class="card-video-overlay"></div>
-              <div class="card-corner-badge font-mono">
-                <span>EDITORIAL COMMERCE</span>
-              </div>
-            </div>
-
-            <div class="card-body font-mono">
-              <div class="card-header-row">
-                <span class="card-index">CASE // 02</span>
-                <span class="card-tag">ENTERPRISE REDESIGN</span>
-              </div>
-              <h3 class="card-title font-display">Amazon Luxury &bull; High-Ticket Retail Reimagination</h3>
-              <p class="card-narrative font-sans">
-                Transforms cluttered enterprise retail into an editorial luxury shopping destination. Zero-reload category filtration, Swiss architectural typography, and seamless single-stream checkout.
-              </p>
-              
-              <div class="card-specs-row font-mono">
-                <span>Swiss Grid</span>
-                <span>&bull;</span>
-                <span>Zero-Reload State</span>
-                <span>&bull;</span>
-                <span class="chrome-text">Sub-Second Conversion</span>
-              </div>
-
-              <div class="card-actions-row">
-                <a href="https://amazon-redesign-five.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-card-launch">
-                  <span>INSPECT FLAGSHIP</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 03: Piebot WebSocket Automation Core -->
-          <article class="spatial-card">
-            <div class="card-video-wrap">
-              <video class="card-video" autoplay loop muted playsinline preload="metadata">
-                <source src="assets/videos/scroll-48-650.webm" type="video/webm">
-              </video>
-              <div class="card-video-overlay"></div>
-              <div class="card-corner-badge font-mono">
-                <span>18MS INTERNAL DISPATCH</span>
-              </div>
-            </div>
-
-            <div class="card-body font-mono">
-              <div class="card-header-row">
-                <span class="card-index">CASE // 03</span>
-                <span class="card-tag">SYSTEM AUTOMATION</span>
-              </div>
-              <h3 class="card-title font-display">Piebot Engine &bull; WebSocket Infrastructure Core</h3>
-              <p class="card-narrative font-sans">
-                Autonomous community automation engine built with bare-metal Node.js and real-time WebSocket architecture. Powers mission-critical community infrastructure with 99.9% uptime.
-              </p>
-              
-              <div class="card-specs-row font-mono">
-                <span>Node.js WebSockets</span>
-                <span>&bull;</span>
-                <span>99.9% Production SLA</span>
-                <span>&bull;</span>
-                <span class="chrome-text">Distributed State</span>
-              </div>
-
-              <div class="card-actions-row">
-                <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20interested%20in%20custom%20real-time%20automation%20infrastructure." target="_blank" rel="noopener noreferrer" class="btn-card-launch">
-                  <span>DISCUSS ARCHITECTURE</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 04: Exploit Labs -->
-          <article class="spatial-card">
-            <div class="card-video-wrap">
-              <video class="card-video" autoplay loop muted playsinline preload="metadata">
-                <source src="assets/videos/scroll-30-650.webm" type="video/webm">
-              </video>
-              <div class="card-video-overlay"></div>
-              <div class="card-corner-badge font-mono">
-                <span>PROTOCOL REVERSE-ENGINEERING</span>
-              </div>
-            </div>
-
-            <div class="card-body font-mono">
-              <div class="card-header-row">
-                <span class="card-index">CASE // 04</span>
-                <span class="card-tag">RESEARCH &amp; PROTOCOLS</span>
-              </div>
-              <h3 class="card-title font-display">Exploit Labs &bull; Game Sandbox Protocol Mechanics</h3>
-              <p class="card-narrative font-sans">
-                Technical reverse-engineering studies analyzing sandbox game state mechanics, packet flow synchronization, and client-server authoritative game loops.
-              </p>
-              
-              <div class="card-specs-row font-mono">
-                <span>Protocol Analysis</span>
-                <span>&bull;</span>
-                <span>Low-Level Logic</span>
-                <span>&bull;</span>
-                <span class="chrome-text">State Audited</span>
-              </div>
-
-              <div class="card-actions-row">
-                <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20Saw%20your%20Exploit%20Labs%20technical%20studies." target="_blank" rel="noopener noreferrer" class="btn-card-launch">
-                  <span>INQUIRE RESEARCH</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                </a>
-              </div>
-            </div>
-          </article>
+          </div>
 
         </div>
 
@@ -368,13 +325,17 @@
     </section>
 
     <!-- =======================================================================
-         ACT 03: CORE CAPABILITIES (MINIMALIST GRID)
+         ACT 03: CORE CAPABILITIES (MINIMAL GRID)
          ======================================================================= -->
     <section id="expertise" class="expertise-stage">
       <div class="container">
 
         <div class="stage-header font-mono">
-          <span class="stage-kicker">02 // ARCHITECTURAL MASTERY</span>
+          <div class="viewfinder-crosshairs">
+            <span class="crosshair-left">+</span>
+            <span class="stage-kicker">02 // ARCHITECTURAL MASTERY</span>
+            <span class="crosshair-right">+</span>
+          </div>
           <h2 class="stage-title font-display">CORE CAPABILITIES</h2>
           <p class="stage-desc font-sans">
             Disciplined software engineering tuned for extreme speed, tactile aesthetics, and uncompromised brand stature.
@@ -384,7 +345,10 @@
         <div class="capabilities-grid font-mono">
           
           <div class="cap-card">
-            <span class="cap-num">01</span>
+            <div class="cap-head">
+              <span class="cap-num">01</span>
+              <span class="cap-mark">+</span>
+            </div>
             <h3 class="cap-h font-display">Real-Time 3D &bull; WebGL</h3>
             <p class="cap-p font-sans">
               Custom Three.js shaders, interactive 3D product configurators, particle dynamics, and GPU-accelerated 60 FPS viewport rendering.
@@ -393,7 +357,10 @@
           </div>
 
           <div class="cap-card">
-            <span class="cap-num">02</span>
+            <div class="cap-head">
+              <span class="cap-num">02</span>
+              <span class="cap-mark">+</span>
+            </div>
             <h3 class="cap-h font-display">Sub-340ms Performance</h3>
             <p class="cap-p font-sans">
               Bare-metal code payloads under 250KB total gzip. Zero bloated plugins, 99+ Lighthouse metrics, and worldwide CDN distribution.
@@ -402,7 +369,10 @@
           </div>
 
           <div class="cap-card">
-            <span class="cap-num">03</span>
+            <div class="cap-head">
+              <span class="cap-num">03</span>
+              <span class="cap-mark">+</span>
+            </div>
             <h3 class="cap-h font-display">Proprietary Admin ERPs</h3>
             <p class="cap-p font-sans">
               Bespoke back-office control panels built directly for your team. Manage inventory, patrons, orders, and telemetry with ₹0 monthly plugin tax.
@@ -411,7 +381,10 @@
           </div>
 
           <div class="cap-card">
-            <span class="cap-num">04</span>
+            <div class="cap-head">
+              <span class="cap-num">04</span>
+              <span class="cap-mark">+</span>
+            </div>
             <h3 class="cap-h font-display">Distributed Automation</h3>
             <p class="cap-p font-sans">
               High-throughput Node.js microservices, persistent WebSockets, and real-time state synchronization with 99.9% production SLAs.
@@ -431,9 +404,10 @@
       <div class="container">
 
         <div class="contact-monolith-box">
-          <div class="monolith-kicker font-mono">
-            <span class="kicker-pulse"></span>
+          <div class="monolith-viewfinder font-mono">
+            <span class="tag-crosshair">+</span>
             <span>03 // PRIVATE CONCIERGE &bull; DIRECT HOTLINE</span>
+            <span class="tag-crosshair">+</span>
           </div>
 
           <h2 class="monolith-title font-display">
@@ -446,7 +420,7 @@
           </p>
 
           <div class="monolith-actions-row font-mono">
-            <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20ready%20to%20commission%20a%20minimalist%203D%20flagship." target="_blank" rel="noopener noreferrer" class="btn-wa-monolith">
+            <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20ready%20to%20commission%20a%20masterpiece%203D%20flagship." target="_blank" rel="noopener noreferrer" class="btn-wa-monolith">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
               </svg>
@@ -486,7 +460,7 @@
       </div>
       <div class="f-links">
         <a href="#hero">HOME</a>
-        <a href="#works">WORKS</a>
+        <a href="#works">THEATER</a>
         <a href="#expertise">EXPERTISE</a>
         <a href="#contact">CONTACT</a>
         <a href="https://wa.me/918957420306" target="_blank" rel="noopener noreferrer" class="chrome-text">WHATSAPP</a>
@@ -497,7 +471,7 @@
     </div>
   </footer>
 
-  <!-- Core Scripts: Three.js engine first, then scene, and main -->
+  <!-- Core Scripts -->
   <script src="assets/js/three.min.js"></script>
   <script src="assets/js/three-scene.js"></script>
   <script src="assets/js/main.js"></script>
