@@ -7,17 +7,17 @@
   <meta name="description" content="Engineering unfair digital weapons, real-time 3D WebGL configurators, and sub-380ms edge speeds for visionary founders. Zero commodity templates. 72H working prototype first.">
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png?v=8">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png?v=8">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png?v=8">
-  <link rel="shortcut icon" href="favicon.ico?v=8">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png?v=9">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png?v=9">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png?v=9">
+  <link rel="shortcut icon" href="favicon.ico?v=9">
 
   <!-- Typography: Syne (Muscular Display), Space Grotesk (Neo-Brutalist Technical), JetBrains Mono (Telemetry) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css?v=8">
+  <link rel="stylesheet" href="assets/css/style.css?v=9">
 </head>
 <body>
 
@@ -147,34 +147,46 @@
       <div class="cmd-results-list" id="cmd-results">
         <div class="cmd-group-label">NAVIGATION</div>
         <a href="#weapons" class="cmd-item active" onclick="closeCommandPalette()">
-          <span class="cmd-item-icon">⚔️</span>
+          <span class="cmd-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path><path d="M13 19l6-6"></path><path d="M16 16l4 4"></path><path d="M19 21l2-2"></path></svg>
+          </span>
           <span class="cmd-item-title">Inspect Weapon Vault</span>
           <span class="cmd-item-key">1</span>
         </a>
         <a href="#reveal" class="cmd-item" onclick="closeCommandPalette()">
-          <span class="cmd-item-icon">🔍</span>
-          <span class="cmd-item-title">Slop vs. Weapon Reveal Mask</span>
+          <span class="cmd-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+          </span>
+          <span class="cmd-item-title">The Moat: Slop vs. Weapon Mask</span>
           <span class="cmd-item-key">2</span>
         </a>
         <a href="#spec-lab" class="cmd-item" onclick="closeCommandPalette()">
-          <span class="cmd-item-icon">⚡</span>
+          <span class="cmd-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </span>
           <span class="cmd-item-title">Configure Architecture Spec</span>
           <span class="cmd-item-key">3</span>
         </a>
         <a href="#manifesto" class="cmd-item" onclick="closeCommandPalette()">
-          <span class="cmd-item-icon">🏛️</span>
+          <span class="cmd-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="12" y2="14"></line></svg>
+          </span>
           <span class="cmd-item-title">Architect's Manifesto &amp; Pedigree</span>
           <span class="cmd-item-key">4</span>
         </a>
 
         <div class="cmd-group-label">INSTANT ACTIONS</div>
         <a href="https://wa.me/918957420306" target="_blank" rel="noopener noreferrer" class="cmd-item" onclick="closeCommandPalette()">
-          <span class="cmd-item-icon">💬</span>
+          <span class="cmd-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          </span>
           <span class="cmd-item-title">Open VIP WhatsApp Hotline</span>
           <span class="cmd-item-badge volt-text">DIRECT</span>
         </a>
         <div class="cmd-item" onclick="toggleSoundFromCmd()">
-          <span class="cmd-item-icon">🔊</span>
+          <span class="cmd-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+          </span>
           <span class="cmd-item-title" id="cmd-sound-label">Toggle Audio Aura On/Off</span>
           <span class="cmd-item-key">S</span>
         </div>
@@ -190,9 +202,20 @@
   </div>
 
   <!-- =========================================================================
-       ACT 01: THE MECHANICAL ODOMETER HERO & DRAGGABLE SANDBOX
+       ACT 01: ATMOSPHERIC MOTION HERO & "THINGS DRAG & THROW" SANDBOX
+       Inspired by MotionSites.ai & Animmaster Lib loop background
        ========================================================================= -->
   <main id="hero" class="hero-stage">
+
+    <!-- Ambient Video Background (Animmaster high-octane WebM loop) -->
+    <div class="hero-bg-video-wrapper" aria-hidden="true">
+      <video autoplay loop muted playsinline preload="auto" class="hero-ambient-video">
+        <source src="assets/videos/loopbg.webm" type="video/webm">
+      </video>
+      <div class="hero-video-tint"></div>
+      <div class="hero-video-radial-glow"></div>
+    </div>
+
     <div class="container hero-container">
 
       <!-- Eyebrow Tag -->
@@ -201,20 +224,20 @@
         <span>HAUTE DIGITAL ARCHITECTURE // 2026 BENCHMARK</span>
       </div>
 
-      <!-- Skiper-Style Mechanical Odometer Rolling Headline -->
+      <!-- MotionSites Dual-Layer Kinetic Headline + Mechanical Odometer Reel -->
       <div class="odometer-hero-header">
-        <h1 class="odometer-title font-display" aria-label="Engineering Unfair Digital Weapons">
+        <h1 class="odometer-title font-display" aria-label="Engineering Unfair Digital Weapons For Category Leaders">
           <span class="odo-line">ENGINEERING</span>
           <span class="odo-reel-wrap" id="odometer-reel">
-            <!-- Mechanical Odometer Slot Columns populated by main.js -->
-            <span class="odo-static-fallback volt-text">UNFAIR WEAPONS</span>
+            <!-- Mechanical Odometer Slot Columns populated by main.js with shiny gradient & blur glow -->
+            <span class="odo-static-fallback shiny-gradient-text">UNFAIR WEAPONS</span>
           </span>
           <span class="odo-line">FOR CATEGORY LEADERS.</span>
         </h1>
       </div>
 
       <p class="hero-editorial-lead font-body">
-        We partner directly with visionary founders to obliterate commoditized agency templates. Handcrafted from bare metal with <strong>real-time 3D WebGL configurators, tailor-made Admin ERPs, and sub-380ms edge speeds.</strong>
+        We partner directly with ambitious founders to obliterate commoditized agency templates. Handcrafted from bare metal with <strong>real-time 3D WebGL configurators, bespoke Admin ERPs, and sub-380ms edge speeds.</strong>
       </p>
 
       <!-- CTA Row -->
@@ -231,7 +254,7 @@
 
       <!-- =====================================================================
            SKIPER-STYLE "THINGS DRAG & THROW" PHYSICS PLAYGROUND
-           Interactive floating tokens founders can grab, toss, and flick!
+           Interactive floating capability tokens with crisp SVGs & momentum
            ===================================================================== -->
       <div class="sandbox-playground-wrapper" id="sandbox-wrapper">
         
@@ -246,9 +269,11 @@
         <div class="sandbox-canvas-area" id="sandbox-area">
 
           <!-- Token 01: 3D WebGL Configurator -->
-          <div class="physics-token" data-token="3d" style="top: 20%; left: 8%;">
+          <div class="physics-token" data-token="3d" style="top: 18%; left: 8%;">
             <div class="token-inner font-mono">
-              <span class="token-glyph">💎</span>
+              <span class="token-glyph">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4ff00" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+              </span>
               <div class="token-meta">
                 <span class="token-title font-display">Three.js 3D Configurator</span>
                 <span class="token-tag volt-text">REAL-TIME WEBGL</span>
@@ -257,9 +282,11 @@
           </div>
 
           <!-- Token 02: Sub-380ms Edge Speed -->
-          <div class="physics-token" data-token="speed" style="top: 15%; left: 52%;">
+          <div class="physics-token" data-token="speed" style="top: 14%; left: 52%;">
             <div class="token-inner font-mono">
-              <span class="token-glyph">⚡</span>
+              <span class="token-glyph">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4ff00" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              </span>
               <div class="token-meta">
                 <span class="token-title font-display">Sub-380ms Edge CDN</span>
                 <span class="token-tag volt-text">99+ LIGHTHOUSE</span>
@@ -268,9 +295,11 @@
           </div>
 
           <!-- Token 03: 0% Plugin Tax -->
-          <div class="physics-token" data-token="tax" style="top: 55%; left: 16%;">
+          <div class="physics-token" data-token="tax" style="top: 56%; left: 14%;">
             <div class="token-inner font-mono">
-              <span class="token-glyph">🛡️</span>
+              <span class="token-glyph">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4ff00" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              </span>
               <div class="token-meta">
                 <span class="token-title font-display">Zero Monthly Plugin Tax</span>
                 <span class="token-tag volt-text">100% CLIENT IP</span>
@@ -281,7 +310,9 @@
           <!-- Token 04: Bespoke Admin ERP -->
           <div class="physics-token" data-token="erp" style="top: 48%; left: 62%;">
             <div class="token-inner font-mono">
-              <span class="token-glyph">🎛️</span>
+              <span class="token-glyph">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4ff00" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              </span>
               <div class="token-meta">
                 <span class="token-title font-display">Bespoke Logistics ERP</span>
                 <span class="token-tag volt-text">PROPRIETARY PANEL</span>
@@ -292,7 +323,9 @@
           <!-- Token 05: 72H Working Staging -->
           <div class="physics-token" data-token="72h" style="top: 68%; left: 38%;">
             <div class="token-inner font-mono">
-              <span class="token-glyph">⏱️</span>
+              <span class="token-glyph">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4ff00" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </span>
               <div class="token-meta">
                 <span class="token-title font-display">72H Staging Prototype</span>
                 <span class="token-tag volt-text">₹0 UPFRONT RISK</span>
@@ -331,8 +364,8 @@
   </div>
 
   <!-- =========================================================================
-       ACT 02: ANIMMASTER-STYLE FILTERABLE WEAPON VAULT
-       Interactive category filter pills + border-beam ray-tracer cards
+       ACT 02: ANIMMASTER / MOTIONSITES BENTO WEAPON VAULT
+       With REAL WebM Video Loops & Skiper Rotating Border Beams
        ========================================================================= -->
   <section id="weapons" class="section-weapons">
     <div class="container">
@@ -358,7 +391,10 @@
         <!-- Weapon 01: Atelier Ora (3D + Commerce) -->
         <article class="weapon-card bento-span-2 border-beam-active" data-cat="3d commerce">
           <div class="weapon-preview-stage">
-            <img src="assets/images/remake-fashion-preview.png" alt="Atelier Ora 3D Garment Studio" class="weapon-cover-img" loading="lazy">
+            <video class="weapon-preview-video" autoplay loop muted playsinline preload="metadata">
+              <source src="assets/videos/mouse-4-650.webm" type="video/webm">
+            </video>
+            <div class="preview-sheen-overlay"></div>
             <div class="weapon-overlay-actions font-mono">
               <a href="https://fashion-brand-dun.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-card-action">
                 <span>LAUNCH 3D STORE</span>
@@ -391,7 +427,10 @@
         <!-- Weapon 02: Amazon Atelier (Luxury Retail) -->
         <article class="weapon-card border-beam-active" data-cat="commerce">
           <div class="weapon-preview-stage">
-            <img src="assets/images/remake-amazon-preview.png" alt="Amazon Atelier Luxury Redesign" class="weapon-cover-img" loading="lazy">
+            <video class="weapon-preview-video" autoplay loop muted playsinline preload="metadata">
+              <source src="assets/videos/sliders-7-650.webm" type="video/webm">
+            </video>
+            <div class="preview-sheen-overlay"></div>
             <div class="weapon-overlay-actions font-mono">
               <a href="https://amazon-redesign-five.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-card-action">
                 <span>INSPECT FLAGSHIP</span>
@@ -418,13 +457,13 @@
 
         <!-- Weapon 03: Piebot Engine (Automation Core) -->
         <article class="weapon-card border-beam-active" data-cat="automation">
-          <div class="weapon-preview-stage weapon-terminal-preview">
-            <div class="mock-terminal-code font-mono">
-              <span class="code-line text-muted">// PIEBOT MULTI-UTILITY AUTOMATION CORE</span>
-              <span class="code-line"><strong class="volt-text">&gt; STATUS:</strong> 100% OPERATIONAL (99.9% UPTIME)</span>
-              <span class="code-line"><strong class="volt-text">&gt; ENGINE:</strong> Node.js WebSocket Cluster</span>
-              <span class="code-line"><strong class="volt-text">&gt; LATENCY:</strong> 18ms Internal Dispatch</span>
-              <span class="code-line"><strong class="volt-text">&gt; PAYLOAD:</strong> Zero Third-Party SaaS Overhead</span>
+          <div class="weapon-preview-stage">
+            <video class="weapon-preview-video" autoplay loop muted playsinline preload="metadata">
+              <source src="assets/videos/scroll-48-650.webm" type="video/webm">
+            </video>
+            <div class="preview-sheen-overlay"></div>
+            <div class="mock-terminal-badge font-mono">
+              <span>CLUSTER ACTIVE // 18MS DISPATCH</span>
             </div>
           </div>
           <div class="weapon-card-body font-mono">
@@ -446,12 +485,13 @@
 
         <!-- Weapon 04: @mobpie-op Exploit Labs -->
         <article class="weapon-card border-beam-active" data-cat="automation">
-          <div class="weapon-preview-stage weapon-terminal-preview">
-            <div class="mock-terminal-code font-mono">
-              <span class="code-line text-muted">// @MOBPIE-OP SANDBOX EXPLOIT LAB</span>
-              <span class="code-line"><strong class="volt-text">&gt; TARGET:</strong> GTA 5 &amp; Minecraft Network Stacks</span>
-              <span class="code-line"><strong class="volt-text">&gt; DISCIPLINE:</strong> Memory Structures &amp; Packet Hooks</span>
-              <span class="code-line"><strong class="volt-text">&gt; STATUS:</strong> AUDITED &amp; BENCHMARKED</span>
+          <div class="weapon-preview-stage">
+            <video class="weapon-preview-video" autoplay loop muted playsinline preload="metadata">
+              <source src="assets/videos/scroll-30-650.webm" type="video/webm">
+            </video>
+            <div class="preview-sheen-overlay"></div>
+            <div class="mock-terminal-badge font-mono">
+              <span>PACKET HOOKS // MEMORY AUDITED</span>
             </div>
           </div>
           <div class="weapon-card-body font-mono">
@@ -477,7 +517,7 @@
   </section>
 
   <!-- =========================================================================
-       ACT 03: SKIPER-STYLE CIRCULAR MASK IMAGE REVEAL
+       ACT 03: SKIPER-STYLE CIRCULAR MASK IMAGE/UI REVEAL
        Interactive split-screen revealing bare-metal code underneath agency slop
        ========================================================================= -->
   <section id="reveal" class="section-reveal">
@@ -490,7 +530,7 @@
           <span class="headline-volt">THE BARE-METAL MOAT.</span>
         </h2>
         <p class="section-desc font-body">
-          Most agencies hide 40 bloated plugins and sluggish servers behind pretty mockups. Hover your cursor over the stage to reveal the handcrafted bare-metal architecture beneath.
+          Most agencies hide 45 bloated plugins and sluggish servers behind pretty templates. Hover your cursor across the cockpit to reveal the handcrafted bare-metal architecture beneath.
         </p>
       </div>
 
@@ -499,34 +539,80 @@
         
         <!-- Base Layer: Commodity Slop -->
         <div class="stage-layer layer-base font-mono">
-          <div class="layer-content-grid">
-            <div class="bad-stat-card">
-              <span class="bad-tag">COMMODITY DEV SHOP</span>
-              <h4 class="font-display">Bloated WordPress / Shopify</h4>
-              <ul class="slop-list">
-                <li>❌ 45 Third-Party Plugins Installed</li>
-                <li>❌ 4.8s Heavy Load Time &amp; CLS Penalty</li>
-                <li>❌ $450/month Ongoing Plugin Subscriptions</li>
-                <li>❌ Outsourced Junior Account Managers</li>
-                <li>❌ 50% Blind Upfront Deposit Required</li>
-              </ul>
+          <div class="mock-browser-window slop-window">
+            <div class="window-bar">
+              <span class="win-btn red"></span>
+              <span class="win-btn yellow"></span>
+              <span class="win-btn green"></span>
+              <span class="win-url font-mono">http://cheap-agency-template.com/slop</span>
+              <span class="win-badge alert-badge">CRITICAL LATENCY</span>
+            </div>
+            <div class="window-content">
+              <div class="slop-metrics-grid">
+                <div class="metric-box alert-box">
+                  <span class="m-title">TOTAL WEIGHT</span>
+                  <span class="m-val text-alert">42.4 MB</span>
+                  <span class="m-sub">Bloated Page Payload</span>
+                </div>
+                <div class="metric-box alert-box">
+                  <span class="m-title">PLUGIN TAX</span>
+                  <span class="m-val text-alert">$450 / mo</span>
+                  <span class="m-sub">Recurring Retainer</span>
+                </div>
+                <div class="metric-box alert-box">
+                  <span class="m-title">LCP LATENCY</span>
+                  <span class="m-val text-alert">4.8s (FAIL)</span>
+                  <span class="m-sub">Customer Bounces</span>
+                </div>
+                <div class="metric-box alert-box">
+                  <span class="m-title">THIRD-PARTY JS</span>
+                  <span class="m-val text-alert">84 SCRIPTS</span>
+                  <span class="m-sub">Tracking &amp; Vulnerabilities</span>
+                </div>
+              </div>
+              <div class="slop-footer-banner">
+                <span>COMMODITY AGENCY WARNING: Junior Account Manager &bull; 50% Blind Deposit Required &bull; Template Cliché</span>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Reveal Layer: Mobpie Bare-Metal Architecture -->
         <div class="stage-layer layer-reveal font-mono" id="mask-reveal-layer">
-          <div class="layer-content-grid">
-            <div class="good-stat-card">
-              <span class="good-tag volt-badge">MOBPIE DIGITAL WEAPONRY</span>
-              <h4 class="font-display volt-text">100% Bare-Metal Engineering</h4>
-              <ul class="weapon-list">
-                <li>⚡ Zero Third-Party Plugins &bull; 100% Client IP</li>
-                <li>⚡ Sub-380ms Edge Speed &bull; 99+ Lighthouse</li>
-                <li>⚡ $0 / ₹0 Monthly Plugin Overhead Tax</li>
-                <li>⚡ Direct 1:1 Partnership with Mobpie</li>
-                <li>⚡ 40% Interactive Staging in 72h &bull; ₹0 Risk</li>
-              </ul>
+          <div class="mock-browser-window weapon-window">
+            <div class="window-bar">
+              <span class="win-btn volt-btn"></span>
+              <span class="win-btn volt-btn"></span>
+              <span class="win-btn volt-btn"></span>
+              <span class="win-url font-mono volt-text">https://flagship.mobpie.studio/weapon</span>
+              <span class="win-badge volt-badge">&lt;380MS BENCHMARK</span>
+            </div>
+            <div class="window-content">
+              <div class="weapon-metrics-grid">
+                <div class="metric-box volt-box">
+                  <span class="m-title">TOTAL WEIGHT</span>
+                  <span class="m-val volt-text">240 KB</span>
+                  <span class="m-sub">Pure Bare-Metal Gzip</span>
+                </div>
+                <div class="metric-box volt-box">
+                  <span class="m-title">PLUGIN TAX</span>
+                  <span class="m-val volt-text">₹0 / $0</span>
+                  <span class="m-sub">100% Client Ownership</span>
+                </div>
+                <div class="metric-box volt-box">
+                  <span class="m-title">LCP LATENCY</span>
+                  <span class="m-val volt-text">310ms (LIGHTNING)</span>
+                  <span class="m-sub">Sub-Second Conversion</span>
+                </div>
+                <div class="metric-box volt-box">
+                  <span class="m-title">HARDWARE ACCEL</span>
+                  <span class="m-val volt-text">60 FPS WEBGL</span>
+                  <span class="m-sub">Bespoke Logistics ERP</span>
+                </div>
+              </div>
+              <div class="weapon-footer-banner">
+                <span class="volt-text">MOBPIE GUARANTEE: Direct 1:1 Founder Partnership &bull; 72H Working Staging Prototype First &bull; Zero Risk</span>
+              </div>
             </div>
           </div>
         </div>
@@ -549,7 +635,7 @@
       <div class="manifesto-grid">
         
         <div class="manifesto-visual">
-          <div class="portrait-card">
+          <div class="portrait-card border-beam-active">
             <img src="assets/images/pose-sitting.png" alt="Mobpie Digital Architect" class="portrait-img" loading="lazy">
             <div class="portrait-caption font-mono">
               <span class="caption-dot"></span>

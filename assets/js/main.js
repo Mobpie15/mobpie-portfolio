@@ -1,19 +1,20 @@
 /**
- * MOBPIE // KINETIC CONTROLLER (v8.0)
- * Inspired by Skiper UI (skiper-ui.com) & Animmaster Lib (animmasterlib.dev)
+ * MOBPIE // KINETIC CONTROLLER (v9.0)
+ * Inspired by MotionSites.ai, Animmaster Lib (animmasterlib.dev) & Skiper UI (skiper-ui.com)
  * 
  * Features:
  * 1. Curtain Reveal Page Sequence
- * 2. Mechanical Odometer Character Reel Engine
- * 3. Skiper-Style "Things Drag & Throw" Physics Playground (Inertia & Boundary Bouncing)
- * 4. Skiper-Style Command Palette (Cmd + K Modal & Shortcuts)
- * 5. Skiper-Style Circular Mask Image Reveal (Slop vs Weapon)
+ * 2. MotionSites-Style Mechanical Odometer Character Reel with Gradient Shift
+ * 3. Skiper-Style "Things Drag & Throw" Physics Engine (Inertia, Bounce, Off-screen Auto-pause)
+ * 4. Skiper-Style Command Palette (Cmd + K Modal & Hotkeys)
+ * 5. Skiper-Style Circular Mask UI Reveal (Slop vs Weapon Diagnostic Cockpit)
  * 6. Animmaster-Style Zero-Reload Weapon Category Filter
  * 7. Animmaster Decryption Text Scrambler
- * 8. Live New Delhi IST Atomic Clock (<380ms Edge Telemetry)
- * 9. Architecture Spec Lab & WhatsApp Brief Dispatcher
- * 10. Dennis Snellenberg Magnetic Button Physics (Desktop)
- * 11. Mobile Dock ScrollSpy & Drawer
+ * 8. Low-End PC Safeguard: Video & Physics Intersection Observer (Pauses background loops)
+ * 9. Live New Delhi IST Atomic Clock (<380ms Telemetry)
+ * 10. Interactive Architecture Spec Lab & WhatsApp Dispatcher
+ * 11. Dennis Snellenberg Magnetic Button Physics
+ * 12. Mobile Dock ScrollSpy & Drawer
  */
 
 (function () {
@@ -33,7 +34,7 @@
   }
 
   // -------------------------------------------------------------------------
-  // 2. SKIPER-STYLE MECHANICAL ODOMETER CHARACTER REEL
+  // 2. MOTIONSITES & SKIPER MECHANICAL ODOMETER CHARACTER REEL
   // -------------------------------------------------------------------------
   function initOdometerReel() {
     const reelWrap = document.getElementById('odometer-reel');
@@ -73,6 +74,7 @@
 
       const finalSpan = document.createElement('span');
       finalSpan.textContent = char;
+      finalSpan.className = 'shiny-gradient-text';
       strip.appendChild(finalSpan);
 
       col.appendChild(strip);
@@ -81,7 +83,7 @@
       slotCols.push({ strip, reelLen });
     }
 
-    // Trigger roll animation
+    // Trigger roll animation with staggered delays
     setTimeout(() => {
       slotCols.forEach((item, idx) => {
         setTimeout(() => {
@@ -96,16 +98,13 @@
   // -------------------------------------------------------------------------
   function initDraggablePlayground() {
     const area = document.getElementById('sandbox-area');
-    if (!area) return;
+    const wrapper = document.getElementById('sandbox-wrapper');
+    if (!area || !wrapper) return;
 
     const tokenEls = area.querySelectorAll('.physics-token');
     const tokens = [];
 
     tokenEls.forEach(el => {
-      // Calculate initial position based on element styles
-      const rect = el.getBoundingClientRect();
-      const areaRect = area.getBoundingClientRect();
-
       const startLeft = el.offsetLeft;
       const startTop = el.offsetTop;
 
@@ -135,6 +134,8 @@
         tokenState.lastY = e.clientY;
         tokenState.lastTime = performance.now();
         el.style.zIndex = '50';
+        const ring = document.getElementById('cursor-ring');
+        if (ring) ring.classList.add('is-dragging');
         if (window.audioEngine) window.audioEngine.playActionThud();
       });
 
@@ -155,6 +156,7 @@
       }, { passive: true });
     });
 
+    // Window Listeners for Smooth Drag Tracking & Throw Velocity
     window.addEventListener('mousemove', (e) => {
       tokens.forEach(t => {
         if (t.isDragging) {
@@ -164,9 +166,8 @@
 
           const now = performance.now();
           const dt = Math.max(1, now - t.lastTime);
-          t.vx = (e.clientX - t.lastX) / dt * 14;
-          t.vy = (e.clientY - t.lastY) / dt * 14;
-
+          t.vx = ((e.clientX - t.lastX) / dt) * 12;
+          t.vy = ((e.clientY - t.lastY) / dt) * 12;
           t.lastX = e.clientX;
           t.lastY = e.clientY;
           t.lastTime = now;
@@ -190,9 +191,8 @@
 
             const now = performance.now();
             const dt = Math.max(1, now - t.lastTime);
-            t.vx = (touch.clientX - t.lastX) / dt * 14;
-            t.vy = (touch.clientY - t.lastY) / dt * 14;
-
+            t.vx = ((touch.clientX - t.lastX) / dt) * 12;
+            t.vy = ((touch.clientY - t.lastY) / dt) * 12;
             t.lastX = touch.clientX;
             t.lastY = touch.clientY;
             t.lastTime = now;
@@ -207,6 +207,8 @@
     }, { passive: true });
 
     const stopDragging = () => {
+      const ring = document.getElementById('cursor-ring');
+      if (ring) ring.classList.remove('is-dragging');
       tokens.forEach(t => {
         if (t.isDragging) {
           t.isDragging = false;
@@ -218,9 +220,27 @@
     window.addEventListener('mouseup', stopDragging);
     window.addEventListener('touchend', stopDragging);
 
-    // Physics Engine Loop
+    // Physics Engine Loop with Low-End PC Auto-Pause Safeguard
+    let isPhysicsActive = true;
+    let animFrameId = null;
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isPhysicsActive = entry.isIntersecting;
+          if (isPhysicsActive && !animFrameId) {
+            animFrameId = requestAnimationFrame(physicsLoop);
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(wrapper);
+    }
+
     function physicsLoop() {
-      requestAnimationFrame(physicsLoop);
+      if (!isPhysicsActive) {
+        animFrameId = null;
+        return;
+      }
 
       const areaWidth = area.clientWidth;
       const areaHeight = area.clientHeight;
@@ -257,9 +277,11 @@
           t.el.style.top = `${t.y}px`;
         }
       });
+
+      animFrameId = requestAnimationFrame(physicsLoop);
     }
 
-    physicsLoop();
+    animFrameId = requestAnimationFrame(physicsLoop);
   }
 
   // -------------------------------------------------------------------------
@@ -363,7 +385,7 @@
   }
 
   // -------------------------------------------------------------------------
-  // 5. SKIPER-STYLE CIRCULAR MASK IMAGE REVEAL (SLOP VS WEAPON)
+  // 5. SKIPER-STYLE CIRCULAR MASK UI REVEAL (SLOP VS WEAPON)
   // -------------------------------------------------------------------------
   function initCircularMaskReveal() {
     const stage = document.getElementById('mask-stage');
@@ -391,7 +413,7 @@
     function renderMask() {
       requestAnimationFrame(renderMask);
 
-      // Spring lerp
+      // Smooth Spring lerp
       currentX += (targetX - currentX) * 0.15;
       currentY += (targetY - currentY) * 0.15;
 
@@ -462,7 +484,29 @@
   }
 
   // -------------------------------------------------------------------------
-  // 8. LIVE NEW DELHI (IST UTC+5:30) CLOCK
+  // 8. LOW-END PC SAFEGUARD: VIDEO INTERSECTION OPTIMIZER
+  // Pauses background video loops when scrolled off-screen
+  // -------------------------------------------------------------------------
+  function initVideoOptimizer() {
+    const videos = document.querySelectorAll('video');
+    if (!('IntersectionObserver' in window) || videos.length === 0) return;
+
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.15 });
+
+    videos.forEach(v => videoObserver.observe(v));
+  }
+
+  // -------------------------------------------------------------------------
+  // 9. LIVE NEW DELHI (IST UTC+5:30) CLOCK
   // -------------------------------------------------------------------------
   function initLiveClock() {
     const clockEl = document.getElementById('ist-live-clock');
@@ -496,7 +540,7 @@
   }
 
   // -------------------------------------------------------------------------
-  // 9. ARCHITECTURE SPEC LAB & WHATSAPP DISPATCHER
+  // 10. ARCHITECTURE SPEC LAB & WHATSAPP DISPATCHER
   // -------------------------------------------------------------------------
   let currentSprint = '72h';
 
@@ -584,7 +628,7 @@
   };
 
   // -------------------------------------------------------------------------
-  // 10. DENNIS SNELLENBERG MAGNETIC BUTTONS (DESKTOP)
+  // 11. DENNIS SNELLENBERG MAGNETIC BUTTONS (DESKTOP)
   // -------------------------------------------------------------------------
   function initMagneticButtons() {
     if (window.innerWidth <= 860) return;
@@ -605,7 +649,7 @@
   }
 
   // -------------------------------------------------------------------------
-  // 11. MOBILE DOCK & DRAWER SCROLLSPY
+  // 12. MOBILE DOCK & DRAWER SCROLLSPY
   // -------------------------------------------------------------------------
   function initMobileControls() {
     const menuBtn = document.getElementById('mobile-menu-btn');
@@ -660,6 +704,7 @@
     initCommandPaletteShortcuts();
     initCircularMaskReveal();
     initTextScramble();
+    initVideoOptimizer();
     initLiveClock();
     initMagneticButtons();
     initMobileControls();
