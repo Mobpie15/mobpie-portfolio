@@ -82,13 +82,13 @@
   // Attach magnetic hover events
   function initHoverListeners() {
     const interactives = document.querySelectorAll(
-      'a, button, .btn-primary-luxury, .btn-secondary-luxury, .btn-live-preview, .btn-admin-preview, .btn-whatsapp-hotline, .btn-submit-luxury, .nav-cta-btn, .sound-toggle-btn'
+      'a, button, .btn-primary-volt, .btn-secondary-ghost, .hud-cta-btn, .btn-whatsapp-direct, .btn-card-action, .physics-token, .cat-pill, .sprint-pill, .cmd-item, .sound-toggle-btn'
     );
 
     interactives.forEach(el => {
       el.addEventListener('mouseenter', () => {
         ring.classList.add('cursor-hover');
-        if (el.classList.contains('btn-primary-luxury') || el.classList.contains('nav-cta-btn') || el.classList.contains('btn-whatsapp-hotline') || el.classList.contains('btn-submit-luxury')) {
+        if (el.classList.contains('btn-primary-volt') || el.classList.contains('hud-cta-btn') || el.classList.contains('btn-whatsapp-direct')) {
           magneticTarget = el;
         }
       });
@@ -99,9 +99,9 @@
       });
     });
 
-    // Special "VIEW" state for showcase visual stages
-    const showcases = document.querySelectorAll('.work-visual-stage, .cinema-work-card');
-    showcases.forEach(demo => {
+    // Special "DRAG" state for sandbox playground and weapon preview stages
+    const dragStages = document.querySelectorAll('.sandbox-canvas-area, .weapon-preview-stage, .circular-mask-stage');
+    dragStages.forEach(demo => {
       demo.addEventListener('mouseenter', () => {
         ring.classList.add('cursor-work-hover');
       });

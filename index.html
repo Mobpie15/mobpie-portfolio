@@ -3,26 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MOBPIE // High-Impact Digital Flagships &amp; Bespoke Web Weapons</title>
-  <meta name="description" content="Independent creative digital architect engineering high-converting bespoke flagships, proprietary Admin ERPs, and sub-380ms edge speed for visionary founders. Zero upfront risk.">
-  
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png?v=7">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png?v=7">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png?v=7">
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=7">
-  <link rel="icon" type="image/png" href="assets/images/favicon.png?v=7">
-  <link rel="shortcut icon" href="favicon.ico?v=7">
+  <title>MOBPIE // Creative Technologist &amp; Digital Flagship Weaponry</title>
+  <meta name="description" content="Engineering unfair digital weapons, real-time 3D WebGL configurators, and sub-380ms edge speeds for visionary founders. Zero commodity templates. 72H working prototype first.">
 
-  <!-- Typography: Syne (Muscular High-Impact Display), Space Grotesk (Neo-Brutalist Technical), JetBrains Mono (Precision Telemetry) -->
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png?v=8">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png?v=8">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png?v=8">
+  <link rel="shortcut icon" href="favicon.ico?v=8">
+
+  <!-- Typography: Syne (Muscular Display), Space Grotesk (Neo-Brutalist Technical), JetBrains Mono (Telemetry) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css?v=7">
+  <link rel="stylesheet" href="assets/css/style.css?v=8">
 </head>
 <body>
 
-  <!-- High-Octane Curtain Reveal -->
+  <!-- Cinematic Curtain Reveal -->
   <div id="page-reveal-overlay" class="page-reveal-overlay" aria-hidden="true">
     <div class="reveal-content">
       <div class="reveal-monogram font-display">M</div>
@@ -42,59 +41,66 @@
   </div>
 
   <!-- =========================================================================
-       NAVIGATION BAR: HIGH-OCTANE KINETIC HUD
+       SKIPER-STYLE FLOATING FROSTED GLASS HUD DOCK
        ========================================================================= -->
-  <header class="site-header">
-    <div class="nav-container">
+  <div class="floating-hud-wrapper">
+    <header class="floating-hud-island font-mono" id="main-hud">
       
       <!-- Brand Stature -->
-      <a href="#hero" class="nav-brand" aria-label="Mobpie Home">
-        <span class="brand-monogram font-display">M</span>
-        <div class="brand-text">
-          <span class="brand-name font-display">MOBPIE</span>
-          <span class="brand-sub font-mono">STUDIO // NEW DELHI</span>
-        </div>
+      <a href="#hero" class="hud-brand" aria-label="Mobpie Home">
+        <span class="hud-monogram font-display">M</span>
+        <span class="hud-brand-name font-display">MOBPIE</span>
       </a>
 
-      <!-- Telemetry Live Status -->
-      <div class="nav-telemetry font-mono">
-        <span class="status-dot"></span>
-        <span>EDGE: <strong class="volt-text">&lt;380MS</strong></span>
-        <span class="telemetry-sep">/</span>
-        <span id="ist-live-clock" class="volt-text">--:--:-- IST</span>
-        <span class="telemetry-sep">/</span>
-        <span class="scarcity-text">OCTOBER: 1 COHORT OPEN</span>
-      </div>
+      <div class="hud-divider"></div>
 
-      <!-- Main Navigation Links -->
-      <nav class="nav-links font-mono" aria-label="Primary Navigation">
-        <a href="#hero" class="nav-item">00 // HOME</a>
-        <a href="#works" class="nav-item">01 // WEAPONS</a>
-        <a href="#matrix" class="nav-item">02 // THE MOAT</a>
-        <a href="#architect" class="nav-item">03 // ARCHITECT</a>
-        <a href="#configurator" class="nav-item">04 // SPEC LAB</a>
-        <a href="#protocol" class="nav-item">05 // PROTOCOL</a>
+      <!-- Navigation Links -->
+      <nav class="hud-nav" aria-label="Primary Navigation">
+        <a href="#weapons" class="hud-nav-link">WEAPONS</a>
+        <a href="#reveal" class="hud-nav-link">THE MOAT</a>
+        <a href="#spec-lab" class="hud-nav-link">SPEC LAB</a>
+        <a href="#manifesto" class="hud-nav-link">MANIFESTO</a>
       </nav>
 
-      <!-- Nav Actions -->
-      <div class="nav-actions font-mono">
-        <button type="button" id="sound-toggle-btn" class="sound-toggle-btn" aria-label="Toggle Sound Aura">
+      <div class="hud-divider"></div>
+
+      <!-- Telemetry Live Status -->
+      <div class="hud-telemetry">
+        <span class="status-pulse-dot"></span>
+        <span id="ist-live-clock" class="volt-text">--:--:-- IST</span>
+        <span class="tele-tag">&lt;380MS</span>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="hud-actions">
+        
+        <!-- Command Palette Trigger (Cmd + K) -->
+        <button type="button" id="cmd-trigger-btn" class="hud-btn hud-cmd-btn" aria-label="Open Command Palette" onclick="openCommandPalette()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"></path></svg>
+          <span class="cmd-kbd-badge">⌘K</span>
+        </button>
+
+        <!-- Audio Aura Toggle -->
+        <button type="button" id="sound-toggle-btn" class="hud-btn sound-toggle-btn" aria-label="Toggle Sound Aura">
           <span class="eq-bars"><span></span><span></span><span></span></span>
           <span id="sound-btn-text">SOUND [OFF]</span>
         </button>
 
-        <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20a%20founder%20ready%20to%20commission%20a%20Zero-Risk%20Flagship." target="_blank" rel="noopener noreferrer" class="nav-cta-btn">
+        <!-- Direct VIP WhatsApp Hotline -->
+        <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20a%20founder%20ready%20to%20commission%20a%20Zero-Risk%20Flagship." target="_blank" rel="noopener noreferrer" class="hud-cta-btn">
           <span>VIP HOTLINE</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
         </a>
 
-        <button type="button" id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open Navigation">
+        <!-- Mobile Drawer Toggle -->
+        <button type="button" id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open Mobile Drawer">
           <span></span><span></span>
         </button>
+
       </div>
 
-    </div>
-  </header>
+    </header>
+  </div>
 
   <!-- Mobile Slide-out Drawer -->
   <aside id="mobile-nav-drawer" class="mobile-nav-drawer font-mono" aria-label="Mobile Navigation">
@@ -104,15 +110,14 @@
     </div>
     <div class="drawer-links">
       <a href="#hero" class="drawer-link">00 // HOME</a>
-      <a href="#works" class="drawer-link">01 // WEAPONS</a>
-      <a href="#matrix" class="drawer-link">02 // THE MOAT</a>
-      <a href="#architect" class="drawer-link">03 // ARCHITECT</a>
-      <a href="#configurator" class="drawer-link">04 // SPEC LAB</a>
-      <a href="#protocol" class="drawer-link">05 // SPRINT PROTOCOL</a>
-      <a href="#contact" class="drawer-link">06 // PRIVATE CONCIERGE</a>
+      <a href="#weapons" class="drawer-link">01 // WEAPON VAULT</a>
+      <a href="#reveal" class="drawer-link">02 // SLOP VS WEAPON</a>
+      <a href="#spec-lab" class="drawer-link">03 // SPEC LAB</a>
+      <a href="#manifesto" class="drawer-link">04 // MANIFESTO</a>
+      <a href="#contact" class="drawer-link">05 // CONCIERGE</a>
     </div>
     <div class="drawer-bottom">
-      <button type="button" class="sound-toggle-btn mobile-sound-pill" style="width: 100%; justify-content: center; margin-bottom: 0.85rem; padding: 0.75rem 1rem;">
+      <button type="button" class="sound-toggle-btn mobile-sound-pill" style="width: 100%; justify-content: center; margin-bottom: 0.85rem; padding: 0.85rem 1rem;">
         <span class="eq-bars"><span></span><span></span><span></span></span>
         <span class="sound-label">SOUND [OFF]</span>
       </button>
@@ -121,415 +126,476 @@
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
       </a>
       <div class="drawer-meta">
-        <span>MOBPIEXD@GMAIL.COM</span>
         <span>NEW DELHI (UTC+5:30) &bull; WORLDWIDE REMOTE</span>
+        <span>MOBPIEXD@GMAIL.COM</span>
       </div>
     </div>
   </aside>
 
   <!-- =========================================================================
-       ACT 01: HIGH-OCTANE KINETIC HERO VIEWPORT
+       SKIPER-STYLE COMMAND PALETTE (CMD + K DIALOG)
        ========================================================================= -->
-  <main id="hero" class="hero-viewport">
-
-    <div class="container hero-cockpit-grid">
+  <div id="cmd-palette-backdrop" class="cmd-palette-backdrop" aria-hidden="true" onclick="handleBackdropClick(event)">
+    <div class="cmd-palette-modal font-mono" role="dialog" aria-modal="true" aria-label="Command Palette">
       
-      <!-- Left Column: Commanding Kinetic Typography & Brief -->
-      <div class="hero-content-col">
-        
-        <div class="hero-kicker-pill font-mono">
-          <span class="kicker-glow-dot"></span>
-          <span>HAUTE DIGITAL ARCHITECTURE // 2026 BENCHMARK</span>
-        </div>
-
-        <h1 class="hero-headline font-display">
-          WE ENGINEER <br>
-          <span class="headline-volt">DIGITAL WEAPONS</span> <br>
-          FOR CATEGORY KINGS.
-        </h1>
-
-        <p class="hero-subline font-body">
-          We partner directly with ambitious founders to replace commodity agency templates with handcrafted digital flagships, tailor-made Admin ERPs, and sub-380ms edge speeds. <strong>Experience your live 40% working prototype on private staging in 72 hours — ₹0 upfront risk.</strong>
-        </p>
-
-        <div class="hero-actions-row font-mono">
-          <a href="#configurator" class="btn-primary-volt">
-            <span>COMMISSION 72H SPRINT</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
-          <a href="#works" class="btn-secondary-ghost">
-            <span>INSPECT THE WEAPONS</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
-          </a>
-        </div>
-
-        <!-- Cockpit Telemetry Strip -->
-        <div class="hero-telemetry-strip font-mono">
-          <div class="tele-box">
-            <span class="tele-val font-display">72H</span>
-            <span class="tele-lbl">WORKING PROTOTYPE ON STAGING FIRST</span>
-          </div>
-          <div class="tele-box">
-            <span class="tele-val font-display">&lt;380ms</span>
-            <span class="tele-lbl">EDGE LATENCY // 99+ LIGHTHOUSE</span>
-          </div>
-          <div class="tele-box">
-            <span class="tele-val font-display">0%</span>
-            <span class="tele-lbl">THIRD-PARTY PLUGIN TAX // 100% OWNED</span>
-          </div>
-        </div>
-
+      <div class="cmd-input-row">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="cmd-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="cmd-search-input" placeholder="Type a command or jump to weapon..." autocomplete="off" spellcheck="false">
+        <span class="cmd-esc-badge" onclick="closeCommandPalette()">ESC</span>
       </div>
 
-      <!-- Right Column: Interactive 3D Kinetic Core Viewport -->
-      <div class="hero-kinetic-col">
-        <div class="kinetic-canvas-card">
-          <div class="canvas-header font-mono">
-            <span class="canvas-status"><span class="canvas-dot"></span> 3D KINETIC ENGINE ACTIVE</span>
-            <span class="canvas-fps" id="canvas-fps-meter">60 FPS</span>
-          </div>
-          <div class="hero-3d-stage">
-            <canvas id="three-luxury-canvas" aria-label="Interactive 3D Kinetic Core"></canvas>
-            <div class="stage-3d-hint font-mono">
-              <span class="drag-icon">&#8644;</span>
-              <span>DRAG TO DISTORT 3D KINETIC CORE</span>
-            </div>
-          </div>
-          <div class="canvas-footer font-mono">
-            <span>THREE.JS GPU ACCELERATED</span>
-            <span class="volt-text">VERTEX SHADER DISPLACEMENT</span>
-          </div>
+      <div class="cmd-results-list" id="cmd-results">
+        <div class="cmd-group-label">NAVIGATION</div>
+        <a href="#weapons" class="cmd-item active" onclick="closeCommandPalette()">
+          <span class="cmd-item-icon">⚔️</span>
+          <span class="cmd-item-title">Inspect Weapon Vault</span>
+          <span class="cmd-item-key">1</span>
+        </a>
+        <a href="#reveal" class="cmd-item" onclick="closeCommandPalette()">
+          <span class="cmd-item-icon">🔍</span>
+          <span class="cmd-item-title">Slop vs. Weapon Reveal Mask</span>
+          <span class="cmd-item-key">2</span>
+        </a>
+        <a href="#spec-lab" class="cmd-item" onclick="closeCommandPalette()">
+          <span class="cmd-item-icon">⚡</span>
+          <span class="cmd-item-title">Configure Architecture Spec</span>
+          <span class="cmd-item-key">3</span>
+        </a>
+        <a href="#manifesto" class="cmd-item" onclick="closeCommandPalette()">
+          <span class="cmd-item-icon">🏛️</span>
+          <span class="cmd-item-title">Architect's Manifesto &amp; Pedigree</span>
+          <span class="cmd-item-key">4</span>
+        </a>
+
+        <div class="cmd-group-label">INSTANT ACTIONS</div>
+        <a href="https://wa.me/918957420306" target="_blank" rel="noopener noreferrer" class="cmd-item" onclick="closeCommandPalette()">
+          <span class="cmd-item-icon">💬</span>
+          <span class="cmd-item-title">Open VIP WhatsApp Hotline</span>
+          <span class="cmd-item-badge volt-text">DIRECT</span>
+        </a>
+        <div class="cmd-item" onclick="toggleSoundFromCmd()">
+          <span class="cmd-item-icon">🔊</span>
+          <span class="cmd-item-title" id="cmd-sound-label">Toggle Audio Aura On/Off</span>
+          <span class="cmd-item-key">S</span>
         </div>
       </div>
 
-    </div>
+      <div class="cmd-footer-strip">
+        <span>Use <kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+        <span><kbd>↵</kbd> to select</span>
+        <span><kbd>ESC</kbd> to exit</span>
+      </div>
 
-  </main>
-
-  <!-- High-Energy Continuous Kinetic Ticker -->
-  <div class="kinetic-ticker-bar font-mono" aria-hidden="true">
-    <div class="ticker-content">
-      <span>HANDCRAFTED DIGITAL WEAPONS</span>
-      <span class="diamond">&diams;</span>
-      <span>PROPRIETARY ADMIN CONTROL PANELS</span>
-      <span class="diamond">&diams;</span>
-      <span>SUB-380MS PERFORMANCE AS LUXURY</span>
-      <span class="diamond">&diams;</span>
-      <span>ZERO COMMODITY TEMPLATES</span>
-      <span class="diamond">&diams;</span>
-      <span>72H WORKING PROTOTYPE FIRST</span>
-      <span class="diamond">&diams;</span>
-      <span>DIRECT FOUNDER-TO-ARCHITECT PARTNERSHIP</span>
-      <span class="diamond">&diams;</span>
-      <span>HANDCRAFTED DIGITAL WEAPONS</span>
-      <span class="diamond">&diams;</span>
-      <span>PROPRIETARY ADMIN CONTROL PANELS</span>
-      <span class="diamond">&diams;</span>
-      <span>SUB-380MS PERFORMANCE AS LUXURY</span>
-      <span class="diamond">&diams;</span>
-      <span>ZERO COMMODITY TEMPLATES</span>
     </div>
   </div>
 
   <!-- =========================================================================
-       ACT 02: PROVEN FLAGSHIP WEAPONS (SHOWCASES)
+       ACT 01: THE MECHANICAL ODOMETER HERO & DRAGGABLE SANDBOX
        ========================================================================= -->
-  <section id="works" class="section-works">
-    <div class="container">
-      
-      <div class="section-heading-block">
-        <span class="section-kicker font-mono">01 // PROVEN FLAGSHIPS</span>
-        <h2 class="section-title font-display">
-          WORK THAT OBLITERATES <br>
-          <span class="headline-volt">INDUSTRY BENCHMARKS.</span>
-        </h2>
-        <p class="section-desc font-body">
-          We do not show speculative Behance mockups. We engineer live, production-grade digital weapons with real-time 3D configurators, sub-second search ergonomics, and proprietary Admin ERPs.
-        </p>
+  <main id="hero" class="hero-stage">
+    <div class="container hero-container">
+
+      <!-- Eyebrow Tag -->
+      <div class="hero-kicker-pill font-mono">
+        <span class="kicker-pulse"></span>
+        <span>HAUTE DIGITAL ARCHITECTURE // 2026 BENCHMARK</span>
       </div>
 
-      <!-- Showcase 01: Atelier Ora -->
-      <article class="cinema-work-card">
-        <div class="work-visual-stage">
-          <div class="mv-switcher-bar font-mono">
-            <button type="button" class="mv-tab-btn active" id="ora-tab-store" onclick="switchOraView('store')">01 // 3D STOREFRONT</button>
-            <button type="button" class="mv-tab-btn" id="ora-tab-admin" onclick="switchOraView('admin')">02 // BESPOKE LOGISTICS ERP</button>
+      <!-- Skiper-Style Mechanical Odometer Rolling Headline -->
+      <div class="odometer-hero-header">
+        <h1 class="odometer-title font-display" aria-label="Engineering Unfair Digital Weapons">
+          <span class="odo-line">ENGINEERING</span>
+          <span class="odo-reel-wrap" id="odometer-reel">
+            <!-- Mechanical Odometer Slot Columns populated by main.js -->
+            <span class="odo-static-fallback volt-text">UNFAIR WEAPONS</span>
+          </span>
+          <span class="odo-line">FOR CATEGORY LEADERS.</span>
+        </h1>
+      </div>
+
+      <p class="hero-editorial-lead font-body">
+        We partner directly with visionary founders to obliterate commoditized agency templates. Handcrafted from bare metal with <strong>real-time 3D WebGL configurators, tailor-made Admin ERPs, and sub-380ms edge speeds.</strong>
+      </p>
+
+      <!-- CTA Row -->
+      <div class="hero-cta-group font-mono">
+        <a href="#spec-lab" class="btn-primary-volt">
+          <span>CONFIGURE 72H SPRINT</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <a href="#weapons" class="btn-secondary-ghost">
+          <span>EXPLORE WEAPON VAULT</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+        </a>
+      </div>
+
+      <!-- =====================================================================
+           SKIPER-STYLE "THINGS DRAG & THROW" PHYSICS PLAYGROUND
+           Interactive floating tokens founders can grab, toss, and flick!
+           ===================================================================== -->
+      <div class="sandbox-playground-wrapper" id="sandbox-wrapper">
+        
+        <div class="sandbox-header font-mono">
+          <div class="sandbox-status">
+            <span class="sandbox-live-dot"></span>
+            <span>PHYSICS PLAYGROUND // GRAB &amp; TOSS CAPABILITY TOKENS</span>
+          </div>
+          <span class="sandbox-hint">INERTIAL MOMENTUM ENGINE ACTIVE</span>
+        </div>
+
+        <div class="sandbox-canvas-area" id="sandbox-area">
+
+          <!-- Token 01: 3D WebGL Configurator -->
+          <div class="physics-token" data-token="3d" style="top: 20%; left: 8%;">
+            <div class="token-inner font-mono">
+              <span class="token-glyph">💎</span>
+              <div class="token-meta">
+                <span class="token-title font-display">Three.js 3D Configurator</span>
+                <span class="token-tag volt-text">REAL-TIME WEBGL</span>
+              </div>
+            </div>
           </div>
 
-          <div class="work-view-frame" id="ora-view-store">
-            <img src="assets/images/remake-fashion-preview.png" alt="Atelier Ora Luxury Fashion Brand Showcase" class="work-cover-img" loading="lazy">
+          <!-- Token 02: Sub-380ms Edge Speed -->
+          <div class="physics-token" data-token="speed" style="top: 15%; left: 52%;">
+            <div class="token-inner font-mono">
+              <span class="token-glyph">⚡</span>
+              <div class="token-meta">
+                <span class="token-title font-display">Sub-380ms Edge CDN</span>
+                <span class="token-tag volt-text">99+ LIGHTHOUSE</span>
+              </div>
+            </div>
           </div>
-          <div class="work-view-frame" id="ora-view-admin" style="display: none;">
-            <img src="assets/images/remakes/remake-tech.jpg" alt="Atelier Ora Bespoke Admin Logistics ERP" class="work-cover-img" loading="lazy">
+
+          <!-- Token 03: 0% Plugin Tax -->
+          <div class="physics-token" data-token="tax" style="top: 55%; left: 16%;">
+            <div class="token-inner font-mono">
+              <span class="token-glyph">🛡️</span>
+              <div class="token-meta">
+                <span class="token-title font-display">Zero Monthly Plugin Tax</span>
+                <span class="token-tag volt-text">100% CLIENT IP</span>
+              </div>
+            </div>
           </div>
-          
-          <div class="work-glass-overlay">
-            <div class="glass-actions font-mono">
-              <a href="https://fashion-brand-dun.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-live-preview">
-                <span>LAUNCH FLAGSHIP STORE</span>
+
+          <!-- Token 04: Bespoke Admin ERP -->
+          <div class="physics-token" data-token="erp" style="top: 48%; left: 62%;">
+            <div class="token-inner font-mono">
+              <span class="token-glyph">🎛️</span>
+              <div class="token-meta">
+                <span class="token-title font-display">Bespoke Logistics ERP</span>
+                <span class="token-tag volt-text">PROPRIETARY PANEL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Token 05: 72H Working Staging -->
+          <div class="physics-token" data-token="72h" style="top: 68%; left: 38%;">
+            <div class="token-inner font-mono">
+              <span class="token-glyph">⏱️</span>
+              <div class="token-meta">
+                <span class="token-title font-display">72H Staging Prototype</span>
+                <span class="token-tag volt-text">₹0 UPFRONT RISK</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- High-Energy Continuous Kinetic Ticker -->
+  <div class="kinetic-ticker-bar font-mono" aria-hidden="true">
+    <div class="ticker-track">
+      <span>BARE-METAL DIGITAL WEAPONS</span>
+      <span class="diamond">&diams;</span>
+      <span>SUB-380MS PERFORMANCE AS LUXURY</span>
+      <span class="diamond">&diams;</span>
+      <span>ZERO BLOATED COMMODITY TEMPLATES</span>
+      <span class="diamond">&diams;</span>
+      <span>PROPRIETARY ADMIN LOGISTICS ERPS</span>
+      <span class="diamond">&diams;</span>
+      <span>72H WORKING PROTOTYPE FIRST</span>
+      <span class="diamond">&diams;</span>
+      <span>DIRECT 1:1 FOUNDER PARTNERSHIP</span>
+      <span class="diamond">&diams;</span>
+      <span>BARE-METAL DIGITAL WEAPONS</span>
+      <span class="diamond">&diams;</span>
+      <span>SUB-380MS PERFORMANCE AS LUXURY</span>
+      <span class="diamond">&diams;</span>
+      <span>ZERO BLOATED COMMODITY TEMPLATES</span>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       ACT 02: ANIMMASTER-STYLE FILTERABLE WEAPON VAULT
+       Interactive category filter pills + border-beam ray-tracer cards
+       ========================================================================= -->
+  <section id="weapons" class="section-weapons">
+    <div class="container">
+
+      <div class="vault-top-bar font-mono">
+        <div>
+          <span class="section-kicker">01 // PROVEN FLAGSHIPS</span>
+          <h2 class="vault-heading font-display">THE WEAPON VAULT</h2>
+        </div>
+
+        <!-- Animmaster-Style Category Filter Tabs -->
+        <div class="category-tabs-wrap">
+          <button type="button" class="cat-pill active" data-category="all" onclick="filterWeapons('all', this)">ALL SYSTEMS</button>
+          <button type="button" class="cat-pill" data-category="3d" onclick="filterWeapons('3d', this)">3D WEBGL</button>
+          <button type="button" class="cat-pill" data-category="commerce" onclick="filterWeapons('commerce', this)">HIGH-TICKET COMMERCE</button>
+          <button type="button" class="cat-pill" data-category="automation" onclick="filterWeapons('automation', this)">SYSTEM AUTOMATION</button>
+        </div>
+      </div>
+
+      <!-- Weapons Bento Grid -->
+      <div class="weapons-bento-grid">
+
+        <!-- Weapon 01: Atelier Ora (3D + Commerce) -->
+        <article class="weapon-card bento-span-2 border-beam-active" data-cat="3d commerce">
+          <div class="weapon-preview-stage">
+            <img src="assets/images/remake-fashion-preview.png" alt="Atelier Ora 3D Garment Studio" class="weapon-cover-img" loading="lazy">
+            <div class="weapon-overlay-actions font-mono">
+              <a href="https://fashion-brand-dun.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-card-action">
+                <span>LAUNCH 3D STORE</span>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
               </a>
-              <a href="https://fashion-brand-dun.vercel.app/admin.html" target="_blank" rel="noopener noreferrer" class="btn-admin-preview">
-                <span>TEST BESPOKE ADMIN ERP</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+              <a href="https://fashion-brand-dun.vercel.app/admin.html" target="_blank" rel="noopener noreferrer" class="btn-card-action btn-card-ghost">
+                <span>TEST ADMIN ERP</span>
               </a>
             </div>
           </div>
-        </div>
-
-        <div class="work-editorial-body">
-          <div class="work-meta font-mono">
-            <span class="work-num volt-text">CASE STUDY // 01</span>
-            <span class="work-tag">HAUTE COUTURE &bull; 3D APPAREL</span>
-          </div>
-
-          <h3 class="work-headline font-display">
-            Atelier Ora &bull; 3D Clothing Configurator &amp; Bespoke Logistics ERP
-          </h3>
-
-          <p class="work-narrative font-body">
-            Engineered for a contemporary luxury apparel house. Features a proprietary real-time Three.js 3D garment inspection studio (360° orbit, real-time colorway switching, fabric wind drape simulation), app-quality 2-column mobile commerce, and an independent Patron &amp; Inventory Management ERP.
-          </p>
-
-          <div class="work-specs-strip font-mono">
-            <div class="spec-item">
-              <span class="spec-label">3D ENGINE</span>
-              <span class="spec-val volt-text">Three.js WebGL Real-Time</span>
+          <div class="weapon-card-body font-mono">
+            <div class="weapon-card-meta">
+              <span class="weapon-tag volt-text">HAUTE COUTURE // 3D APPAREL</span>
+              <span class="weapon-status">LIVE BENCHMARK</span>
             </div>
-            <div class="spec-item">
-              <span class="spec-label">CMS / ERP</span>
-              <span class="spec-val">Proprietary Control Panel</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">LATENCY</span>
-              <span class="spec-val">Sub-340ms Edge Speed</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">PLATFORM TAX</span>
-              <span class="spec-val volt-text">0% Third-Party Fees</span>
+            <h3 class="weapon-card-title font-display">Atelier Ora &bull; 3D Garment Studio &amp; Logistics ERP</h3>
+            <p class="weapon-card-desc font-body">
+              Proprietary real-time Three.js 3D garment inspection (360° orbit, real-time colorway switching, fabric wind drape simulation), app-quality 2-column mobile checkout, and an independent Patron &amp; Inventory Management ERP.
+            </p>
+            <div class="weapon-specs-row">
+              <span>Three.js WebGL</span>
+              <span>&bull;</span>
+              <span>Sub-340ms Edge</span>
+              <span>&bull;</span>
+              <span class="volt-text">0% Plugin Fees</span>
             </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- Showcase 02: Amazon Atelier -->
-      <article class="cinema-work-card cinema-work-reversed">
-        <div class="work-visual-stage">
-          <img src="assets/images/remake-amazon-preview.png" alt="Amazon Atelier Luxury Redesign Showcase" class="work-cover-img" loading="lazy">
-          
-          <div class="work-glass-overlay">
-            <div class="glass-actions font-mono">
-              <a href="https://amazon-redesign-five.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-live-preview">
-                <span>LAUNCH ENTERPRISE REMAKE</span>
+        <!-- Weapon 02: Amazon Atelier (Luxury Retail) -->
+        <article class="weapon-card border-beam-active" data-cat="commerce">
+          <div class="weapon-preview-stage">
+            <img src="assets/images/remake-amazon-preview.png" alt="Amazon Atelier Luxury Redesign" class="weapon-cover-img" loading="lazy">
+            <div class="weapon-overlay-actions font-mono">
+              <a href="https://amazon-redesign-five.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-card-action">
+                <span>INSPECT FLAGSHIP</span>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
               </a>
             </div>
           </div>
-        </div>
+          <div class="weapon-card-body font-mono">
+            <div class="weapon-card-meta">
+              <span class="weapon-tag volt-text">ENTERPRISE COMMERCE</span>
+              <span class="weapon-status">REIMAGINATION</span>
+            </div>
+            <h3 class="weapon-card-title font-display">Amazon Atelier &bull; High-Ticket Retail Reimagination</h3>
+            <p class="weapon-card-desc font-body">
+              Transforms cluttered enterprise retail into an editorial high-ticket luxury destination. Sub-second zero-reload filtration and streamlined single-stream checkout mechanics.
+            </p>
+            <div class="weapon-specs-row">
+              <span>Swiss Typography</span>
+              <span>&bull;</span>
+              <span class="volt-text">Sub-Second Filter</span>
+            </div>
+          </div>
+        </article>
 
-        <div class="work-editorial-body">
-          <div class="work-meta font-mono">
-            <span class="work-num volt-text">CASE STUDY // 02</span>
-            <span class="work-tag">ENTERPRISE COMMERCE // LUXURY REIMAGINATION</span>
+        <!-- Weapon 03: Piebot Engine (Automation Core) -->
+        <article class="weapon-card border-beam-active" data-cat="automation">
+          <div class="weapon-preview-stage weapon-terminal-preview">
+            <div class="mock-terminal-code font-mono">
+              <span class="code-line text-muted">// PIEBOT MULTI-UTILITY AUTOMATION CORE</span>
+              <span class="code-line"><strong class="volt-text">&gt; STATUS:</strong> 100% OPERATIONAL (99.9% UPTIME)</span>
+              <span class="code-line"><strong class="volt-text">&gt; ENGINE:</strong> Node.js WebSocket Cluster</span>
+              <span class="code-line"><strong class="volt-text">&gt; LATENCY:</strong> 18ms Internal Dispatch</span>
+              <span class="code-line"><strong class="volt-text">&gt; PAYLOAD:</strong> Zero Third-Party SaaS Overhead</span>
+            </div>
           </div>
+          <div class="weapon-card-body font-mono">
+            <div class="weapon-card-meta">
+              <span class="weapon-tag volt-text">SYSTEM AUTOMATION</span>
+              <span class="weapon-status">PRODUCTION LIVE</span>
+            </div>
+            <h3 class="weapon-card-title font-display">Piebot Engine &bull; WebSocket Automation Core</h3>
+            <p class="weapon-card-desc font-body">
+              Autonomous Discord multi-utility automation engine built with bare-metal Node.js and WebSocket architecture. Powers mission-critical community infrastructure with continuous real-time uptime.
+            </p>
+            <div class="weapon-specs-row">
+              <span>Node.js WebSockets</span>
+              <span>&bull;</span>
+              <span class="volt-text">99.9% Uptime</span>
+            </div>
+          </div>
+        </article>
 
-          <h3 class="work-headline font-display">
-            Amazon Atelier &bull; High-Ticket Retail Reimagination
-          </h3>
+        <!-- Weapon 04: @mobpie-op Exploit Labs -->
+        <article class="weapon-card border-beam-active" data-cat="automation">
+          <div class="weapon-preview-stage weapon-terminal-preview">
+            <div class="mock-terminal-code font-mono">
+              <span class="code-line text-muted">// @MOBPIE-OP SANDBOX EXPLOIT LAB</span>
+              <span class="code-line"><strong class="volt-text">&gt; TARGET:</strong> GTA 5 &amp; Minecraft Network Stacks</span>
+              <span class="code-line"><strong class="volt-text">&gt; DISCIPLINE:</strong> Memory Structures &amp; Packet Hooks</span>
+              <span class="code-line"><strong class="volt-text">&gt; STATUS:</strong> AUDITED &amp; BENCHMARKED</span>
+            </div>
+          </div>
+          <div class="weapon-card-body font-mono">
+            <div class="weapon-card-meta">
+              <span class="weapon-tag volt-text">REVERSE ENGINEERING</span>
+              <span class="weapon-status">RESEARCH PROTOCOL</span>
+            </div>
+            <h3 class="weapon-card-title font-display">Exploit Labs &bull; Game Sandbox &amp; Network Architecture</h3>
+            <p class="weapon-card-desc font-body">
+              Technical reverse-engineering studies analyzing sandbox game state mechanics, packet flow synchronization, and client-server authoritative game logic.
+            </p>
+            <div class="weapon-specs-row">
+              <span>Protocol Analysis</span>
+              <span>&bull;</span>
+              <span class="volt-text">Low-Level Logic</span>
+            </div>
+          </div>
+        </article>
 
-          <p class="work-narrative font-body">
-            A masterclass in transforming cluttered enterprise retail into an editorial high-ticket luxury destination. Engineered with Swiss editorial typography, instantaneous multi-facet product filtration, and frictionless single-stream checkout mechanics.
-          </p>
-
-          <div class="work-specs-strip font-mono">
-            <div class="spec-item">
-              <span class="spec-label">ARCHITECTURE</span>
-              <span class="spec-val volt-text">Bespoke High-Ticket UX</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">FILTERING</span>
-              <span class="spec-val">Sub-Second Zero-Reload</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">TYPOGRAPHY</span>
-              <span class="spec-val">Editorial Luxury Hierarchy</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">CONVERSION</span>
-              <span class="spec-val volt-text">Streamlined Funnel</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Concept Archive Kinetic Rail -->
-      <div class="concepts-archive-block">
-        <div class="concepts-heading font-mono">
-          <span>THE VAULT // ACTIVE ARCHITECTURAL SYSTEMS</span>
-          <span class="concepts-count volt-text">4 LIVE SYSTEMS</span>
-        </div>
-        <div class="concepts-rail font-mono">
-          <div class="concept-card">
-            <span class="concept-num font-display">01</span>
-            <div class="concept-info">
-              <h4 class="concept-name font-display">Piebot Engine</h4>
-              <span class="concept-spec">DISCORD AUTOMATION // NODE.JS &amp; WEBSOCKET ARCHITECTURE</span>
-            </div>
-            <span class="concept-badge volt-badge">LIVE 99.9%</span>
-          </div>
-          <div class="concept-card">
-            <span class="concept-num font-display">02</span>
-            <div class="concept-info">
-              <h4 class="concept-name font-display">@mobpie-op Exploit Labs</h4>
-              <span class="concept-spec">REVERSE ENGINEERING // SANDBOX MECHANICS &amp; GAME NETWORKING</span>
-            </div>
-            <span class="concept-badge">AUDITED</span>
-          </div>
-          <div class="concept-card">
-            <span class="concept-num font-display">03</span>
-            <div class="concept-info">
-              <h4 class="concept-name font-display">Aethel Horology</h4>
-              <span class="concept-spec">HAUTE HORLOGERIE // REAL-TIME 3D TOURBILLON STUDIO</span>
-            </div>
-            <span class="concept-badge volt-badge">3D ACTIVE</span>
-          </div>
-          <div class="concept-card">
-            <span class="concept-num font-display">04</span>
-            <div class="concept-info">
-              <h4 class="concept-name font-display">Kuroki Protocol</h4>
-              <span class="concept-spec">STREETWEAR DROP // SUB-300MS EDGE QUEUE MECHANICS</span>
-            </div>
-            <span class="concept-badge volt-badge">SUB-300MS</span>
-          </div>
-        </div>
       </div>
 
     </div>
   </section>
 
   <!-- =========================================================================
-       ACT 03: THE GUERILLA MOAT MATRIX (WHY FOUNDERS CHOOSE MOBPIE)
+       ACT 03: SKIPER-STYLE CIRCULAR MASK IMAGE REVEAL
+       Interactive split-screen revealing bare-metal code underneath agency slop
        ========================================================================= -->
-  <section id="matrix" class="section-matrix">
+  <section id="reveal" class="section-reveal">
     <div class="container">
       
-      <div class="section-heading-block">
+      <div class="reveal-heading-block">
         <span class="section-kicker font-mono">02 // THE GUERILLA MOAT</span>
         <h2 class="section-title font-display">
-          COMMODITY SLOP VS. <br>
-          <span class="headline-volt">MOBPIE WEAPONRY.</span>
+          MOVE CURSOR TO UNVEIL <br>
+          <span class="headline-volt">THE BARE-METAL MOAT.</span>
         </h2>
         <p class="section-desc font-body">
-          Why category-defining brands refuse to gamble on bloated WordPress agencies or cookie-cutter Shopify templates.
+          Most agencies hide 40 bloated plugins and sluggish servers behind pretty mockups. Hover your cursor over the stage to reveal the handcrafted bare-metal architecture beneath.
         </p>
       </div>
 
-      <div class="matrix-table-wrap font-mono">
-        <table class="moat-matrix-table">
-          <thead>
-            <tr>
-              <th>CAPABILITY BENCHMARK</th>
-              <th class="col-bad">COMMODITY DEV / GENERIC AGENCY</th>
-              <th class="col-mobpie">MOBPIE DIGITAL WEAPONRY</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="feature-name">Core Architecture</td>
-              <td class="val-bad">40+ bloated third-party plugins &amp; themes</td>
-              <td class="val-good">100% bare-metal handcrafted code</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Global Page Speed</td>
-              <td class="val-bad">3.8s–5.5s load, poor Core Web Vitals</td>
-              <td class="val-good">Sub-380ms edge CDN, 99+ Lighthouse score</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Founder Independence</td>
-              <td class="val-bad">Tied to expensive monthly developer retainers</td>
-              <td class="val-good">Proprietary Admin Control Panel built for your team</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Third-Party Monthly Tax</td>
-              <td class="val-bad">$150–$500/month in recurring plugin subscriptions</td>
-              <td class="val-good">$0 / ₹0 recurring plugin fees (100% your IP)</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Upfront Financial Risk</td>
-              <td class="val-bad">50% upfront deposit before seeing a single line of code</td>
-              <td class="val-good">40% working staging prototype delivered in 72 hours</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Accountability</td>
-              <td class="val-bad">Junior account managers &amp; outsourced teams</td>
-              <td class="val-good">Direct 1:1 partnership with Mobpie</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Interactive Reveal Stage -->
+      <div class="circular-mask-stage" id="mask-stage">
+        
+        <!-- Base Layer: Commodity Slop -->
+        <div class="stage-layer layer-base font-mono">
+          <div class="layer-content-grid">
+            <div class="bad-stat-card">
+              <span class="bad-tag">COMMODITY DEV SHOP</span>
+              <h4 class="font-display">Bloated WordPress / Shopify</h4>
+              <ul class="slop-list">
+                <li>❌ 45 Third-Party Plugins Installed</li>
+                <li>❌ 4.8s Heavy Load Time &amp; CLS Penalty</li>
+                <li>❌ $450/month Ongoing Plugin Subscriptions</li>
+                <li>❌ Outsourced Junior Account Managers</li>
+                <li>❌ 50% Blind Upfront Deposit Required</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reveal Layer: Mobpie Bare-Metal Architecture -->
+        <div class="stage-layer layer-reveal font-mono" id="mask-reveal-layer">
+          <div class="layer-content-grid">
+            <div class="good-stat-card">
+              <span class="good-tag volt-badge">MOBPIE DIGITAL WEAPONRY</span>
+              <h4 class="font-display volt-text">100% Bare-Metal Engineering</h4>
+              <ul class="weapon-list">
+                <li>⚡ Zero Third-Party Plugins &bull; 100% Client IP</li>
+                <li>⚡ Sub-380ms Edge Speed &bull; 99+ Lighthouse</li>
+                <li>⚡ $0 / ₹0 Monthly Plugin Overhead Tax</li>
+                <li>⚡ Direct 1:1 Partnership with Mobpie</li>
+                <li>⚡ 40% Interactive Staging in 72h &bull; ₹0 Risk</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Lens Tracker -->
+        <div class="mask-cursor-lens font-mono" id="mask-lens">
+          <span>INSPECT</span>
+        </div>
+
       </div>
 
     </div>
   </section>
 
   <!-- =========================================================================
-       ACT 04: THE ARCHITECT'S MONOGRAPH (PEDIGREE & MANIFESTO)
+       ACT 04: THE ARCHITECT'S MONOGRAPH & PEDIGREE
        ========================================================================= -->
-  <section id="architect" class="section-architect">
+  <section id="manifesto" class="section-manifesto">
     <div class="container">
-      <div class="architect-layout">
+      <div class="manifesto-grid">
         
-        <!-- Left Column: Haute-Couture Portrait Frame -->
-        <div class="architect-visual-frame">
-          <div class="frame-ambient-glow"></div>
-          <div class="portrait-container">
-            <img src="assets/images/pose-sitting.png" alt="Mobpie Digital Architect" class="architect-editorial-img" loading="lazy">
-          </div>
-          <div class="frame-caption font-mono">
-            <span class="caption-dot"></span>
-            <span>MOBPIE // DIGITAL FLAGSHIP ARCHITECT</span>
+        <div class="manifesto-visual">
+          <div class="portrait-card">
+            <img src="assets/images/pose-sitting.png" alt="Mobpie Digital Architect" class="portrait-img" loading="lazy">
+            <div class="portrait-caption font-mono">
+              <span class="caption-dot"></span>
+              <span>MOBPIE // DIGITAL ARCHITECT &bull; NEW DELHI</span>
+            </div>
           </div>
         </div>
-        
-        <!-- Right Column: Editorial Manifesto & Pedigree -->
-        <div class="architect-editorial-content">
-          <span class="section-kicker font-mono">03 // THE ARCHITECT'S MANIFESTO</span>
-          <h2 class="architect-title font-display">
-            REJECTING COMMODITY TEMPLATES. <br>
-            <span class="headline-volt">ENGINEERING UNFAIR MOATS.</span>
+
+        <div class="manifesto-editorial font-mono">
+          <span class="section-kicker">03 // THE ARCHITECT'S MANIFESTO</span>
+          <h2 class="manifesto-title font-display">
+            REJECT COMMODITY SLOP. <br>
+            <span class="headline-volt">BUILD UNFAIR MOATS.</span>
           </h2>
           
-          <div class="architect-manifesto font-body">
-            <p class="manifesto-lead">
-              Most agencies sell you commoditized templates disguised as custom work. They install 40 bloated plugins, hand you a sluggish website, and trap you in perpetual maintenance fees.
+          <div class="manifesto-body font-body">
+            <p>
+              Most digital agencies sell you commoditized templates disguised as bespoke craft. They install 40 bloated plugins, hand you a sluggish website, and trap your brand in perpetual maintenance retainers.
             </p>
             <p>
               At Mobpie Studio, we treat digital flagships like high-performance racecars. Every line of code is handcrafted from bare metal, tuned for sub-380ms edge speeds, and paired with custom Admin Control Panels so founders own 100% of their digital destiny without monthly plugin taxes.
             </p>
           </div>
-          
-          <div class="architect-credentials font-mono">
-            <div class="cred-item">
-              <span class="cred-label">STUDIO BASE:</span>
-              <span class="cred-val volt-text">New Delhi (UTC+5:30) &bull; Worldwide Remote</span>
+
+          <div class="manifesto-specs-strip">
+            <div class="m-spec">
+              <span class="m-lbl">STUDIO BASE:</span>
+              <span class="m-val volt-text">New Delhi (UTC+5:30) &bull; Remote</span>
             </div>
-            <div class="cred-item">
-              <span class="cred-label">FOUNDER COHORTS:</span>
-              <span class="cred-val">Strictly 1–2 Brand Partnerships / Month</span>
+            <div class="m-spec">
+              <span class="m-lbl">COHORTS:</span>
+              <span class="m-val">Strictly 1–2 Partnerships / Month</span>
             </div>
-            <div class="cred-item">
-              <span class="cred-label">THE GUARANTEE:</span>
-              <span class="cred-val volt-text">40% Interactive Staging Prototype in 72h</span>
+            <div class="m-spec">
+              <span class="m-lbl">GUARANTEE:</span>
+              <span class="m-val volt-text">72H Working Staging Prototype First</span>
             </div>
           </div>
 
-          <div class="architect-action-row font-mono">
-            <a href="#configurator" class="btn-primary-volt">
-              <span>ARCHITECT YOUR 72H SPRINT</span>
+          <div class="manifesto-cta-row">
+            <a href="#spec-lab" class="btn-primary-volt">
+              <span>INITIATE 72H SPRINT</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
             <a href="https://wa.me/918957420306" target="_blank" rel="noopener noreferrer" class="btn-secondary-ghost">
               <span>WHATSAPP VIP HOTLINE</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
             </a>
           </div>
 
@@ -540,132 +606,132 @@
   </section>
 
   <!-- =========================================================================
-       ACT 05: THE INTERACTIVE ARCHITECTURE SPEC LAB (CONFIGURATOR)
+       ACT 05: THE 72-HOUR ARCHITECTURE SPEC LAB
        ========================================================================= -->
-  <section id="configurator" class="section-configurator">
+  <section id="spec-lab" class="section-spec-lab">
     <div class="container">
 
-      <div class="section-heading-block">
+      <div class="spec-header-block">
         <span class="section-kicker font-mono">04 // INTERACTIVE SPEC LAB</span>
         <h2 class="section-title font-display">
           BUILD YOUR BESPOKE <br>
-          <span class="headline-volt">DIGITAL FLAGSHIP SPEC.</span>
+          <span class="headline-volt">FLAGSHIP BLUEPRINT.</span>
         </h2>
         <p class="section-desc font-body">
-          Select your architectural capabilities to generate an instant zero-risk blueprint. Configure and dispatch your exact project brief directly to Mobpie.
+          Select your architectural capabilities to generate an instant zero-risk specification. Dispatch your exact brief directly to Mobpie.
         </p>
       </div>
 
-      <div class="configurator-layout font-mono">
+      <div class="spec-lab-layout font-mono">
         
-        <!-- Left: Interactive Capabilities Selector -->
-        <div class="config-left-col">
-          <div class="config-group-title volt-text">01 // SELECT ARCHITECTURAL CAPABILITIES:</div>
-          
-          <div class="spec-modules-grid">
+        <!-- Capabilities Selection -->
+        <div class="spec-picker-col">
+          <span class="spec-picker-title volt-text">01 // SELECT ARCHITECTURAL MODULES:</span>
+
+          <div class="spec-cards-grid">
             
             <div class="spec-module-card selected" data-module="3d" onclick="toggleSpecModule(this)">
-              <div class="module-check-box">
+              <div class="module-check">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
               </div>
-              <div class="module-body">
-                <span class="module-title font-display">Real-Time 3D WebGL Configurator</span>
-                <p class="module-desc font-body">360° interactive product inspection, dynamic material/colorway switching, and GPU particle physics.</p>
+              <div class="module-info">
+                <span class="module-name font-display">Real-Time 3D WebGL Studio</span>
+                <p class="module-copy font-body">360° interactive product inspection, dynamic material/colorway switching, and GPU physics.</p>
               </div>
-              <span class="module-tag volt-badge">IMMERSIVE</span>
+              <span class="module-badge volt-badge">IMMERSIVE</span>
             </div>
 
-            <div class="spec-module-card selected" data-module="cms" onclick="toggleSpecModule(this)">
-              <div class="module-check-box">
+            <div class="spec-module-card selected" data-module="erp" onclick="toggleSpecModule(this)">
+              <div class="module-check">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
               </div>
-              <div class="module-body">
-                <span class="module-title font-display">Proprietary Admin ERP / CMS</span>
-                <p class="module-desc font-body">Tailor-made control panel built specifically for your team. Zero monthly Shopify/WordPress plugin fees.</p>
+              <div class="module-info">
+                <span class="module-name font-display">Proprietary Admin ERP / CMS</span>
+                <p class="module-copy font-body">Tailor-made control panel built specifically for your team. Zero monthly plugin fees.</p>
               </div>
-              <span class="module-tag volt-badge">0% TAX</span>
+              <span class="module-badge volt-badge">0% TAX</span>
             </div>
 
             <div class="spec-module-card selected" data-module="speed" onclick="toggleSpecModule(this)">
-              <div class="module-check-box">
+              <div class="module-check">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
               </div>
-              <div class="module-body">
-                <span class="module-title font-display">Sub-400ms Global Edge Infrastructure</span>
-                <p class="module-desc font-body">Handcrafted lightweight code delivered via worldwide CDN nodes with 99+ Lighthouse performance scores.</p>
+              <div class="module-info">
+                <span class="module-name font-display">Sub-380ms Edge Infrastructure</span>
+                <p class="module-copy font-body">Handcrafted lightweight code delivered via worldwide CDN nodes with 99+ Lighthouse performance.</p>
               </div>
-              <span class="module-tag volt-badge">&lt;380MS</span>
+              <span class="module-badge volt-badge">&lt;380MS</span>
             </div>
 
             <div class="spec-module-card selected" data-module="audio" onclick="toggleSpecModule(this)">
-              <div class="module-check-box">
+              <div class="module-check">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
               </div>
-              <div class="module-body">
-                <span class="module-title font-display">Sensory Soundscapes &amp; Micro-Haptics</span>
-                <p class="module-desc font-body">Web Audio API synthesized acoustic feedback and subtle cinematic sound aura to elevate brand prestige.</p>
+              <div class="module-info">
+                <span class="module-name font-display">Sensory Micro-Haptics &amp; Audio</span>
+                <p class="module-copy font-body">Web Audio API synthesized acoustic feedback and subtle cinematic sound aura to elevate brand prestige.</p>
               </div>
-              <span class="module-tag volt-badge">TACTILE</span>
+              <span class="module-badge volt-badge">TACTILE</span>
             </div>
 
           </div>
 
-          <div class="config-group-title volt-text" style="margin-top: 2rem;">02 // SELECT SPRINT CADENCE:</div>
-          <div class="sprint-options-row">
-            <button type="button" class="sprint-option-pill active" data-sprint="72h" onclick="selectSprintOption(this, '72h')">
-              <span class="pill-dot"></span>
-              <span>72-HOUR WORKING PROTOTYPE (ZERO UPFRONT RISK)</span>
+          <span class="spec-picker-title volt-text" style="margin-top: 2rem;">02 // SELECT SPRINT CADENCE:</span>
+          <div class="sprint-cadence-row">
+            <button type="button" class="sprint-pill active" data-sprint="72h" onclick="selectSprintCadence(this, '72h')">
+              <span class="sprint-dot"></span>
+              <span>72-HOUR WORKING PROTOTYPE (₹0 UPFRONT RISK)</span>
             </button>
-            <button type="button" class="sprint-option-pill" data-sprint="30d" onclick="selectSprintOption(this, '30d')">
-              <span class="pill-dot"></span>
+            <button type="button" class="sprint-pill" data-sprint="30d" onclick="selectSprintCadence(this, '30d')">
+              <span class="sprint-dot"></span>
               <span>FULL 30-DAY BESPOKE PRODUCTION DEPLOYMENT</span>
             </button>
           </div>
 
         </div>
 
-        <!-- Right: Live Blueprint Summary & WhatsApp Dispatch -->
-        <div class="config-right-col">
-          <div class="blueprint-summary-card">
-            <div class="blueprint-header">
-              <div class="blueprint-seal font-display">M</div>
+        <!-- Live Blueprint Summary -->
+        <div class="spec-summary-col">
+          <div class="blueprint-card">
+            <div class="blueprint-head">
+              <div class="blueprint-monogram font-display">M</div>
               <div>
-                <span class="blueprint-title font-display">Architectural Blueprint</span>
-                <span class="blueprint-id font-mono volt-text">SPEC // REV-2026</span>
+                <span class="blueprint-brand font-display">SPECIFICATION // REV-2026</span>
+                <span class="blueprint-sub volt-text">HAUTE DIGITAL WEAPON</span>
               </div>
             </div>
 
-            <div class="blueprint-specs-table font-mono">
-              <div class="b-row">
-                <span class="b-label">STAGING PROTOTYPE:</span>
-                <span class="b-val" id="spec-delivery-val">72 Hours On Private Staging</span>
+            <div class="blueprint-specs-rows">
+              <div class="bp-row">
+                <span class="bp-lbl">STAGING PROTOTYPE:</span>
+                <span class="bp-val" id="spec-delivery-val">72 Hours On Private Staging</span>
               </div>
-              <div class="b-row">
-                <span class="b-label">UPFRONT COMMITMENT:</span>
-                <span class="b-val volt-text" id="spec-risk-val">₹0 / $0 (Proof-First Model)</span>
+              <div class="bp-row">
+                <span class="bp-lbl">UPFRONT RISK:</span>
+                <span class="bp-val volt-text" id="spec-risk-val">₹0 / $0 (Proof-First Model)</span>
               </div>
-              <div class="b-row">
-                <span class="b-label">EDGE LATENCY TARGET:</span>
-                <span class="b-val" id="spec-latency-val">Sub-380ms // 99+ Lighthouse</span>
+              <div class="bp-row">
+                <span class="bp-lbl">EDGE LATENCY TARGET:</span>
+                <span class="bp-val" id="spec-latency-val">Sub-380ms // 99+ Lighthouse</span>
               </div>
-              <div class="b-row">
-                <span class="b-label">THIRD-PARTY TAX:</span>
-                <span class="b-val volt-text">0% (100% Client IP &amp; Code)</span>
+              <div class="bp-row">
+                <span class="bp-lbl">THIRD-PARTY TAX:</span>
+                <span class="bp-val volt-text">0% (100% Client IP &amp; Code)</span>
               </div>
-              <div class="b-row">
-                <span class="b-label">ACTIVE CAPABILITIES:</span>
-                <span class="b-val" id="spec-modules-count">4 Enterprise Modules Selected</span>
+              <div class="bp-row">
+                <span class="bp-lbl">MODULES ACTIVE:</span>
+                <span class="bp-val" id="spec-modules-count">4 Enterprise Modules Selected</span>
               </div>
             </div>
 
-            <button type="button" class="btn-dispatch-spec font-mono" onclick="dispatchConfiguredSpec()">
+            <button type="button" class="btn-dispatch-blueprint font-mono" onclick="dispatchConfiguredSpec()">
               <span>DISPATCH SPEC TO MOBPIE (WHATSAPP)</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
             </button>
 
-            <div class="blueprint-footer-note font-mono">
+            <div class="blueprint-notes">
               <span>&bull; Direct 1:1 Founder Collaboration</span>
-              <span>&bull; Staging URL delivered before invoicing</span>
+              <span>&bull; Private Staging URL delivered before invoicing</span>
             </div>
 
           </div>
@@ -677,137 +743,83 @@
   </section>
 
   <!-- =========================================================================
-       ACT 06: THE 72-HOUR SPRINT PROTOCOL
+       ACT 06: PRIVATE VIP CONCIERGE & DIRECT HOTLINE
        ========================================================================= -->
-  <section id="protocol" class="section-protocol">
+  <section id="contact" class="section-concierge">
     <div class="container">
       
-      <div class="section-heading-block">
-        <span class="section-kicker font-mono">05 // SPRINT PROTOCOL</span>
+      <div class="concierge-head">
+        <span class="section-kicker font-mono">05 // PRIVATE CONCIERGE</span>
         <h2 class="section-title font-display">
-          FROM CONCEPT TO STAGING IN <br>
-          <span class="headline-volt">72 MEASURED HOURS.</span>
-        </h2>
-        <p class="section-desc font-body">
-          A seamless, transparent partnership designed to eliminate founder risk and deliver museum-grade execution.
-        </p>
-      </div>
-
-      <div class="timeline-luxury-grid font-mono">
-        
-        <div class="timeline-step">
-          <div class="step-counter font-display">01</div>
-          <div class="step-timing">DAY 01 // 1:1 SYNC</div>
-          <h3 class="step-headline font-display">Concept Soul &amp; Strategy</h3>
-          <p class="step-text font-body">
-            Direct briefing session with Mobpie. We dissect your brand positioning, target client psychology, competitor conversion weaknesses, and bespoke technical requirements.
-          </p>
-          <div class="step-risk-pill">RISK: ₹0 / $0</div>
-        </div>
-
-        <div class="timeline-step timeline-step-highlight">
-          <div class="step-counter font-display volt-text">02</div>
-          <div class="step-timing volt-text">DAY 02–04 // 72H SPRINT</div>
-          <h3 class="step-headline font-display">Interactive Staging Prototype</h3>
-          <p class="step-text font-body">
-            We build and deploy a private 40% interactive working prototype on a secure Vercel URL. You touch, click, and evaluate real 3D physics, bespoke typography, and sub-second responsiveness.
-          </p>
-          <div class="step-risk-pill volt-text">THE PROOF // ZERO COMMITMENT</div>
-        </div>
-
-        <div class="timeline-step">
-          <div class="step-counter font-display">03</div>
-          <div class="step-timing">DAY 05–12 // PRODUCTION</div>
-          <h3 class="step-headline font-display">Full Build &amp; Custom ERP</h3>
-          <p class="step-text font-body">
-            Upon your sign-off, we build remaining sections, micro-interactions, complete your bespoke Admin Control Panel, and launch globally on fast edge infrastructure.
-          </p>
-          <div class="step-risk-pill">100% IP &amp; CODE OWNERSHIP</div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       ACT 07: PRIVATE VIP CONCIERGE & DIRECT HOTLINE
-       ========================================================================= -->
-  <section id="contact" class="section-contact">
-    <div class="container">
-      
-      <div class="section-heading-block">
-        <span class="section-kicker font-mono">06 // PRIVATE CONCIERGE</span>
-        <h2 class="section-title font-display">
-          INITIATE YOUR <br>
+          COMMISSION YOUR <br>
           <span class="headline-volt">FLAGSHIP SPRINT.</span>
         </h2>
         <p class="section-desc font-body">
-          To maintain obsessive craft and direct 1:1 founder collaboration, we accept only 1 to 2 brand partnerships per calendar month.
+          We maintain obsessive craft and direct 1:1 founder collaboration by accepting only 1 to 2 brand partnerships per calendar month.
         </p>
       </div>
 
-      <div class="concierge-split-grid font-mono">
+      <div class="concierge-split-layout font-mono">
         
-        <!-- Left: Direct WhatsApp Hotline Card -->
-        <div class="vip-hotline-card">
+        <!-- Direct Hotline Card -->
+        <div class="hotline-card">
           <div class="hotline-badge">
-            <span class="status-dot"></span>
+            <span class="status-pulse-dot"></span>
             <span class="volt-text">INSTANT FOUNDER ACCESS</span>
           </div>
 
-          <h3 class="hotline-title font-display">Direct WhatsApp Hotline</h3>
+          <h3 class="hotline-card-title font-display">Direct WhatsApp Hotline</h3>
           
-          <p class="hotline-copy font-body">
+          <p class="hotline-card-p font-body">
             Skip agency bureaucracy and junior account managers. Speak directly with the digital architect who designs and writes every line of your flagship.
           </p>
 
-          <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20a%20founder%20ready%20to%20commission%20a%20Zero-Risk%20Digital%20Flagship." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-hotline">
+          <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20a%20founder%20ready%20to%20commission%20a%20Zero-Risk%20Digital%20Flagship." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-direct">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
             </svg>
-            <span>DISPATCH VIA WHATSAPP (+91 89574 20306)</span>
+            <span>WHATSAPP (+91 89574 20306)</span>
           </a>
 
-          <div class="concierge-direct-rows">
-            <div class="c-row">
-              <span class="c-label">DIRECT EMAIL:</span>
-              <a href="mailto:mobpiexd@gmail.com" class="c-val">mobpiexd@gmail.com</a>
+          <div class="hotline-details">
+            <div class="h-row">
+              <span class="h-lbl">DIRECT EMAIL:</span>
+              <a href="mailto:mobpiexd@gmail.com" class="h-val">mobpiexd@gmail.com</a>
             </div>
-            <div class="c-row">
-              <span class="c-label">INSTAGRAM:</span>
-              <a href="https://instagram.com/mobpie_dev" target="_blank" rel="noopener noreferrer" class="c-val">@mobpie_dev</a>
+            <div class="h-row">
+              <span class="h-lbl">INSTAGRAM:</span>
+              <a href="https://instagram.com/mobpie_dev" target="_blank" rel="noopener noreferrer" class="h-val">@mobpie_dev</a>
             </div>
-            <div class="c-row">
-              <span class="c-label">STUDIO LOCATION:</span>
-              <span class="c-val volt-text">New Delhi (UTC+5:30) &bull; Worldwide Remote</span>
+            <div class="h-row">
+              <span class="h-lbl">STUDIO LOCATION:</span>
+              <span class="h-val volt-text">New Delhi (UTC+5:30) &bull; Worldwide Remote</span>
             </div>
           </div>
         </div>
 
-        <!-- Right: Minimal Inquiry Form -->
-        <div class="vip-form-card">
-          <form id="luxury-inquiry-form" onsubmit="handleLuxuryInquiry(event)">
+        <!-- Minimal Inquiry Form -->
+        <div class="inquiry-card">
+          <form id="concierge-inquiry-form" onsubmit="handleConciergeInquiry(event)">
             
             <div class="form-duo">
-              <div class="field-wrap">
+              <div class="input-field">
                 <label for="f-name">FOUNDER NAME:</label>
                 <input type="text" id="f-name" required placeholder="e.g. Marcus Vance">
               </div>
-              <div class="field-wrap">
+              <div class="input-field">
                 <label for="f-brand">BRAND / VENTURE:</label>
                 <input type="text" id="f-brand" required placeholder="e.g. Aurelius Studio">
               </div>
             </div>
 
             <div class="form-duo">
-              <div class="field-wrap">
+              <div class="input-field">
                 <label for="f-contact">WHATSAPP OR EMAIL:</label>
-                <input type="text" id="f-contact" required placeholder="+1 / name@domain.com">
+                <input type="text" id="f-contact" required placeholder="+1 / founder@domain.com">
               </div>
-              <div class="field-wrap">
-                <label for="f-timeline">DESIRED TIMELINE:</label>
-                <select id="f-timeline" class="luxury-select">
+              <div class="input-field">
+                <label for="f-cadence">DESIRED TIMELINE:</label>
+                <select id="f-cadence" class="concierge-select">
                   <option value="immediate">IMMEDIATE 72H SPRINT</option>
                   <option value="1month" selected>WITHIN 30 DAYS</option>
                   <option value="concept">EXPLORING CONCEPT PROTOTYPE</option>
@@ -815,17 +827,17 @@
               </div>
             </div>
 
-            <div class="field-wrap">
+            <div class="input-field">
               <label for="f-vision">PROJECT VISION &amp; CURRENT URL:</label>
-              <textarea id="f-vision" rows="3" placeholder="Tell us about your brand positioning, current bottlenecks, and what category you intend to lead..."></textarea>
+              <textarea id="f-vision" rows="3" placeholder="Tell us about your brand positioning, current conversion bottlenecks, and what category you intend to lead..."></textarea>
             </div>
 
-            <button type="submit" class="btn-submit-volt font-mono">
+            <button type="submit" class="btn-submit-concierge font-mono">
               <span>COMMISSION 72-HOUR WORKING PROTOTYPE</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
             </button>
 
-            <div id="luxury-form-feedback" class="form-feedback"></div>
+            <div id="concierge-form-feedback" class="form-feedback"></div>
 
           </form>
         </div>
@@ -839,26 +851,25 @@
        HIGH-IMPACT KINETIC FOOTER
        ========================================================================= -->
   <footer class="site-footer">
-    <div class="footer-ghost-watermark font-display" aria-hidden="true">MOBPIE</div>
+    <div class="footer-watermark font-display" aria-hidden="true">MOBPIE</div>
 
     <div class="container footer-content font-mono">
-      <div class="footer-top-row">
+      <div class="footer-top">
         <div>
-          <span class="footer-brand font-display">MOBPIE</span>
-          <p class="footer-lead">Haute Digital Architecture &amp; Flagship Engineering.</p>
+          <span class="footer-title font-display">MOBPIE</span>
+          <p class="footer-sub">Haute Digital Architecture &amp; Flagship Engineering.</p>
         </div>
-        <div class="footer-nav">
-          <a href="#works">WEAPONS</a>
-          <a href="#matrix">MOAT</a>
-          <a href="#architect">ARCHITECT</a>
-          <a href="#configurator">SPEC LAB</a>
-          <a href="#protocol">PROTOCOL</a>
+        <div class="footer-links">
+          <a href="#weapons">WEAPONS</a>
+          <a href="#reveal">MOAT</a>
+          <a href="#manifesto">MANIFESTO</a>
+          <a href="#spec-lab">SPEC LAB</a>
           <a href="https://wa.me/918957420306" target="_blank" rel="noopener noreferrer" class="volt-text">WHATSAPP</a>
         </div>
       </div>
 
-      <div class="footer-base-row">
-        <span>&copy; 2026 MOBPIE &bull; ALL RIGHTS RESERVED &bull; BUILT WITH UNCOMPROMISING CRAFT</span>
+      <div class="footer-bottom">
+        <span>&copy; 2026 MOBPIE &bull; ALL RIGHTS RESERVED &bull; HANDCRAFTED WITH UNCOMPROMISING CRAFT</span>
         <span class="volt-text">NEW DELHI &bull; WORLDWIDE REMOTE</span>
       </div>
     </div>
@@ -866,31 +877,29 @@
 
   <!-- Mobile Bottom App Dock -->
   <nav class="mobile-dock font-mono" aria-label="Mobile Navigation Dock">
-    <a href="#hero" class="dock-btn active" data-tab="home">
+    <a href="#hero" class="dock-item active" data-tab="home">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
       <span>HOME</span>
     </a>
-    <a href="#works" class="dock-btn" data-tab="works">
+    <a href="#weapons" class="dock-item" data-tab="weapons">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
       <span>WEAPONS</span>
     </a>
-    <a href="#matrix" class="dock-btn" data-tab="moat">
+    <a href="#reveal" class="dock-item" data-tab="moat">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
       <span>MOAT</span>
     </a>
-    <a href="#configurator" class="dock-btn" data-tab="config">
+    <a href="#spec-lab" class="dock-item" data-tab="spec">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-      <span>CONFIG</span>
+      <span>SPEC</span>
     </a>
-    <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I%20want%20to%20discuss%20a%20Zero-Risk%20Flagship%20Sprint." target="_blank" rel="noopener noreferrer" class="dock-btn dock-btn-volt">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I%20want%20to%20discuss%20a%20Zero-Risk%20Flagship%20Sprint." target="_blank" rel="noopener noreferrer" class="dock-item dock-item-volt">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
       <span>HOTLINE</span>
     </a>
   </nav>
 
   <!-- Core Scripts -->
-  <script src="assets/js/three.min.js"></script>
-  <script src="assets/js/three-scene.js"></script>
   <script src="assets/js/audio-player.js"></script>
   <script src="assets/js/cursor.js"></script>
   <script src="assets/js/main.js"></script>
