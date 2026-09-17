@@ -266,9 +266,11 @@ class MobpieAudioEngine {
       const isMobilePill = btn.classList.contains('mobile-sound-pill');
       if (this.isPlaying) {
         btn.classList.add('active');
+        btn.classList.add('sound-playing');
         if (text) text.textContent = isMobilePill ? 'SOUND ON' : 'SOUND: ON';
       } else {
         btn.classList.remove('active');
+        btn.classList.remove('sound-playing');
         if (text) text.textContent = isMobilePill ? 'SOUND OFF' : 'SOUND: MUTED';
       }
     });

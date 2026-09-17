@@ -4685,12 +4685,31 @@ footer {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.9);
-  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+}
+
+.browser-mockup-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 255, 255, 0.14), transparent 65%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 10;
+}
+
+.browser-mockup-frame:hover::after {
+  opacity: 1;
 }
 
 .remake-showcase-box:hover .browser-mockup-frame {
-  transform: translateY(-4px);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 25px rgba(255, 255, 255, 0.04);
 }
 
 .browser-window-header {
@@ -5151,4 +5170,216 @@ footer {
     font-size: 0.68rem !important;
     padding: 0.65rem 0.75rem !important;
   }
+}
+
+/* =========================================================================
+   LUXURY MOTION: CYBER MAGNETIC CURSOR (DESKTOP POINTER ONLY)
+   ========================================================================= */
+@media (hover: hover) and (pointer: fine) {
+  body, a, button, input, textarea, select {
+    cursor: none !important;
+  }
+}
+
+.cyber-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: #ffffff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  margin-top: -2.5px;
+  margin-left: -2.5px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.95);
+  transition: opacity 0.2s ease, transform 0.04s linear;
+}
+
+.cyber-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  opacity: 0;
+  margin-top: -17px;
+  margin-left: -17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              margin 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.2s ease;
+}
+
+.cyber-cursor-ring.cursor-hover {
+  width: 50px;
+  height: 50px;
+  margin-top: -25px;
+  margin-left: -25px;
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(2px);
+}
+
+.cyber-cursor-ring.cursor-demo-hover {
+  width: 82px;
+  height: 82px;
+  margin-top: -41px;
+  margin-left: -41px;
+  border-color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+}
+
+.cursor-badge-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: #ffffff;
+  font-weight: 700;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.cyber-cursor-ring.cursor-demo-hover .cursor-badge-text {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (hover: none) or (pointer: coarse) {
+  .cyber-cursor-dot,
+  .cyber-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* =========================================================================
+   ANIMATED SOUND EQUALIZER BARS
+   ========================================================================= */
+.sound-eq-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 12px;
+  width: 14px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.eq-bar {
+  display: block;
+  width: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  height: 3px;
+  transition: height 0.15s ease, background-color 0.2s ease;
+}
+
+.sound-toggle-btn.sound-playing .eq-bar,
+.sound-toggle-btn.active .eq-bar {
+  background: #ffffff;
+}
+
+.sound-toggle-btn.sound-playing .eq-bar:nth-child(1),
+.sound-toggle-btn.active .eq-bar:nth-child(1) {
+  animation: eqBounce1 0.7s ease-in-out infinite alternate;
+}
+
+.sound-toggle-btn.sound-playing .eq-bar:nth-child(2),
+.sound-toggle-btn.active .eq-bar:nth-child(2) {
+  animation: eqBounce2 0.55s ease-in-out infinite alternate 0.12s;
+}
+
+.sound-toggle-btn.sound-playing .eq-bar:nth-child(3),
+.sound-toggle-btn.active .eq-bar:nth-child(3) {
+  animation: eqBounce3 0.8s ease-in-out infinite alternate 0.04s;
+}
+
+.sound-toggle-btn.sound-playing .eq-bar:nth-child(4),
+.sound-toggle-btn.active .eq-bar:nth-child(4) {
+  animation: eqBounce4 0.62s ease-in-out infinite alternate 0.2s;
+}
+
+@keyframes eqBounce1 {
+  0% { height: 3px; }
+  100% { height: 11px; }
+}
+@keyframes eqBounce2 {
+  0% { height: 12px; }
+  100% { height: 4px; }
+}
+@keyframes eqBounce3 {
+  0% { height: 4px; }
+  100% { height: 13px; }
+}
+@keyframes eqBounce4 {
+  0% { height: 11px; }
+  100% { height: 3px; }
+}
+
+/* =========================================================================
+   LIVE TELEMETRY HUD & METRIC COUNTERS
+   ========================================================================= */
+.hero-live-telemetry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.8rem;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--text-medium, rgba(255, 255, 255, 0.7));
+  margin-bottom: 0.65rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  width: fit-content;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.hero-live-telemetry:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.live-dot-pulse {
+  width: 7px;
+  height: 7px;
+  background: #00ff88;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #00ff88;
+  animation: liveDotPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes liveDotPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.stat-counter {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  display: inline-block;
+  font-weight: 600;
 }
