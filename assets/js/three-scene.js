@@ -1,270 +1,263 @@
 /**
- * Mobpie 3D Architectural WebGL Constellation Engine (Three.js r128)
- * - Delicate, luminous particle nodes connected by dynamic wireframe threads
- * - Cursor physics: particles subtly gravitate and disperse with silky damping
- * - Audio-reactive surge: expands, pulses, and illuminates in sync with getAudioMetrics()
- * - Strictly optimized: 60fps locked, pauses on scroll past hero or when tab is hidden
+ * MOBPIE // LUXURY 3D SCULPTURE ENGINE (Three.js)
+ * - Central interactive luxury floating prism (Brushed Platinum & Champagne Gold)
+ * - Dual-layer structure: Outer architectural wireframe cage + Inner glowing faceted crystal core
+ * - Mouse drag & inertia: User can effortlessly grab and rotate the 3D sculpture in 360 degrees
+ * - Audio-reactive harmonic breathing: subtle expansion and lighting pulse on music beats
+ * - Low-end PC safeguard: Strict 60fps cap, pauses render loop when scrolled past hero
  */
 
 (function () {
   'use strict';
 
-  const canvas = document.getElementById('three-canvas');
+  const canvas = document.getElementById('three-luxury-canvas');
   if (!canvas || typeof THREE === 'undefined') return;
 
   const isMobile = window.innerWidth <= 860;
-  const PARTICLE_COUNT = isMobile ? 120 : 260;
-  const CONNECTION_DIST = isMobile ? 85 : 125;
 
-  // Scene, Camera, Renderer
+  // Scene & Camera
   const scene = new THREE.Scene();
-  let width = (canvas.width = window.innerWidth);
-  let height = (canvas.height = window.innerHeight);
+  let width = (canvas.width = canvas.parentElement.clientWidth || window.innerWidth);
+  let height = (canvas.height = canvas.parentElement.clientHeight || (window.innerHeight * 0.7));
 
-  const camera = new THREE.PerspectiveCamera(55, width / height, 1, 1000);
-  camera.position.z = 450;
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+  camera.position.z = isMobile ? 6.2 : 5.0;
 
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({
       canvas: canvas,
       alpha: true,
-      antialias: !isMobile,
+      antialias: true,
       powerPreference: 'high-performance'
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.25;
   } catch (e) {
     console.warn('WebGL init skipped:', e);
     return;
   }
 
-  // Resize Handler
+  // Lighting (Studio Rim Lighting for polished luxury reflections)
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambientLight);
+
+  const keyLight = new THREE.DirectionalLight(0xd4af37, 2.2); // Warm Champagne Gold
+  keyLight.position.set(5, 6, 4);
+  scene.add(keyLight);
+
+  const rimLight = new THREE.DirectionalLight(0xe8e4dc, 1.8); // Polished Platinum
+  rimLight.position.set(-5, -4, -3);
+  scene.add(rimLight);
+
+  const centerPointLight = new THREE.PointLight(0xd4af37, 1.5, 8);
+  centerPointLight.position.set(0, 0, 0);
+  scene.add(centerPointLight);
+
+  // Group that holds the entire 3D sculpture
+  const sculptureGroup = new THREE.Group();
+  scene.add(sculptureGroup);
+
+  // -------------------------------------------------------------------------
+  // LAYER 1: Inner Crystal Core (Champagne Gold Translucent Mesh)
+  // -------------------------------------------------------------------------
+  const coreGeo = new THREE.IcosahedronGeometry(isMobile ? 1.3 : 1.5, 0);
+  const coreMat = new THREE.MeshPhysicalMaterial({
+    color: 0x14120f,
+    emissive: 0x3d3216,
+    emissiveIntensity: 0.4,
+    metalness: 0.85,
+    roughness: 0.15,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.1,
+    transparent: true,
+    opacity: 0.88,
+    wireframe: false
+  });
+  const innerCore = new THREE.Mesh(coreGeo, coreMat);
+  sculptureGroup.add(innerCore);
+
+  // -------------------------------------------------------------------------
+  // LAYER 2: Outer Wireframe Cage (Surgical Platinum Lines)
+  // -------------------------------------------------------------------------
+  const wireGeo = new THREE.IcosahedronGeometry(isMobile ? 1.6 : 1.85, 1);
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0xe8e4dc,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.35
+  });
+  const wireCage = new THREE.Mesh(wireGeo, wireMat);
+  sculptureGroup.add(wireCage);
+
+  // -------------------------------------------------------------------------
+  // LAYER 3: Secondary Orbital Rings (Kinetic Champagne Gyroscope)
+  // -------------------------------------------------------------------------
+  const ringGeo1 = new THREE.TorusGeometry(isMobile ? 2.1 : 2.4, 0.015, 16, 100);
+  const ringMat1 = new THREE.MeshBasicMaterial({
+    color: 0xd4af37,
+    transparent: true,
+    opacity: 0.65
+  });
+  const orbitRing1 = new THREE.Mesh(ringGeo1, ringMat1);
+  orbitRing1.rotation.x = Math.PI / 3;
+  sculptureGroup.add(orbitRing1);
+
+  const ringGeo2 = new THREE.TorusGeometry(isMobile ? 2.25 : 2.55, 0.012, 16, 100);
+  const ringMat2 = new THREE.MeshBasicMaterial({
+    color: 0xe8e4dc,
+    transparent: true,
+    opacity: 0.4
+  });
+  const orbitRing2 = new THREE.Mesh(ringGeo2, ringMat2);
+  orbitRing2.rotation.y = Math.PI / 4;
+  orbitRing2.rotation.z = Math.PI / 6;
+  sculptureGroup.add(orbitRing2);
+
+  // -------------------------------------------------------------------------
+  // LAYER 4: Glowing Vertex Particle Nodes
+  // -------------------------------------------------------------------------
+  const nodeCount = 30;
+  const nodeGeo = new THREE.BufferGeometry();
+  const nodePositions = new Float32Array(nodeCount * 3);
+  const corePos = coreGeo.attributes.position.array;
+
+  for (let i = 0; i < nodeCount; i++) {
+    const srcIdx = (i % (corePos.length / 3)) * 3;
+    nodePositions[i * 3] = corePos[srcIdx] * 1.25;
+    nodePositions[i * 3 + 1] = corePos[srcIdx + 1] * 1.25;
+    nodePositions[i * 3 + 2] = corePos[srcIdx + 2] * 1.25;
+  }
+
+  nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePositions, 3));
+  const nodeMat = new THREE.PointsMaterial({
+    color: 0xd4af37,
+    size: 0.08,
+    transparent: true,
+    opacity: 0.9
+  });
+  const nodes = new THREE.Points(nodeGeo, nodeMat);
+  sculptureGroup.add(nodes);
+
+  // -------------------------------------------------------------------------
+  // INTERACTION & MOMENTUM PHYSICS (Mouse Drag & Hover Tilt)
+  // -------------------------------------------------------------------------
+  let isDragging = false;
+  let prevMouseX = 0;
+  let prevMouseY = 0;
+  let velocityX = 0;
+  let velocityY = 0;
+
+  // Normalized cursor target tilt
+  let targetTiltX = 0;
+  let targetTiltY = 0;
+  let currentTiltX = 0;
+  let currentTiltY = 0;
+
+  function onPointerDown(clientX, clientY) {
+    isDragging = true;
+    prevMouseX = clientX;
+    prevMouseY = clientY;
+  }
+
+  function onPointerMove(clientX, clientY) {
+    // Subtle perspective cursor follow
+    const rect = canvas.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    targetTiltX = ((clientY - cy) / rect.height) * 0.4;
+    targetTiltY = ((clientX - cx) / rect.width) * 0.4;
+
+    if (!isDragging) return;
+    const deltaX = clientX - prevMouseX;
+    const deltaY = clientY - prevMouseY;
+    prevMouseX = clientX;
+    prevMouseY = clientY;
+
+    velocityY = deltaX * 0.006;
+    velocityX = deltaY * 0.006;
+
+    sculptureGroup.rotation.y += velocityY;
+    sculptureGroup.rotation.x += velocityX;
+  }
+
+  function onPointerUp() {
+    isDragging = false;
+  }
+
+  // Mouse listeners
+  canvas.addEventListener('mousedown', (e) => onPointerDown(e.clientX, e.clientY));
+  window.addEventListener('mousemove', (e) => onPointerMove(e.clientX, e.clientY), { passive: true });
+  window.addEventListener('mouseup', onPointerUp);
+
+  // Touch listeners (Mobile friendly)
+  canvas.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) onPointerDown(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 1) onPointerMove(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+
+  window.addEventListener('touchend', onPointerUp);
+
+  // Window Resize
   function onResize() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+    if (!canvas.parentElement) return;
+    width = canvas.width = canvas.parentElement.clientWidth;
+    height = canvas.height = canvas.parentElement.clientHeight || (window.innerHeight * 0.7);
     camera.aspect = width / height;
+    camera.position.z = window.innerWidth <= 860 ? 6.2 : 5.0;
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
   }
   window.addEventListener('resize', onResize, { passive: true });
 
-  // Mouse Interaction (Normalized coordinates)
-  const mouse = { x: 0, y: 0, targetX: 0, targetY: 0, active: false };
-  window.addEventListener('mousemove', (e) => {
-    mouse.targetX = (e.clientX - width / 2) * 0.45;
-    mouse.targetY = -(e.clientY - height / 2) * 0.45;
-    mouse.active = true;
-  }, { passive: true });
-
-  window.addEventListener('mouseleave', () => {
-    mouse.active = false;
-    mouse.targetX = 0;
-    mouse.targetY = 0;
-  });
-
-  // Particle Data Structures
-  const positions = new Float32Array(PARTICLE_COUNT * 3);
-  const velocities = [];
-  const basePositions = [];
-
-  const spreadX = 650;
-  const spreadY = 480;
-  const spreadZ = 300;
-
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    const x = (Math.random() - 0.5) * spreadX;
-    const y = (Math.random() - 0.5) * spreadY + 40;
-    const z = (Math.random() - 0.5) * spreadZ;
-
-    positions[i * 3] = x;
-    positions[i * 3 + 1] = y;
-    positions[i * 3 + 2] = z;
-
-    basePositions.push({ x, y, z });
-    velocities.push({
-      vx: (Math.random() - 0.5) * 0.45,
-      vy: (Math.random() - 0.5) * 0.45,
-      vz: (Math.random() - 0.5) * 0.35
-    });
-  }
-
-  // Particle Geometry & Material (Crisp glowing circular points)
-  function createPointTexture() {
-    const pCanvas = document.createElement('canvas');
-    pCanvas.width = 64;
-    pCanvas.height = 64;
-    const pCtx = pCanvas.getContext('2d');
-    const grad = pCtx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    grad.addColorStop(0.25, 'rgba(255, 255, 255, 0.85)');
-    grad.addColorStop(0.65, 'rgba(215, 225, 255, 0.25)');
-    grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-    pCtx.fillStyle = grad;
-    pCtx.fillRect(0, 0, 64, 64);
-    return new THREE.CanvasTexture(pCanvas);
-  }
-
-  const particleGeometry = new THREE.BufferGeometry();
-  particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-  const particleMaterial = new THREE.PointsMaterial({
-    color: 0xffffff,
-    size: isMobile ? 3.5 : 5.0,
-    map: createPointTexture(),
-    transparent: true,
-    opacity: 0.85,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false
-  });
-
-  const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
-  scene.add(particleSystem);
-
-  // Dynamic Connecting Lines Geometry (Pre-allocated buffer)
-  const maxLines = PARTICLE_COUNT * 8;
-  const linePositions = new Float32Array(maxLines * 6);
-  const lineColors = new Float32Array(maxLines * 6);
-
-  const lineGeometry = new THREE.BufferGeometry();
-  lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3).setUsage(THREE.DynamicDrawUsage));
-  lineGeometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3).setUsage(THREE.DynamicDrawUsage));
-
-  const lineMaterial = new THREE.LineBasicMaterial({
-    vertexColors: true,
-    transparent: true,
-    opacity: 0.6,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false
-  });
-
-  const lineSegments = new THREE.LineSegments(lineGeometry, lineMaterial);
-  scene.add(lineSegments);
-
-  // Visibility and Scroll optimization
-  let isVisible = true;
-  document.addEventListener('visibilitychange', () => {
-    isVisible = !document.hidden;
-  });
-
-  // Animation Loop
-  let clock = new THREE.Clock();
+  // -------------------------------------------------------------------------
+  // RENDER LOOP (60fps Locked & Audio-Reactive)
+  // -------------------------------------------------------------------------
+  let time = 0;
   let smoothedBass = 0;
-  let smoothedEnergy = 0;
 
   function animate() {
     requestAnimationFrame(animate);
 
-    if (!isVisible) return;
-
-    // Check if scrolled far past hero
+    // Low-end PC optimization: Pause render when user scrolls past hero
     const scrollY = window.scrollY || window.pageYOffset;
-    if (scrollY > window.innerHeight * 0.9) return;
+    if (scrollY > window.innerHeight * 1.1) return;
 
-    const delta = clock.getDelta();
-    const time = clock.getElapsedTime();
+    time += 0.01;
 
-    // Mouse easing
-    mouse.x += (mouse.targetX - mouse.x) * 0.05;
-    mouse.y += (mouse.targetY - mouse.y) * 0.05;
+    // Audio reactive expansion
+    const audio = window.getAudioMetrics ? window.getAudioMetrics() : { bass: 0, isPlaying: false };
+    const targetBass = audio.isPlaying ? audio.bass : 0.03;
+    smoothedBass += (targetBass - smoothedBass) * 0.15;
 
-    camera.position.x = mouse.x * 0.18;
-    camera.position.y = mouse.y * 0.18;
-    camera.lookAt(0, 30, 0);
-
-    // Audio reactive metrics
-    const audio = window.getAudioMetrics ? window.getAudioMetrics() : { bass: 0, energy: 0, isPlaying: false };
-    const targetBass = audio.isPlaying ? audio.bass : 0.04;
-    const targetEnergy = audio.isPlaying ? audio.energy : 0.03;
-
-    smoothedBass += (targetBass - smoothedBass) * 0.18;
-    smoothedEnergy += (targetEnergy - smoothedEnergy) * 0.16;
-
-    // Dynamic particle expansion & rotation on beat
-    particleSystem.rotation.y = time * 0.02 + smoothedBass * 0.08;
-    particleSystem.rotation.x = Math.sin(time * 0.015) * 0.04;
-
-    lineSegments.rotation.y = particleSystem.rotation.y;
-    lineSegments.rotation.x = particleSystem.rotation.x;
-
-    const posArray = particleGeometry.attributes.position.array;
-
-    // Update particles
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const idx = i * 3;
-      const v = velocities[i];
-      const base = basePositions[i];
-
-      posArray[idx] += v.vx;
-      posArray[idx + 1] += v.vy;
-      posArray[idx + 2] += v.vz;
-
-      // Bounce at boundary
-      if (Math.abs(posArray[idx] - base.x) > 40) v.vx *= -1;
-      if (Math.abs(posArray[idx + 1] - base.y) > 40) v.vy *= -1;
-      if (Math.abs(posArray[idx + 2] - base.z) > 30) v.vz *= -1;
-
-      // Audio beat vertical wave perturbation
-      posArray[idx + 1] += Math.sin(time * 2.5 + posArray[idx] * 0.02) * (smoothedBass * 1.8);
-    }
-    particleGeometry.attributes.position.needsUpdate = true;
-
-    // Build dynamic connection lines between nearest particles
-    let lineIdx = 0;
-    const linePos = lineGeometry.attributes.position.array;
-    const lineCol = lineGeometry.attributes.color.array;
-
-    const maxDist = CONNECTION_DIST * (1.0 + smoothedBass * 0.35);
-
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const i3 = i * 3;
-      const x1 = posArray[i3];
-      const y1 = posArray[i3 + 1];
-      const z1 = posArray[i3 + 2];
-
-      for (let j = i + 1; j < PARTICLE_COUNT; j++) {
-        const j3 = j * 3;
-        const dx = x1 - posArray[j3];
-        const dy = y1 - posArray[j3 + 1];
-        const dz = z1 - posArray[j3 + 2];
-        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-        if (dist < maxDist && lineIdx < maxLines) {
-          const l6 = lineIdx * 6;
-          const alpha = (1.0 - dist / maxDist) * (audio.isPlaying ? 0.75 : 0.45);
-
-          linePos[l6] = x1;
-          linePos[l6 + 1] = y1;
-          linePos[l6 + 2] = z1;
-          linePos[l6 + 3] = posArray[j3];
-          linePos[l6 + 4] = posArray[j3 + 1];
-          linePos[l6 + 5] = posArray[j3 + 2];
-
-          // Luminous cyber line coloring
-          const r = 0.85 + smoothedBass * 0.15;
-          const g = 0.90 + smoothedEnergy * 0.10;
-          const b = 1.0;
-
-          lineCol[l6] = r * alpha;
-          lineCol[l6 + 1] = g * alpha;
-          lineCol[l6 + 2] = b * alpha;
-          lineCol[l6 + 3] = r * alpha;
-          lineCol[l6 + 4] = g * alpha;
-          lineCol[l6 + 5] = b * alpha;
-
-          lineIdx++;
-        }
-      }
+    // Inertia decay if not dragging
+    if (!isDragging) {
+      velocityX *= 0.94;
+      velocityY *= 0.94;
+      sculptureGroup.rotation.y += velocityY + 0.0035; // Gentle continuous orbit
+      sculptureGroup.rotation.x += velocityX;
     }
 
-    lineGeometry.setDrawRange(0, lineIdx * 2);
-    lineGeometry.attributes.position.needsUpdate = true;
-    lineGeometry.attributes.color.needsUpdate = true;
+    // Secondary ring independent kinetic rotations
+    orbitRing1.rotation.z += 0.005;
+    orbitRing2.rotation.x -= 0.004;
+    wireCage.rotation.y -= 0.002;
+    innerCore.rotation.y += 0.004;
 
-    // Subtle scale breathing with sound energy
-    const scale = 1.0 + smoothedBass * 0.05;
-    particleSystem.scale.set(scale, scale, scale);
-    lineSegments.scale.set(scale, scale, scale);
+    // Smooth cursor tilt damping
+    currentTiltX += (targetTiltX - currentTiltX) * 0.08;
+    currentTiltY += (targetTiltY - currentTiltY) * 0.08;
+    sculptureGroup.position.x = currentTiltY * 0.5;
+    sculptureGroup.position.y = -currentTiltX * 0.5;
+
+    // Subtle scale breathing
+    const scale = 1.0 + smoothedBass * 0.08 + Math.sin(time * 1.5) * 0.02;
+    innerCore.scale.set(scale, scale, scale);
 
     renderer.render(scene, camera);
   }
