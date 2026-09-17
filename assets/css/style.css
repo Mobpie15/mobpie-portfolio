@@ -1201,6 +1201,8 @@ button, input, select, textarea {
 }
 
 .concept-card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1211,11 +1213,35 @@ button, input, select, textarea {
   transition: all 250ms var(--spring-gentle);
 }
 
+.concept-card::before {
+  content: '';
+  position: absolute;
+  top: var(--spotlight-y, -999px);
+  left: var(--spotlight-x, -999px);
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(212, 255, 0, 0.1) 0%, transparent 65%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 250ms ease;
+  z-index: 1;
+}
+
+.concept-card:hover::before {
+  opacity: 1;
+}
+
 .concept-card:hover {
   border-color: var(--border-volt);
   background: var(--bg-surface);
   transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.concept-card > * {
+  position: relative;
+  z-index: 2;
 }
 
 .concept-num {

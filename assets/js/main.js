@@ -298,6 +298,57 @@
   }
 
   // -------------------------------------------------------------------------
+  // 10. ANIMMASTER DECRYPTION SCRAMBLE EFFECT
+  // -------------------------------------------------------------------------
+  function initTextScramble() {
+    const glyphs = '01#_//[]<>-*^';
+    const scrambleEls = document.querySelectorAll('.section-kicker, .hero-kicker-pill span:last-child, .concept-spec');
+
+    scrambleEls.forEach(el => {
+      const originalText = el.textContent;
+      let isScrambling = false;
+
+      el.addEventListener('mouseenter', () => {
+        if (isScrambling) return;
+        isScrambling = true;
+        let iterations = 0;
+        const interval = setInterval(() => {
+          el.textContent = originalText
+            .split('')
+            .map((char, index) => {
+              if (index < iterations || char === ' ' || char === '/') return originalText[index];
+              return glyphs[Math.floor(Math.random() * glyphs.length)];
+            })
+            .join('');
+
+          if (iterations >= originalText.length) {
+            clearInterval(interval);
+            el.textContent = originalText;
+            isScrambling = false;
+          }
+          iterations += 1;
+        }, 22);
+      });
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // 11. SKIPER UI DYNAMIC SPOTLIGHT CARDS
+  // -------------------------------------------------------------------------
+  function initSpotlightCards() {
+    const cards = document.querySelectorAll('.concept-card, .tele-box, .spec-module-card, .cinema-work-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--spotlight-x', `${x}px`);
+        card.style.setProperty('--spotlight-y', `${y}px`);
+      });
+    });
+  }
+
+  // -------------------------------------------------------------------------
   // BOOT CONTROLLER
   // -------------------------------------------------------------------------
   function boot() {
@@ -307,6 +358,8 @@
     initMobileNav();
     initCursorShowcaseHover();
     initMagneticButtons();
+    initTextScramble();
+    initSpotlightCards();
   }
 
   if (document.readyState === 'loading') {
