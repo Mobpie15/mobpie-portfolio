@@ -82,13 +82,13 @@
   // Attach magnetic hover events
   function initHoverListeners() {
     const interactives = document.querySelectorAll(
-      'a, button, .btn-primary-volt, .btn-secondary-ghost, .hud-cta-btn, .btn-whatsapp-direct, .btn-card-action, .physics-token, .cat-pill, .sprint-pill, .cmd-item, .sound-toggle-btn'
+      'a, button, .btn-primary-azure, .btn-primary-volt, .btn-secondary-ghost, .hud-cta-btn, .btn-whatsapp-direct, .btn-theater-action, .btn-dispatch-blueprint, .cat-pill, .sprint-pill, .cmd-item, .sound-toggle-btn'
     );
 
     interactives.forEach(el => {
       el.addEventListener('mouseenter', () => {
         ring.classList.add('cursor-hover');
-        if (el.classList.contains('btn-primary-volt') || el.classList.contains('hud-cta-btn') || el.classList.contains('btn-whatsapp-direct')) {
+        if (el.classList.contains('btn-primary-azure') || el.classList.contains('btn-primary-volt') || el.classList.contains('hud-cta-btn') || el.classList.contains('btn-whatsapp-direct')) {
           magneticTarget = el;
         }
       });

@@ -351,7 +351,7 @@
           window.location.hash = '#weapons';
           closeCommandPalette();
         } else if (e.key === '2') {
-          window.location.hash = '#reveal';
+          window.location.hash = '#comparator';
           closeCommandPalette();
         } else if (e.key === '3') {
           window.location.hash = '#spec-lab';
@@ -385,43 +385,69 @@
   }
 
   // -------------------------------------------------------------------------
-  // 5. SKIPER-STYLE CIRCULAR MASK UI REVEAL (SLOP VS WEAPON)
+  // 5. DRAGGABLE PERFORMANCE COMPARATOR (THE MOAT)
   // -------------------------------------------------------------------------
-  function initCircularMaskReveal() {
-    const stage = document.getElementById('mask-stage');
-    if (!stage) return;
+  function initSplitComparator() {
+    const wrapper = document.getElementById('comparator-wrapper');
+    const handle = document.getElementById('splitter-handle');
+    if (!wrapper || !handle) return;
 
-    let targetX = stage.clientWidth * 0.5;
-    let targetY = stage.clientHeight * 0.5;
-    let currentX = targetX;
-    let currentY = targetY;
+    let isDragging = false;
 
-    stage.addEventListener('mousemove', (e) => {
-      const rect = stage.getBoundingClientRect();
-      targetX = e.clientX - rect.left;
-      targetY = e.clientY - rect.top;
+    function updateSplit(clientX) {
+      const rect = wrapper.getBoundingClientRect();
+      let pos = (clientX - rect.left) / rect.width;
+      pos = Math.max(0.08, Math.min(0.92, pos));
+      const percentage = (pos * 100).toFixed(1) + '%';
+      wrapper.style.setProperty('--split-pos', percentage);
+    }
+
+    handle.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      e.preventDefault();
+      document.body.style.cursor = 'ew-resize';
+      document.body.style.userSelect = 'none';
     });
 
-    stage.addEventListener('touchmove', (e) => {
-      if (e.touches.length === 1) {
-        const rect = stage.getBoundingClientRect();
-        targetX = e.touches[0].clientX - rect.left;
-        targetY = e.touches[0].clientY - rect.top;
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      updateSplit(e.clientX);
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+      }
+    });
+
+    // Touch support for mobile / tablets
+    handle.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      if (e.touches && e.touches.length > 0) {
+        updateSplit(e.touches[0].clientX);
       }
     }, { passive: true });
 
-    function renderMask() {
-      requestAnimationFrame(renderMask);
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging || !e.touches || e.touches.length === 0) return;
+      updateSplit(e.touches[0].clientX);
+    }, { passive: true });
 
-      // Smooth Spring lerp
-      currentX += (targetX - currentX) * 0.15;
-      currentY += (targetY - currentY) * 0.15;
+    window.addEventListener('touchend', () => {
+      isDragging = false;
+    });
 
-      stage.style.setProperty('--lens-x', `${currentX}px`);
-      stage.style.setProperty('--lens-y', `${currentY}px`);
-    }
+    // Also clicking anywhere on the comparator moves the splitter
+    wrapper.addEventListener('click', (e) => {
+      if (e.target.closest('#splitter-handle') || e.target.closest('a') || e.target.closest('button')) return;
+      updateSplit(e.clientX);
+    });
+  }
 
-    renderMask();
+  function initCircularMaskReveal() {
+    // Preserved as backward-compatible stub
   }
 
   // -------------------------------------------------------------------------
@@ -431,7 +457,7 @@
     document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
     if (btn) btn.classList.add('active');
 
-    const cards = document.querySelectorAll('.weapon-card');
+    const cards = document.querySelectorAll('.theater-card, .weapon-card');
     cards.forEach(card => {
       const cardCats = card.getAttribute('data-cat') || '';
       if (cat === 'all' || cardCats.includes(cat)) {
@@ -453,7 +479,7 @@
   // -------------------------------------------------------------------------
   function initTextScramble() {
     const glyphs = '01#_//[]<>-*^';
-    const scrambleEls = document.querySelectorAll('.section-kicker, .hero-kicker-pill span:last-child, .weapon-tag');
+    const scrambleEls = document.querySelectorAll('.section-kicker, .hero-kicker-pill span:last-child, .theater-tag, .weapon-tag');
 
     scrambleEls.forEach(el => {
       const originalText = el.textContent;
@@ -669,11 +695,11 @@
       });
     });
 
-    const dockItems = document.querySelectorAll('.dock-item:not(.dock-item-volt)');
+    const dockItems = document.querySelectorAll('.dock-item:not(.dock-item-azure):not(.dock-item-volt)');
     const sections = [
       { id: 'hero', tab: 'home' },
       { id: 'weapons', tab: 'weapons' },
-      { id: 'reveal', tab: 'moat' },
+      { id: 'comparator', tab: 'moat' },
       { id: 'spec-lab', tab: 'spec' }
     ];
 
@@ -702,6 +728,7 @@
     initOdometerReel();
     initDraggablePlayground();
     initCommandPaletteShortcuts();
+    initSplitComparator();
     initCircularMaskReveal();
     initTextScramble();
     initVideoOptimizer();
