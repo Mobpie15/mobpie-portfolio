@@ -40,19 +40,26 @@
     return;
   }
 
-  // Lighting (Studio Rim Lighting for polished luxury reflections)
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  // Lighting: Studio Specular Setup (Titanium Key + Cashmere Rim + Slate Fill)
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
   scene.add(ambientLight);
 
-  const keyLight = new THREE.DirectionalLight(0xd4af37, 2.2); // Warm Champagne Gold
-  keyLight.position.set(5, 6, 4);
+  // Key Titanium Specular Light
+  const keyLight = new THREE.DirectionalLight(0xf2f4f8, 3.2);
+  keyLight.position.set(6, 8, 5);
   scene.add(keyLight);
 
-  const rimLight = new THREE.DirectionalLight(0xe8e4dc, 1.8); // Polished Platinum
-  rimLight.position.set(-5, -4, -3);
+  // Rim Cashmere Champagne Light
+  const rimLight = new THREE.DirectionalLight(0xe8dcc4, 2.4);
+  rimLight.position.set(-6, -4, -4);
   scene.add(rimLight);
 
-  const centerPointLight = new THREE.PointLight(0xd4af37, 1.5, 8);
+  // Fill Slate Ambient (Deep Contrast)
+  const fillLight = new THREE.DirectionalLight(0x283042, 1.2);
+  fillLight.position.set(0, -6, 2);
+  scene.add(fillLight);
+
+  const centerPointLight = new THREE.PointLight(0xdfcfb3, 1.8, 10);
   centerPointLight.position.set(0, 0, 0);
   scene.add(centerPointLight);
 
@@ -61,35 +68,38 @@
   scene.add(sculptureGroup);
 
   // -------------------------------------------------------------------------
-  // LAYER 1: Liquid Obsidian & Gold Shader Sphere (GPU Wave Displaced)
+  // LAYER 1: Liquid Mercury & Obsidian Shader Sphere (GPU Wave Displaced)
   // -------------------------------------------------------------------------
   const coreRadius = isMobile ? 1.25 : 1.48;
   const coreGeo = new THREE.SphereGeometry(coreRadius, 64, 64);
 
   const customUniforms = {
     uTime: { value: 0 },
-    uBass: { value: 0 }
+    uBass: { value: 0 },
+    uVelocity: { value: 0 }
   };
 
   const coreMat = new THREE.MeshPhysicalMaterial({
-    color: 0x09090d,
-    emissive: 0x221a08,
-    emissiveIntensity: 0.45,
-    metalness: 0.92,
-    roughness: 0.16,
+    color: 0x0a0c12,
+    emissive: 0x141722,
+    emissiveIntensity: 0.35,
+    metalness: 0.96,
+    roughness: 0.08,
     clearcoat: 1.0,
-    clearcoatRoughness: 0.08,
-    reflectivity: 0.95
+    clearcoatRoughness: 0.04,
+    reflectivity: 0.98
   });
 
   // Inject GPU Vertex Shader Harmonic Wave Displacement
   coreMat.onBeforeCompile = function (shader) {
     shader.uniforms.uTime = customUniforms.uTime;
     shader.uniforms.uBass = customUniforms.uBass;
+    shader.uniforms.uVelocity = customUniforms.uVelocity;
 
     shader.vertexShader = `
       uniform float uTime;
       uniform float uBass;
+      uniform float uVelocity;
       ${shader.vertexShader}
     `;
 
@@ -97,9 +107,9 @@
       '#include <begin_vertex>',
       `
       #include <begin_vertex>
-      float wave1 = sin(transformed.x * 2.6 + uTime * 2.2) * cos(transformed.y * 2.6 + uTime * 1.8);
-      float wave2 = sin(transformed.z * 3.0 + uTime * 1.5) * cos(transformed.x * 3.0 + uTime * 2.0);
-      float displacement = (wave1 + wave2) * (0.075 + uBass * 0.15);
+      float wave1 = sin(transformed.x * 2.8 + uTime * 2.4 + uVelocity * 3.5) * cos(transformed.y * 2.8 + uTime * 2.0);
+      float wave2 = sin(transformed.z * 3.2 + uTime * 1.6) * cos(transformed.x * 3.2 + uTime * 2.2);
+      float displacement = (wave1 + wave2) * (0.07 + uBass * 0.14 + uVelocity * 0.12);
       transformed += normal * displacement;
       `
     );
@@ -109,27 +119,27 @@
   sculptureGroup.add(innerCore);
 
   // -------------------------------------------------------------------------
-  // LAYER 2: Outer Astrolabe Precision Rings (Brushed Platinum & Champagne Gold)
+  // LAYER 2: Outer Astrolabe Precision Rings (Liquid Mercury & Cashmere Silk)
   // -------------------------------------------------------------------------
-  const ringGeo1 = new THREE.TorusGeometry(isMobile ? 2.1 : 2.45, 0.016, 16, 120);
+  const ringGeo1 = new THREE.TorusGeometry(isMobile ? 2.1 : 2.45, 0.015, 16, 120);
   const ringMat1 = new THREE.MeshStandardMaterial({
-    color: 0xd4af37,
-    metalness: 0.95,
-    roughness: 0.2,
-    emissive: 0x3d3216,
-    emissiveIntensity: 0.25
+    color: 0xf0f3f8,
+    metalness: 0.98,
+    roughness: 0.1,
+    emissive: 0x1a202c,
+    emissiveIntensity: 0.2
   });
   const orbitRing1 = new THREE.Mesh(ringGeo1, ringMat1);
   orbitRing1.rotation.x = Math.PI / 3;
   sculptureGroup.add(orbitRing1);
 
-  const ringGeo2 = new THREE.TorusGeometry(isMobile ? 2.3 : 2.7, 0.012, 16, 120);
+  const ringGeo2 = new THREE.TorusGeometry(isMobile ? 2.3 : 2.7, 0.011, 16, 120);
   const ringMat2 = new THREE.MeshStandardMaterial({
-    color: 0xe8e4dc,
-    metalness: 0.9,
-    roughness: 0.25,
+    color: 0xdfcfb3,
+    metalness: 0.92,
+    roughness: 0.2,
     transparent: true,
-    opacity: 0.75
+    opacity: 0.7
   });
   const orbitRing2 = new THREE.Mesh(ringGeo2, ringMat2);
   orbitRing2.rotation.y = Math.PI / 4;
@@ -155,10 +165,10 @@
 
   particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
   const particleMat = new THREE.PointsMaterial({
-    color: 0xd4af37,
-    size: 0.045,
+    color: 0xe2e6f0,
+    size: 0.04,
     transparent: true,
-    opacity: 0.65,
+    opacity: 0.55,
     blending: THREE.AdditiveBlending
   });
   const stardust = new THREE.Points(particleGeo, particleMat);
@@ -173,6 +183,11 @@
   let velocityX = 0;
   let velocityY = 0;
 
+  let lastPointerTime = performance.now();
+  let lastPointerX = 0;
+  let lastPointerY = 0;
+  let cursorSpeed = 0;
+
   // Normalized cursor target tilt
   let targetTiltX = 0;
   let targetTiltY = 0;
@@ -186,12 +201,20 @@
   }
 
   function onPointerMove(clientX, clientY) {
+    const now = performance.now();
+    const dt = Math.max(now - lastPointerTime, 16);
+    const dist = Math.hypot(clientX - lastPointerX, clientY - lastPointerY);
+    cursorSpeed = Math.min(dist / dt, 1.4);
+    lastPointerX = clientX;
+    lastPointerY = clientY;
+    lastPointerTime = now;
+
     // Subtle perspective cursor follow
     const rect = canvas.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    targetTiltX = ((clientY - cy) / rect.height) * 0.4;
-    targetTiltY = ((clientX - cx) / rect.width) * 0.4;
+    targetTiltX = ((clientY - cy) / rect.height) * 0.45;
+    targetTiltY = ((clientX - cx) / rect.width) * 0.45;
 
     if (!isDragging) return;
     const deltaX = clientX - prevMouseX;
@@ -199,8 +222,8 @@
     prevMouseX = clientX;
     prevMouseY = clientY;
 
-    velocityY = deltaX * 0.006;
-    velocityX = deltaY * 0.006;
+    velocityY = deltaX * 0.007;
+    velocityX = deltaY * 0.007;
 
     sculptureGroup.rotation.y += velocityY;
     sculptureGroup.rotation.x += velocityX;
@@ -258,9 +281,13 @@
     const targetBass = audio.isPlaying ? audio.bass : 0.025;
     smoothedBass += (targetBass - smoothedBass) * 0.16;
 
+    // Dampen cursor speed
+    cursorSpeed *= 0.93;
+
     // Update GPU vertex shader uniforms
     customUniforms.uTime.value = time;
     customUniforms.uBass.value = smoothedBass;
+    customUniforms.uVelocity.value = cursorSpeed;
 
     // Inertia decay if not dragging
     if (!isDragging) {
