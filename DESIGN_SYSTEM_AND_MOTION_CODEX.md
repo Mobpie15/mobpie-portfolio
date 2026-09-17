@@ -227,8 +227,186 @@ Based on research of **MotionSites.ai**, **DesignRocket.io**, and award-winning 
 
 ### 8. The Scroll-Scrubbed Canvas Exploder
 - **Visuals**: High-resolution 3D model or image sequence rendered to a `<canvas>` element.
-- **Motion**: As user scrolls down the page, the camera orbits 360 degrees around the product while internal components separate (exploded CAD view).
-- **Usage**: Physical luxury hardware, timepieces, automotive, and flagship electronics.
+---
+
+## ⚡ PART III: THE ANIMMASTER & SKIPER UI COMPONENT ARSENAL (300+ PRO PATTERNS & CODE BLUEPRINTS)
+
+Extracted directly from deep architectural audits of **Animmaster Lib (`https://animmasterlib.dev/`)** and **Skiper UI (`https://skiper-ui.com/`)**. These components represent the highest tier of modern, uncommon, and award-grade frontend engineering:
+
+### 1. THE 14 ANIMMASTER PRO COMPONENT CATEGORIES
+
+#### 01. Scroll Animations (Scrubbed & Triggered)
+- **Mechanics**:
+  - `ScrollTrigger` / `IntersectionObserver` with normalized scroll progress `p = (scrollY - top) / (height - viewportHeight)`.
+  - **Clip-Path Unveil**: Reveal images or sections using dynamic inset polygons:
+    ```css
+    clip-path: inset(0% 0% 0% 0% round 16px);
+    transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    ```
+  - **Layered Parallax Offset**: Move background elements at `speed * scrollY` (e.g. `transform: translateY(calc(var(--scroll-y) * -0.15px))`).
+  - **Horizontal Kinetic Rail**: Pin the section in place while horizontally transforming a continuous strip `translateX(-100vw * progress)`.
+
+#### 02. Mouse Effects (Tactile Cursor Dynamics)
+- **Mechanics**:
+  - **Dual-Node Cursor**: A 5px instantaneous center dot + an outer 32px spring-interpolated ring (`lerp(current, target, 0.18)`).
+  - **Spotlight Radial Gradient Follower**: Mouse coordinates dynamically inject `--x` and `--y` CSS variables onto cards:
+    ```css
+    background: radial-gradient(circle 350px at var(--mouse-x) var(--mouse-y), rgba(212, 255, 0, 0.12), transparent 80%);
+    ```
+  - **Contextual Cursor Morphing**: Ring expands to 74px with an inner uppercase text tag (`DRAG`, `VIEW`, `SOUND`, `EXPLORE`) when hovering interactive viewports.
+
+#### 03. Page Transitions (Cinematic Curtain & Portals)
+- **Mechanics**:
+  - Fullscreen wipe panel (`scaleY(1) -> scaleY(0)` with `transform-origin: top` using `cubic-bezier(0.76, 0, 0.24, 1)`).
+  - Staggered monogram scale-down (`scale: 1.15 -> 1.0`, `opacity: 0 -> 1`) before retracting the wipe panel to guarantee 0ms blank page flash.
+
+#### 04. Grid Animations (Bento 3D Tilt & Masonry Expansion)
+- **Mechanics**:
+  - **Card 3D Perspective Tilt**:
+    ```javascript
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `perspective(1000px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg) translateZ(10px)`;
+    ```
+  - Masonry grid cards expand width/height with smooth CSS grid transitions or FLIP (First, Last, Invert, Play) animations.
+
+#### 05. Sliders (Kinetic Carousels & Infinite Tickers)
+- **Mechanics**:
+  - **Infinite Marquee Ticker**: Continuous CSS translation with seamless duplicated track:
+    ```css
+    @keyframes ticker-flow {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    ```
+  - **Draggable Friction Track**: Track velocity during mouse drag, apply decay factor (`velocity *= 0.92`) on release to create organic momentum.
+
+#### 06. Hero Animations (Split-Text Cascades & Telemetry HUDs)
+- **Mechanics**:
+  - **Split-Text Stagger**: Wrap each word or character in an `overflow: hidden` span, then translateY from `110%` to `0%` with staggered delays (`index * 35ms`).
+  - **Live Telemetry HUD**: Atomic clocks (IST UTC+5:30), live FPS telemetry meters, and edge latency monitors (`<380ms`) embedded directly in the hero border frame.
+
+#### 07. WebGL Shaders (Liquid Distortion & Chromatic Aberration)
+- **Mechanics**:
+  - Custom Three.js fragment shader displacing texture coordinates with Simplex/Perlin noise:
+    ```glsl
+    vec2 distortedUV = vUv + vec2(sin(vUv.y * 10.0 + uTime) * 0.02 * uVelocity);
+    vec4 color = texture2D(uTexture, distortedUV);
+    ```
+  - **Chromatic Aberration on Drag**: Split RGB channels proportionally to cursor velocity:
+    ```glsl
+    float r = texture2D(uTexture, distortedUV + vec2(uDistort, 0.0)).r;
+    float g = texture2D(uTexture, distortedUV).g;
+    float b = texture2D(uTexture, distortedUV - vec2(uDistort, 0.0)).b;
+    gl_FragColor = vec4(r, g, b, 1.0);
+    ```
+
+#### 08. Background Animations (Low-Overhead Atmosphere)
+- **Mechanics**:
+  - **Fractal Noise Film Grain**: Embedded inline SVG turbulence filter with 3.5% opacity (0kb network payload, hardware-accelerated).
+  - **Radial Breathing Mesh**: Subtle radial gradients animating position and opacity on 12-second harmonic cycles.
+
+#### 09. Navigation Menus (Floating HUD & Kinetic Drawer)
+- **Mechanics**:
+  - **Auto-Shrink Navbar**: Header container scales from `76px` down to `64px` on scroll > 30px with backdrop blur (`blur(20px)`).
+  - **Mobile Dock Bar**: Fixed bottom app dock with instant thumb reachability and active scrollspy indicator.
+
+#### 10. Hover Effects (Magnetic Pull & Liquid Sweep)
+- **Mechanics**:
+  - **Dennis Snellenberg Magnetic Pull**:
+    ```javascript
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btn.style.transform = `translate(${x * 0.28}px, ${y * 0.28}px)`;
+    ```
+  - **Liquid Button Fill**: Absolute positioned `::before` pseudo-element expanding with a high-tension cubic bezier.
+
+#### 11. Text Animations (Odometer Tickers & Electric Shimmers)
+- **Mechanics**:
+  - **Electric Shimmer Sweep**: Multi-color linear gradient with background clip and continuous position sweep:
+    ```css
+    background: linear-gradient(135deg, #d4ff00 0%, #ffffff 35%, #d4ff00 70%);
+    background-size: 240% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: volt-shimmer 7s linear infinite;
+    ```
+  - **Scramble / Decryption Text**: Loop through random glyphs (`!<>-_\\/[]{}—=+*^?#________`) before revealing actual letters.
+
+#### 12. 3D Animations (Physical Materials & Gyroscopes)
+- **Mechanics**:
+  - Obsidian Chrome `MeshPhysicalMaterial` (`roughness: 0.12`, `metalness: 0.95`, `clearcoat: 1.0`).
+  - Cursor-following specular point light (`light.position.x = mouseNorm.x * 7 + 4`).
+  - Gyroscopic counter-rotating astrolabe rings.
+
+#### 13. Physics Effects (Spring Mechanics & Gravitational Pull)
+- **Mechanics**:
+  - Spring-damper integration: `velocity += (target - current) * tension - velocity * friction`.
+  - Swarm particle attraction: Particles accelerate toward mouse coordinates with inverse-square gravity falloff.
+
+#### 14. SVG Animations (Stroke Drawing & Live Equalizers)
+- **Mechanics**:
+  - Dynamic `stroke-dasharray` and `stroke-dashoffset` for animated geometric drawings.
+  - Live sound visualizer equalizer bars animating with CSS keyframes or Web Audio API FFT byte data.
+
+---
+
+### 2. THE 8 SKIPER UI UNCOMMON ARCHETYPES
+
+#### A. The Odometer Character Reel (Skiper Rolling Hero)
+- **Concept**: Numbers and title characters roll vertically into view like a mechanical slot machine or flight arrival board.
+- **Code Blueprint**:
+  ```html
+  <div class="reel-char-box" style="height: 1em; overflow: hidden; display: inline-block;">
+    <div class="reel-col" style="transform: translateY(-4em); transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
+      <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span>
+    </div>
+  </div>
+  ```
+
+#### B. The Freeform Draggable Canvas ("Things Drag & Scroll")
+- **Concept**: A canvas where products, notes, or case studies can be freely dragged, flicked with inertia, and reordered on an infinite grid.
+- **Physics**: Track drag velocity vector `(vx, vy)`; on mouse up, increment `posX += vx`, decaying `vx *= 0.94` per frame until `|v| < 0.01`.
+
+#### C. Mouse-Follow Circular Image Reveal Mask
+- **Concept**: Two overlapping images or states (e.g. Wireframe vs Final UI) where a circular mask follows the user's cursor:
+  ```css
+  .reveal-layer {
+    clip-path: circle(120px at var(--mouse-x) var(--mouse-y));
+    transition: clip-path 0.05s ease-out;
+  }
+  ```
+
+#### D. Animated Border Beam / Perimeter Ray Tracer
+- **Concept**: A glowing laser beam travels around the 1px card border continuously:
+  ```css
+  .border-beam-card {
+    position: relative;
+    overflow: hidden;
+  }
+  .border-beam-card::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: conic-gradient(from 0deg at 50% 50%, transparent 70%, var(--accent-volt) 100%);
+    border-radius: inherit;
+    animation: beam-rotate 4s linear infinite;
+    z-index: -1;
+  }
+  ```
+
+#### E. Elastic Floating Avatar / Member Stack
+- **Concept**: Overlapping circular items that dynamically spread out with spring physics when hovered, exposing detail badges.
+
+#### F. Glassmorphic Command Palette (`Cmd + K` HUD)
+- **Concept**: Ultra-fast keyboard search overlay with frosted glass backdrop (`backdrop-filter: blur(24px)`), instant fuzzy search, and keyboard arrow navigation.
+
+#### G. Kinetic Oversized Typography Nav Drawer with Dynamic Hover Tooltips
+- **Concept**: Oversized display links (e.g. 5rem uppercase) that reveal bracketed metadata pills (`[01 // WEAPONS]`, `[SUB-380MS]`) floating dynamically alongside the cursor on hover.
+
+#### H. 3D Parallax Tilt with Depth Layering
+- **Concept**: Combining CSS `transform-style: preserve-3d` with child elements having `transform: translateZ(40px)`, creating genuine spatial separation inside cards during mouse tilt.
 
 ---
 
@@ -240,3 +418,5 @@ Based on research of **MotionSites.ai**, **DesignRocket.io**, and award-winning 
 5. **Are emojis strictly banned from buttons and headings?** (Vector SVGs only).
 6. **Does the 3D canvas pause when scrolled off-screen?** (Zero PC lag, 60 FPS guaranteed).
 7. **Is there a frictionless path to high-ticket conversion?** (Direct VIP WhatsApp hotline).
+8. **Are interactive components infused with Animmaster & Skiper UI dynamics?** (Magnetic buttons, live telemetry, liquid shimmers, tactile micro-haptics).
+
