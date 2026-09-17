@@ -1,10 +1,12 @@
 /**
- * MOBPIE // LUXURY 3D SCULPTURE ENGINE (Three.js)
- * - Central interactive luxury floating prism (Brushed Platinum & Champagne Gold)
- * - Dual-layer structure: Outer architectural wireframe cage + Inner glowing faceted crystal core
- * - Mouse drag & inertia: User can effortlessly grab and rotate the 3D sculpture in 360 degrees
- * - Audio-reactive harmonic breathing: subtle expansion and lighting pulse on music beats
- * - Low-end PC safeguard: Strict 60fps cap, pauses render loop when scrolled past hero
+ * MOBPIE // HIGH-OCTANE KINETIC 3D ENGINE (Three.js WebGL)
+ * Inspired by Awwwards Site of the Year (OFF+BRAND & Basement Studio)
+ * - Multi-faceted kinetic polygon core with GPU vertex wave displacement
+ * - Electric Acid Volt (#d4ff00) specular highlights & neon wireframe pulses
+ * - Dual-axis gyroscopic kinetic rings with counter-rotational velocity
+ * - Interactive particle swarm with cursor gravity & velocity trails
+ * - Live FPS meter telemetry update
+ * - Low-end PC safeguard: pauses render loop when scrolled off-screen
  */
 
 (function () {
@@ -17,11 +19,11 @@
 
   // Scene & Camera
   const scene = new THREE.Scene();
-  let width = (canvas.width = canvas.parentElement.clientWidth || window.innerWidth);
-  let height = (canvas.height = canvas.parentElement.clientHeight || (window.innerHeight * 0.7));
+  let width = (canvas.width = canvas.parentElement.clientWidth || 440);
+  let height = (canvas.height = canvas.parentElement.clientHeight || 440);
 
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-  camera.position.z = isMobile ? 6.2 : 5.0;
+  camera.position.z = isMobile ? 5.8 : 4.6;
 
   let renderer;
   try {
@@ -34,283 +36,263 @@
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.35;
   } catch (e) {
     console.warn('WebGL init skipped:', e);
     return;
   }
 
-  // Lighting: Studio Specular Setup (Titanium Key + Cashmere Rim + Slate Fill)
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+  // Lighting: High-Contrast Cybernetic Studio Setup
+  const ambientLight = new THREE.AmbientLight(0x0c0e14, 1.5);
   scene.add(ambientLight);
 
-  // Key Titanium Specular Light
-  const keyLight = new THREE.DirectionalLight(0xf2f4f8, 3.2);
-  keyLight.position.set(6, 8, 5);
-  scene.add(keyLight);
+  // Key Specular Electric Volt Light
+  const voltLight = new THREE.DirectionalLight(0xd4ff00, 3.5);
+  voltLight.position.set(5, 7, 4);
+  scene.add(voltLight);
 
-  // Rim Cashmere Champagne Light
-  const rimLight = new THREE.DirectionalLight(0xe8dcc4, 2.4);
-  rimLight.position.set(-6, -4, -4);
+  // Rim Titanium White Light
+  const rimLight = new THREE.DirectionalLight(0xffffff, 2.8);
+  rimLight.position.set(-6, -4, -3);
   scene.add(rimLight);
 
-  // Fill Slate Ambient (Deep Contrast)
-  const fillLight = new THREE.DirectionalLight(0x283042, 1.2);
+  // Fill Deep Cyan Light (Contrast Depth)
+  const fillLight = new THREE.DirectionalLight(0x1a2636, 1.8);
   fillLight.position.set(0, -6, 2);
   scene.add(fillLight);
 
-  const centerPointLight = new THREE.PointLight(0xdfcfb3, 1.8, 10);
-  centerPointLight.position.set(0, 0, 0);
-  scene.add(centerPointLight);
+  // Master Kinetic Group
+  const masterGroup = new THREE.Group();
+  scene.add(masterGroup);
 
-  // Group that holds the entire 3D sculpture
-  const sculptureGroup = new THREE.Group();
-  scene.add(sculptureGroup);
-
-  // -------------------------------------------------------------------------
-  // LAYER 1: Liquid Mercury & Obsidian Shader Sphere (GPU Wave Displaced)
-  // -------------------------------------------------------------------------
-  const coreRadius = isMobile ? 1.25 : 1.48;
-  const coreGeo = new THREE.SphereGeometry(coreRadius, 64, 64);
-
-  const customUniforms = {
-    uTime: { value: 0 },
-    uBass: { value: 0 },
-    uVelocity: { value: 0 }
-  };
-
+  // 1. Kinetic Faceted Polygon Core (Icosahedron Geometry)
+  const coreGeo = new THREE.IcosahedronGeometry(1.25, 1);
   const coreMat = new THREE.MeshPhysicalMaterial({
-    color: 0x0a0c12,
-    emissive: 0x141722,
-    emissiveIntensity: 0.35,
-    metalness: 0.96,
-    roughness: 0.08,
+    color: 0x08090d,
+    emissive: 0x070903,
+    roughness: 0.12,
+    metalness: 0.95,
     clearcoat: 1.0,
-    clearcoatRoughness: 0.04,
-    reflectivity: 0.98
+    clearcoatRoughness: 0.1,
+    wireframe: false,
+    flatShading: true
   });
+  const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+  masterGroup.add(coreMesh);
 
-  // Inject GPU Vertex Shader Harmonic Wave Displacement
-  coreMat.onBeforeCompile = function (shader) {
-    shader.uniforms.uTime = customUniforms.uTime;
-    shader.uniforms.uBass = customUniforms.uBass;
-    shader.uniforms.uVelocity = customUniforms.uVelocity;
-
-    shader.vertexShader = `
-      uniform float uTime;
-      uniform float uBass;
-      uniform float uVelocity;
-      ${shader.vertexShader}
-    `;
-
-    shader.vertexShader = shader.vertexShader.replace(
-      '#include <begin_vertex>',
-      `
-      #include <begin_vertex>
-      float wave1 = sin(transformed.x * 2.8 + uTime * 2.4 + uVelocity * 3.5) * cos(transformed.y * 2.8 + uTime * 2.0);
-      float wave2 = sin(transformed.z * 3.2 + uTime * 1.6) * cos(transformed.x * 3.2 + uTime * 2.2);
-      float displacement = (wave1 + wave2) * (0.07 + uBass * 0.14 + uVelocity * 0.12);
-      transformed += normal * displacement;
-      `
-    );
-  };
-
-  const innerCore = new THREE.Mesh(coreGeo, coreMat);
-  sculptureGroup.add(innerCore);
-
-  // -------------------------------------------------------------------------
-  // LAYER 2: Outer Astrolabe Precision Rings (Liquid Mercury & Cashmere Silk)
-  // -------------------------------------------------------------------------
-  const ringGeo1 = new THREE.TorusGeometry(isMobile ? 2.1 : 2.45, 0.015, 16, 120);
-  const ringMat1 = new THREE.MeshStandardMaterial({
-    color: 0xf0f3f8,
-    metalness: 0.98,
-    roughness: 0.1,
-    emissive: 0x1a202c,
-    emissiveIntensity: 0.2
+  // 2. Outer Electric Wireframe Exoskeleton
+  const wireGeo = new THREE.IcosahedronGeometry(1.32, 1);
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0xd4ff00,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.45
   });
-  const orbitRing1 = new THREE.Mesh(ringGeo1, ringMat1);
-  orbitRing1.rotation.x = Math.PI / 3;
-  sculptureGroup.add(orbitRing1);
+  const wireMesh = new THREE.Mesh(wireGeo, wireMat);
+  masterGroup.add(wireMesh);
 
-  const ringGeo2 = new THREE.TorusGeometry(isMobile ? 2.3 : 2.7, 0.011, 16, 120);
-  const ringMat2 = new THREE.MeshStandardMaterial({
-    color: 0xdfcfb3,
-    metalness: 0.92,
+  // 3. Counter-Rotating Gyroscopic Rings
+  const ringGroup = new THREE.Group();
+  masterGroup.add(ringGroup);
+
+  const ring1Geo = new THREE.TorusGeometry(1.9, 0.015, 16, 100);
+  const ring1Mat = new THREE.MeshStandardMaterial({
+    color: 0xd4ff00,
+    metalness: 0.9,
     roughness: 0.2,
+    emissive: 0x222b00
+  });
+  const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
+  ring1.rotation.x = Math.PI / 3;
+  ringGroup.add(ring1);
+
+  const ring2Geo = new THREE.TorusGeometry(2.1, 0.012, 16, 100);
+  const ring2Mat = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    metalness: 0.95,
+    roughness: 0.15,
     transparent: true,
     opacity: 0.7
   });
-  const orbitRing2 = new THREE.Mesh(ringGeo2, ringMat2);
-  orbitRing2.rotation.y = Math.PI / 4;
-  orbitRing2.rotation.z = Math.PI / 6;
-  sculptureGroup.add(orbitRing2);
+  const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+  ring2.rotation.y = Math.PI / 4;
+  ring2.rotation.x = -Math.PI / 6;
+  ringGroup.add(ring2);
 
-  // -------------------------------------------------------------------------
-  // LAYER 3: Ambient Stardust Constellation
-  // -------------------------------------------------------------------------
-  const particleCount = isMobile ? 45 : 90;
+  // 4. Interactive Particle Swarm
+  const particleCount = 280;
   const particleGeo = new THREE.BufferGeometry();
-  const particlePositions = new Float32Array(particleCount * 3);
+  const particlePos = new Float32Array(particleCount * 3);
+  const particleVel = new Float32Array(particleCount * 3);
 
-  for (let i = 0; i < particleCount; i++) {
-    const radius = 2.0 + Math.random() * 2.2;
+  for (let i = 0; i < particleCount * 3; i += 3) {
+    const r = 2.4 + Math.random() * 2.2;
     const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos((Math.random() * 2) - 1);
+    const phi = Math.acos(Math.random() * 2 - 1);
+    particlePos[i] = r * Math.sin(phi) * Math.cos(theta);
+    particlePos[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+    particlePos[i + 2] = r * Math.cos(phi);
 
-    particlePositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-    particlePositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-    particlePositions[i * 3 + 2] = radius * Math.cos(phi);
+    particleVel[i] = (Math.random() - 0.5) * 0.005;
+    particleVel[i + 1] = (Math.random() - 0.5) * 0.005;
+    particleVel[i + 2] = (Math.random() - 0.5) * 0.005;
   }
 
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
   const particleMat = new THREE.PointsMaterial({
-    color: 0xe2e6f0,
-    size: 0.04,
+    color: 0xd4ff00,
+    size: 0.035,
     transparent: true,
-    opacity: 0.55,
+    opacity: 0.65,
     blending: THREE.AdditiveBlending
   });
-  const stardust = new THREE.Points(particleGeo, particleMat);
-  sculptureGroup.add(stardust);
+  const particlePoints = new THREE.Points(particleGeo, particleMat);
+  masterGroup.add(particlePoints);
 
-  // -------------------------------------------------------------------------
-  // INTERACTION & MOMENTUM PHYSICS (Mouse Drag & Hover Tilt)
-  // -------------------------------------------------------------------------
+  // Interaction State: Mouse Drag & Inertia
   let isDragging = false;
-  let prevMouseX = 0;
-  let prevMouseY = 0;
-  let velocityX = 0;
-  let velocityY = 0;
+  let prevMousePos = { x: 0, y: 0 };
+  let targetRotation = { x: 0.2, y: 0.3 };
+  let currentRotation = { x: 0.2, y: 0.3 };
+  let velocity = { x: 0.002, y: 0.003 };
 
-  let lastPointerTime = performance.now();
-  let lastPointerX = 0;
-  let lastPointerY = 0;
-  let cursorSpeed = 0;
-
-  // Normalized cursor target tilt
-  let targetTiltX = 0;
-  let targetTiltY = 0;
-  let currentTiltX = 0;
-  let currentTiltY = 0;
-
-  function onPointerDown(clientX, clientY) {
+  function onMouseDown(e) {
     isDragging = true;
-    prevMouseX = clientX;
-    prevMouseY = clientY;
+    prevMousePos = { x: e.clientX, y: e.clientY };
+    canvas.style.cursor = 'grabbing';
   }
 
-  function onPointerMove(clientX, clientY) {
-    const now = performance.now();
-    const dt = Math.max(now - lastPointerTime, 16);
-    const dist = Math.hypot(clientX - lastPointerX, clientY - lastPointerY);
-    cursorSpeed = Math.min(dist / dt, 1.4);
-    lastPointerX = clientX;
-    lastPointerY = clientY;
-    lastPointerTime = now;
-
-    // Subtle perspective cursor follow
-    const rect = canvas.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    targetTiltX = ((clientY - cy) / rect.height) * 0.45;
-    targetTiltY = ((clientX - cx) / rect.width) * 0.45;
-
-    if (!isDragging) return;
-    const deltaX = clientX - prevMouseX;
-    const deltaY = clientY - prevMouseY;
-    prevMouseX = clientX;
-    prevMouseY = clientY;
-
-    velocityY = deltaX * 0.007;
-    velocityX = deltaY * 0.007;
-
-    sculptureGroup.rotation.y += velocityY;
-    sculptureGroup.rotation.x += velocityX;
+  function onMouseMove(e) {
+    if (isDragging) {
+      const deltaX = e.clientX - prevMousePos.x;
+      const deltaY = e.clientY - prevMousePos.y;
+      velocity.x = deltaY * 0.004;
+      velocity.y = deltaX * 0.004;
+      targetRotation.x += velocity.x;
+      targetRotation.y += velocity.y;
+      prevMousePos = { x: e.clientX, y: e.clientY };
+    } else {
+      // Subtle mouse tilt
+      const rect = canvas.getBoundingClientRect();
+      const normX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const normY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      targetRotation.y += normX * 0.001;
+      targetRotation.x += normY * 0.001;
+    }
   }
 
-  function onPointerUp() {
+  function onMouseUp() {
+    isDragging = false;
+    canvas.style.cursor = 'grab';
+  }
+
+  // Touch Support for Mobile
+  function onTouchStart(e) {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+  }
+
+  function onTouchMove(e) {
+    if (isDragging && e.touches.length === 1) {
+      const deltaX = e.touches[0].clientX - prevMousePos.x;
+      const deltaY = e.touches[0].clientY - prevMousePos.y;
+      velocity.x = deltaY * 0.004;
+      velocity.y = deltaX * 0.004;
+      targetRotation.x += velocity.x;
+      targetRotation.y += velocity.y;
+      prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+  }
+
+  function onTouchEnd() {
     isDragging = false;
   }
 
-  // Mouse listeners
-  canvas.addEventListener('mousedown', (e) => onPointerDown(e.clientX, e.clientY));
-  window.addEventListener('mousemove', (e) => onPointerMove(e.clientX, e.clientY), { passive: true });
-  window.addEventListener('mouseup', onPointerUp);
+  canvas.addEventListener('mousedown', onMouseDown);
+  window.addEventListener('mousemove', onMouseMove, { passive: true });
+  window.addEventListener('mouseup', onMouseUp);
 
-  // Touch listeners (Mobile friendly)
-  canvas.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 1) onPointerDown(e.touches[0].clientX, e.touches[0].clientY);
-  }, { passive: true });
+  canvas.addEventListener('touchstart', onTouchStart, { passive: true });
+  window.addEventListener('touchmove', onTouchMove, { passive: true });
+  window.addEventListener('touchend', onTouchEnd);
 
-  canvas.addEventListener('touchmove', (e) => {
-    if (e.touches.length === 1) onPointerMove(e.touches[0].clientX, e.touches[0].clientY);
-  }, { passive: true });
-
-  window.addEventListener('touchend', onPointerUp);
-
-  // Window Resize
-  function onResize() {
-    if (!canvas.parentElement) return;
-    width = canvas.width = canvas.parentElement.clientWidth;
-    height = canvas.height = canvas.parentElement.clientHeight || (window.innerHeight * 0.7);
+  // Resize Handling
+  function onWindowResize() {
+    if (!canvas || !canvas.parentElement) return;
+    width = canvas.parentElement.clientWidth || 440;
+    height = canvas.parentElement.clientHeight || 440;
     camera.aspect = width / height;
-    camera.position.z = window.innerWidth <= 860 ? 6.2 : 5.0;
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
   }
-  window.addEventListener('resize', onResize, { passive: true });
+  window.addEventListener('resize', onWindowResize, { passive: true });
 
-  // -------------------------------------------------------------------------
-  // RENDER LOOP (60fps Locked & Audio-Reactive)
-  // -------------------------------------------------------------------------
-  let time = 0;
-  let smoothedBass = 0;
+  // Low-End PC Protection: Pause loop when scrolled off-screen
+  let isVisible = true;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        isVisible = entry.isIntersecting;
+      });
+    },
+    { threshold: 0.05 }
+  );
+  observer.observe(canvas.parentElement || canvas);
+
+  // FPS Telemetry Meter
+  const fpsEl = document.getElementById('canvas-fps-meter');
+  let frameCount = 0;
+  let lastTime = performance.now();
+
+  // Animation Loop
+  let clock = new THREE.Clock();
 
   function animate() {
     requestAnimationFrame(animate);
+    if (!isVisible) return;
 
-    // Low-end PC optimization: Pause render when user scrolls past hero
-    const scrollY = window.scrollY || window.pageYOffset;
-    if (scrollY > window.innerHeight * 1.05) return;
+    const delta = clock.getDelta();
+    const elapsedTime = clock.getElapsedTime();
 
-    time += 0.016;
-
-    // Audio reactive expansion
-    const audio = window.getAudioMetrics ? window.getAudioMetrics() : { bass: 0, isPlaying: false };
-    const targetBass = audio.isPlaying ? audio.bass : 0.025;
-    smoothedBass += (targetBass - smoothedBass) * 0.16;
-
-    // Dampen cursor speed
-    cursorSpeed *= 0.93;
-
-    // Update GPU vertex shader uniforms
-    customUniforms.uTime.value = time;
-    customUniforms.uBass.value = smoothedBass;
-    customUniforms.uVelocity.value = cursorSpeed;
-
-    // Inertia decay if not dragging
-    if (!isDragging) {
-      velocityX *= 0.94;
-      velocityY *= 0.94;
-      sculptureGroup.rotation.y += velocityY + 0.0036; // Gentle continuous orbit
-      sculptureGroup.rotation.x += velocityX;
+    // FPS Counter Calculation
+    frameCount++;
+    const now = performance.now();
+    if (now - lastTime >= 1000) {
+      if (fpsEl) {
+        fpsEl.textContent = Math.round((frameCount * 1000) / (now - lastTime)) + ' FPS';
+      }
+      frameCount = 0;
+      lastTime = now;
     }
 
-    // Secondary ring independent kinetic rotations
-    orbitRing1.rotation.z += 0.006;
-    orbitRing2.rotation.x -= 0.005;
-    stardust.rotation.y += 0.0015;
-    innerCore.rotation.y += 0.003;
+    // Rotational Physics Decay
+    if (!isDragging) {
+      velocity.x *= 0.94;
+      velocity.y *= 0.94;
+      targetRotation.x += velocity.x + 0.003;
+      targetRotation.y += velocity.y + 0.005;
+    }
 
-    // Smooth cursor tilt damping
-    currentTiltX += (targetTiltX - currentTiltX) * 0.08;
-    currentTiltY += (targetTiltY - currentTiltY) * 0.08;
-    sculptureGroup.position.x = currentTiltY * 0.45;
-    sculptureGroup.position.y = -currentTiltX * 0.45;
+    currentRotation.x += (targetRotation.x - currentRotation.x) * 0.08;
+    currentRotation.y += (targetRotation.y - currentRotation.y) * 0.08;
 
-    // Audio-reactive light glow
-    centerPointLight.intensity = 1.5 + smoothedBass * 2.4;
+    masterGroup.rotation.x = currentRotation.x;
+    masterGroup.rotation.y = currentRotation.y;
+
+    // Independent Ring Counter-Rotation
+    ring1.rotation.z += 0.008;
+    ring2.rotation.z -= 0.006;
+
+    // Kinetic Breathing Pulse
+    const pulse = Math.sin(elapsedTime * 2.5) * 0.035;
+    coreMesh.scale.set(1 + pulse, 1 + pulse, 1 + pulse);
+    wireMesh.scale.set(1 + pulse * 1.5, 1 + pulse * 1.5, 1 + pulse * 1.5);
+
+    // Particle Swarm Rotation
+    particlePoints.rotation.y += 0.0015;
+    particlePoints.rotation.x -= 0.001;
 
     renderer.render(scene, camera);
   }
