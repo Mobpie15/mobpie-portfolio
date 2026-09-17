@@ -1,12 +1,13 @@
 /**
  * MOBPIE // HIGH-OCTANE KINETIC 3D ENGINE (Three.js WebGL)
- * Inspired by Awwwards Site of the Year (OFF+BRAND & Basement Studio)
- * - Multi-faceted kinetic polygon core with GPU vertex wave displacement
- * - Electric Acid Volt (#d4ff00) specular highlights & neon wireframe pulses
- * - Dual-axis gyroscopic kinetic rings with counter-rotational velocity
- * - Interactive particle swarm with cursor gravity & velocity trails
- * - Live FPS meter telemetry update
- * - Low-end PC safeguard: pauses render loop when scrolled off-screen
+ * Inspired by Awwwards Site of the Year 2025 (OFF+BRAND & Basement Studio)
+ * - Multi-faceted kinetic polygon core with metallic obsidian chrome finish
+ * - Dynamic mouse specular light tracking (sheen follows cursor in real-time)
+ * - Explosive wireframe exoskeleton expansion on user drag (kinetic burst)
+ * - Triple-axis counter-rotating gyroscopic astrolabe rings
+ * - Interactive particle swarm with cursor gravity attraction
+ * - Live real-time FPS telemetry meter
+ * - Hardware protection: IntersectionObserver pauses render loop when scrolled off-screen
  */
 
 (function () {
@@ -17,7 +18,7 @@
 
   const isMobile = window.innerWidth <= 860;
 
-  // Scene & Camera
+  // Scene & Camera Setup
   const scene = new THREE.Scene();
   let width = (canvas.width = canvas.parentElement.clientWidth || 440);
   let height = (canvas.height = canvas.parentElement.clientHeight || 440);
@@ -36,27 +37,27 @@
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
+    renderer.toneMappingExposure = 1.4;
   } catch (e) {
     console.warn('WebGL init skipped:', e);
     return;
   }
 
-  // Lighting: High-Contrast Cybernetic Studio Setup
-  const ambientLight = new THREE.AmbientLight(0x0c0e14, 1.5);
+  // Lighting: High-Contrast Dynamic Cybernetic Studio
+  const ambientLight = new THREE.AmbientLight(0x0c0e14, 1.6);
   scene.add(ambientLight);
 
-  // Key Specular Electric Volt Light
-  const voltLight = new THREE.DirectionalLight(0xd4ff00, 3.5);
+  // Dynamic Key Specular Volt Light (Tracks cursor in real-time)
+  const voltLight = new THREE.DirectionalLight(0xd4ff00, 3.8);
   voltLight.position.set(5, 7, 4);
   scene.add(voltLight);
 
-  // Rim Titanium White Light
-  const rimLight = new THREE.DirectionalLight(0xffffff, 2.8);
+  // Rim Titanium Specular Light
+  const rimLight = new THREE.DirectionalLight(0xffffff, 2.6);
   rimLight.position.set(-6, -4, -3);
   scene.add(rimLight);
 
-  // Fill Deep Cyan Light (Contrast Depth)
+  // Fill Cyan Light for Shadow Contrast
   const fillLight = new THREE.DirectionalLight(0x1a2636, 1.8);
   fillLight.position.set(0, -6, 2);
   scene.add(fillLight);
@@ -65,23 +66,22 @@
   const masterGroup = new THREE.Group();
   scene.add(masterGroup);
 
-  // 1. Kinetic Faceted Polygon Core (Icosahedron Geometry)
+  // 1. Faceted Polygon Core (Icosahedron Geometry)
   const coreGeo = new THREE.IcosahedronGeometry(1.25, 1);
   const coreMat = new THREE.MeshPhysicalMaterial({
-    color: 0x08090d,
-    emissive: 0x070903,
-    roughness: 0.12,
-    metalness: 0.95,
+    color: 0x07080a,
+    emissive: 0x050702,
+    roughness: 0.1,
+    metalness: 0.96,
     clearcoat: 1.0,
-    clearcoatRoughness: 0.1,
-    wireframe: false,
+    clearcoatRoughness: 0.08,
     flatShading: true
   });
   const coreMesh = new THREE.Mesh(coreGeo, coreMat);
   masterGroup.add(coreMesh);
 
   // 2. Outer Electric Wireframe Exoskeleton
-  const wireGeo = new THREE.IcosahedronGeometry(1.32, 1);
+  const wireGeo = new THREE.IcosahedronGeometry(1.34, 1);
   const wireMat = new THREE.MeshBasicMaterial({
     color: 0xd4ff00,
     wireframe: true,
@@ -91,11 +91,12 @@
   const wireMesh = new THREE.Mesh(wireGeo, wireMat);
   masterGroup.add(wireMesh);
 
-  // 3. Counter-Rotating Gyroscopic Rings
+  // 3. Triple-Axis Gyroscopic Astrolabe Rings
   const ringGroup = new THREE.Group();
   masterGroup.add(ringGroup);
 
-  const ring1Geo = new THREE.TorusGeometry(1.9, 0.015, 16, 100);
+  // Ring 1: Electric Volt Primary
+  const ring1Geo = new THREE.TorusGeometry(1.85, 0.016, 16, 100);
   const ring1Mat = new THREE.MeshStandardMaterial({
     color: 0xd4ff00,
     metalness: 0.9,
@@ -106,78 +107,99 @@
   ring1.rotation.x = Math.PI / 3;
   ringGroup.add(ring1);
 
-  const ring2Geo = new THREE.TorusGeometry(2.1, 0.012, 16, 100);
+  // Ring 2: Titanium Specular Counter-Ring
+  const ring2Geo = new THREE.TorusGeometry(2.05, 0.012, 16, 100);
   const ring2Mat = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     metalness: 0.95,
     roughness: 0.15,
     transparent: true,
-    opacity: 0.7
+    opacity: 0.75
   });
   const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
   ring2.rotation.y = Math.PI / 4;
   ring2.rotation.x = -Math.PI / 6;
   ringGroup.add(ring2);
 
+  // Ring 3: Outer Orbital Gimbal
+  const ring3Geo = new THREE.TorusGeometry(2.25, 0.008, 16, 100);
+  const ring3Mat = new THREE.MeshStandardMaterial({
+    color: 0x8a90a2,
+    metalness: 0.85,
+    roughness: 0.3,
+    transparent: true,
+    opacity: 0.4
+  });
+  const ring3 = new THREE.Mesh(ring3Geo, ring3Mat);
+  ring3.rotation.z = Math.PI / 5;
+  ringGroup.add(ring3);
+
   // 4. Interactive Particle Swarm
-  const particleCount = 280;
+  const particleCount = 320;
   const particleGeo = new THREE.BufferGeometry();
   const particlePos = new Float32Array(particleCount * 3);
-  const particleVel = new Float32Array(particleCount * 3);
+  const originalPos = new Float32Array(particleCount * 3);
 
   for (let i = 0; i < particleCount * 3; i += 3) {
     const r = 2.4 + Math.random() * 2.2;
     const theta = Math.random() * Math.PI * 2;
     const phi = Math.acos(Math.random() * 2 - 1);
-    particlePos[i] = r * Math.sin(phi) * Math.cos(theta);
-    particlePos[i + 1] = r * Math.sin(phi) * Math.sin(theta);
-    particlePos[i + 2] = r * Math.cos(phi);
+    const x = r * Math.sin(phi) * Math.cos(theta);
+    const y = r * Math.sin(phi) * Math.sin(theta);
+    const z = r * Math.cos(phi);
 
-    particleVel[i] = (Math.random() - 0.5) * 0.005;
-    particleVel[i + 1] = (Math.random() - 0.5) * 0.005;
-    particleVel[i + 2] = (Math.random() - 0.5) * 0.005;
+    particlePos[i] = originalPos[i] = x;
+    particlePos[i + 1] = originalPos[i + 1] = y;
+    particlePos[i + 2] = originalPos[i + 2] = z;
   }
 
   particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
   const particleMat = new THREE.PointsMaterial({
     color: 0xd4ff00,
-    size: 0.035,
+    size: 0.038,
     transparent: true,
-    opacity: 0.65,
+    opacity: 0.7,
     blending: THREE.AdditiveBlending
   });
   const particlePoints = new THREE.Points(particleGeo, particleMat);
   masterGroup.add(particlePoints);
 
-  // Interaction State: Mouse Drag & Inertia
+  // Interaction State: Mouse Drag, Velocity & Dynamic Lighting
   let isDragging = false;
   let prevMousePos = { x: 0, y: 0 };
   let targetRotation = { x: 0.2, y: 0.3 };
   let currentRotation = { x: 0.2, y: 0.3 };
   let velocity = { x: 0.002, y: 0.003 };
+  let mouseNorm = { x: 0, y: 0 };
 
   function onMouseDown(e) {
     isDragging = true;
     prevMousePos = { x: e.clientX, y: e.clientY };
     canvas.style.cursor = 'grabbing';
+    if (window.audioEngine) window.audioEngine.playActionThud();
   }
 
   function onMouseMove(e) {
+    const rect = canvas.getBoundingClientRect();
+    mouseNorm.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mouseNorm.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+
+    // Dynamic Specular Light Follower
+    voltLight.position.x = mouseNorm.x * 7 + 4;
+    voltLight.position.y = mouseNorm.y * 7 + 5;
+
     if (isDragging) {
       const deltaX = e.clientX - prevMousePos.x;
       const deltaY = e.clientY - prevMousePos.y;
-      velocity.x = deltaY * 0.004;
-      velocity.y = deltaX * 0.004;
+      velocity.x = deltaY * 0.005;
+      velocity.y = deltaX * 0.005;
       targetRotation.x += velocity.x;
       targetRotation.y += velocity.y;
       prevMousePos = { x: e.clientX, y: e.clientY };
     } else {
-      // Subtle mouse tilt
-      const rect = canvas.getBoundingClientRect();
-      const normX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const normY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-      targetRotation.y += normX * 0.001;
-      targetRotation.x += normY * 0.001;
+      // Subtle organic tilt
+      targetRotation.y += mouseNorm.x * 0.001;
+      targetRotation.x += mouseNorm.y * 0.001;
     }
   }
 
@@ -186,11 +208,12 @@
     canvas.style.cursor = 'grab';
   }
 
-  // Touch Support for Mobile
+  // Mobile Touch Support
   function onTouchStart(e) {
     if (e.touches.length === 1) {
       isDragging = true;
       prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      if (window.audioEngine) window.audioEngine.playActionThud();
     }
   }
 
@@ -198,8 +221,8 @@
     if (isDragging && e.touches.length === 1) {
       const deltaX = e.touches[0].clientX - prevMousePos.x;
       const deltaY = e.touches[0].clientY - prevMousePos.y;
-      velocity.x = deltaY * 0.004;
-      velocity.y = deltaX * 0.004;
+      velocity.x = deltaY * 0.005;
+      velocity.y = deltaX * 0.005;
       targetRotation.x += velocity.x;
       targetRotation.y += velocity.y;
       prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
@@ -229,7 +252,7 @@
   }
   window.addEventListener('resize', onWindowResize, { passive: true });
 
-  // Low-End PC Protection: Pause loop when scrolled off-screen
+  // Low-End PC Hardware Protection: Freeze loop off-screen
   let isVisible = true;
   const observer = new IntersectionObserver(
     (entries) => {
@@ -241,7 +264,7 @@
   );
   observer.observe(canvas.parentElement || canvas);
 
-  // FPS Telemetry Meter
+  // Live FPS Telemetry Meter
   const fpsEl = document.getElementById('canvas-fps-meter');
   let frameCount = 0;
   let lastTime = performance.now();
@@ -253,10 +276,9 @@
     requestAnimationFrame(animate);
     if (!isVisible) return;
 
-    const delta = clock.getDelta();
     const elapsedTime = clock.getElapsedTime();
 
-    // FPS Counter Calculation
+    // FPS Calculation
     frameCount++;
     const now = performance.now();
     if (now - lastTime >= 1000) {
@@ -269,8 +291,8 @@
 
     // Rotational Physics Decay
     if (!isDragging) {
-      velocity.x *= 0.94;
-      velocity.y *= 0.94;
+      velocity.x *= 0.93;
+      velocity.y *= 0.93;
       targetRotation.x += velocity.x + 0.003;
       targetRotation.y += velocity.y + 0.005;
     }
@@ -281,17 +303,26 @@
     masterGroup.rotation.x = currentRotation.x;
     masterGroup.rotation.y = currentRotation.y;
 
-    // Independent Ring Counter-Rotation
-    ring1.rotation.z += 0.008;
-    ring2.rotation.z -= 0.006;
+    // Independent Gyro Ring Rotations
+    ring1.rotation.z += 0.009;
+    ring2.rotation.z -= 0.007;
+    ring3.rotation.x += 0.005;
 
-    // Kinetic Breathing Pulse
+    // Kinetic Breathing & Explosive Drag Expansion
     const pulse = Math.sin(elapsedTime * 2.5) * 0.035;
     coreMesh.scale.set(1 + pulse, 1 + pulse, 1 + pulse);
-    wireMesh.scale.set(1 + pulse * 1.5, 1 + pulse * 1.5, 1 + pulse * 1.5);
+
+    if (isDragging) {
+      // Explosive Wireframe Expansion on Drag
+      wireMesh.scale.lerp(new THREE.Vector3(1.48, 1.48, 1.48), 0.15);
+      wireMat.opacity = 0.85;
+    } else {
+      wireMesh.scale.lerp(new THREE.Vector3(1.05 + pulse * 1.5, 1.05 + pulse * 1.5, 1.05 + pulse * 1.5), 0.1);
+      wireMat.opacity = 0.45;
+    }
 
     // Particle Swarm Rotation
-    particlePoints.rotation.y += 0.0015;
+    particlePoints.rotation.y += 0.002;
     particlePoints.rotation.x -= 0.001;
 
     renderer.render(scene, camera);
