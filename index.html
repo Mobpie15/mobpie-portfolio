@@ -3,590 +3,775 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MOBPIE // Digital Architect &bull; Creative Technologist</title>
-  <meta name="description" content="Awwwards-level full-bleed 3D WebGL flagships, luxury digital boutiques, and high-conversion startup engineering by Mobpie.">
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="shortcut icon" href="favicon.ico">
-
-  <!-- Curated Runway Typography -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
-
+  <title>Mobpie &bull; Independent Full-Stack Web Engineer &amp; Designer (India)</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png?v=3">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png?v=3">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=3">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png?v=3">
+  <link rel="shortcut icon" href="favicon.ico?v=3">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-  <!-- Full-Bleed Spatial 3D Canvas (Edge-to-Edge) -->
-  <canvas id="webgl-canvas" class="webgl-fixed-canvas"></canvas>
+  <!-- 3D WebGL Background (Delicate Wireframe & Particles - Zero Solid Blobs) -->
+  <canvas id="three-canvas"></canvas>
 
-  <!-- Sub-Atmospheric Tactile Film Grain -->
-  <div class="spatial-grain" aria-hidden="true"></div>
+  <!-- Live Audio Waveform Canvas -->
+  <canvas id="waveform-canvas"></canvas>
 
-  <!-- Magnetic Velocity Cursor -->
-  <div class="spatial-cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-  <div class="spatial-cursor-ring" id="cursor-ring" aria-hidden="true">
-    <span class="cursor-label font-mono"></span>
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav-bar">
+    <a href="#hero" class="brand-badge">
+      <img src="assets/images/favicon.png" alt="Mobpie" class="brand-avatar-mini">
+      <span class="brand-dot"></span>
+      <span>MOBPIE</span>
+    </a>
+
+    <!-- Desktop Pill Links (Hidden <= 860px) -->
+    <div class="top-actions">
+      <a href="#about" class="top-pill-link">About</a>
+      <a href="#capabilities" class="top-pill-link">Capabilities</a>
+      <a href="#remakes" class="top-pill-link">Demos</a>
+      <a href="#why-us" class="top-pill-link">Why Us?</a>
+      <a href="#contact" class="top-pill-link">Contact</a>
+      <button type="button" class="top-pill-link sound-toggle-btn" title="Toggle ambient music">
+        <div class="sound-eq-bars" aria-hidden="true">
+          <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
+        </div>
+        <span class="btn-label">SOUND: MUTED</span>
+      </button>
+    </div>
+
+    <!-- Mobile Header Quick Controls (Visible <= 860px) -->
+    <div class="mobile-header-actions">
+      <button type="button" class="mobile-sound-pill sound-toggle-btn" title="Toggle Sound">
+        <div class="sound-eq-bars" aria-hidden="true">
+          <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
+        </div>
+        <span class="btn-label">SOUND OFF</span>
+      </button>
+      <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle-btn" aria-label="Open Navigation Drawer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Slideout Navigation Drawer -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay"></div>
+  <aside id="mobile-nav-drawer" class="mobile-nav-drawer" aria-label="Mobile Navigation Menu">
+    <div class="drawer-header">
+      <div class="brand-badge">
+        <span class="brand-dot"></span>
+        <span>MOBPIE &bull; DIRECTORY</span>
+      </div>
+      <button type="button" id="mobile-drawer-close" class="drawer-close-btn" aria-label="Close Drawer">&times;</button>
+    </div>
+
+    <div class="drawer-links-list font-mono">
+      <a href="#hero" class="drawer-link">
+        <span class="link-num">00</span>
+        <span class="link-label">HOME &bull; SYSTEM TELEMETRY</span>
+      </a>
+      <a href="#about" class="drawer-link">
+        <span class="link-num">01</span>
+        <span class="link-label">ABOUT THE DESIGNER</span>
+      </a>
+      <a href="#capabilities" class="drawer-link">
+        <span class="link-num">02</span>
+        <span class="link-label">CAPABILITIES &amp; SKILLS</span>
+      </a>
+      <a href="#remakes" class="drawer-link">
+        <span class="link-num">03</span>
+        <span class="link-label">LIVE DEMOS (AMAZON &amp; FASHION)</span>
+      </a>
+      <a href="#why-us" class="drawer-link">
+        <span class="link-num">04</span>
+        <span class="link-label">WHY CHOOSE MOBPIE</span>
+      </a>
+      <a href="#contact" class="drawer-link">
+        <span class="link-num">05</span>
+        <span class="link-label">CONTACT &amp; DIRECT INQUIRY</span>
+      </a>
+    </div>
+
+    <div class="drawer-footer">
+      <a href="https://wa.me/918957420306?text=Hi%20Mobpie,%20I%20am%20viewing%20your%20portfolio%20on%20mobile%20and%20want%20to%20discuss%20a%20website%20project." target="_blank" rel="noopener noreferrer" class="drawer-wa-btn">
+        <span>DIRECT WHATSAPP (+91 89574 20306)</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="7" y1="17" x2="17" y2="7"></line>
+          <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </a>
+      <div class="drawer-meta font-mono">
+        <span>INDIA &bull; WORLDWIDE REMOTE</span>
+        <span>MOBPIEXD@GMAIL.COM</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Autoplay Unlock Banner -->
+  <div id="unlock-audio-banner" class="unlock-audio-banner" title="Tap to start ambient music">
+    <span>🔊 TAP ANYWHERE TO START MUSIC &bull; 128 BPM</span>
   </div>
 
   <!-- =========================================================================
-       01. EDITORIAL FLOATING HUD
+       HERO VIEWPORT (MATCHING USER SKETCH & SCREENSHOT 1:1)
        ========================================================================= -->
-  <header class="editorial-hud" id="main-hud">
-    <div class="hud-inner font-mono">
-      
-      <!-- Monogram Identity -->
-      <a href="#hero" class="hud-brand" aria-label="Mobpie Home">
-        <span class="mark">M//</span>
-        <span class="name font-display">MOBPIE</span>
-      </a>
+  <main id="hero" class="blueprint-viewport">
 
-      <!-- Primary Nav -->
-      <nav class="hud-nav" aria-label="Primary Navigation">
-        <a href="#theater">01 // THEATER</a>
-        <a href="#capabilities">02 // CAPABILITIES</a>
-        <a href="#manifesto">03 // MANIFESTO</a>
-        <a href="#commission">04 // COMMISSION</a>
-      </nav>
+    <!-- TOP-CENTER AVATAR: PURE, CLEAN, MAJESTIC (ZERO OVERLAPPING PILLS, ZERO CLUTTER) -->
+    <div class="avatar-stage-area">
+      <div id="hero-avatar-frame" class="hero-avatar-frame" title="Mobpie &bull; Independent Website Designer">
+        <div class="hero-ambient-glow"></div>
+        <img class="hero-avatar-static" src="assets/images/pose-04-sitting.png" alt="Mobpie Seated Website Designer" loading="eager">
+      </div>
+    </div>
 
-      <!-- Right Telemetry & Actions -->
-      <div class="hud-right">
-        <span id="ist-time" class="hud-tele-badge">--:--:-- IST</span>
-        
-        <button type="button" id="sound-toggle-btn" class="hud-sound-toggle" onclick="toggleSoundAura()" aria-label="Toggle Procedural Sound Aura">
-          <span id="sound-toggle-text">SOUND [OFF]</span>
-        </button>
+    <!-- MINIMALIST LUXURY HERO BOTTOM BAR (CLEAN, SPACIOUS, ZERO BOXES) -->
+    <div class="hero-minimal-bar">
+      <div class="hero-minimal-info">
+        <div class="hero-live-telemetry font-mono">
+          <span class="live-dot-pulse"></span>
+          <span>STUDIO STATUS: ACTIVE &bull; 2 SPRINT SLOTS AVAILABLE</span>
+        </div>
+        <span class="hero-mini-kicker font-mono">
+          <span class="live-green-dot"></span>
+          <span>MOBPIE &bull; INDEPENDENT FULL-STACK ENGINEER &amp; DESIGNER &bull; INDIA</span>
+        </span>
+        <h1 class="hero-mini-title font-display text-uppercase">
+          Bespoke Websites &bull; Interactive Demos
+        </h1>
+      </div>
 
-        <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20ready%20to%20commission%20a%20flagship%20digital%20masterpiece." target="_blank" rel="noopener noreferrer" class="hud-vip-btn">
-          <span>VIP DIRECT</span>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+      <div class="hero-minimal-actions">
+        <a href="#about" class="hero-scroll-link font-mono">
+          <span>EXPLORE WORK</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <polyline points="19 12 12 19 5 12"></polyline>
+          </svg>
+        </a>
+
+        <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I%20saw%20your%20portfolio%20website%20and%20would%20like%20to%20commission%20a%20website%20sprint." target="_blank" rel="noopener noreferrer" class="hero-wa-pill font-mono">
+          <span>DISCUSS A SPRINT (+91 89574 20306)</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
         </a>
       </div>
-
     </div>
-  </header>
-
-  <!-- =========================================================================
-       02. MONUMENTAL FULL-BLEED HERO ACT
-       ========================================================================= -->
-  <main>
-    <section id="hero" class="editorial-hero">
-      <div class="container-full">
-        
-        <div class="hero-meta-kicker font-mono">
-          <span>EST. 2026 // NEW DELHI &bull; WORLDWIDE REMOTE</span>
-          <span>CREATIVE TECHNOLOGIST &bull; INTERFACE ARCHITECT</span>
-          <span>CLASS 11TH COMMERCE &bull; HIGH-TICKET POSITIONING</span>
-        </div>
-
-        <h1 class="hero-title-monumental font-display">
-          ENGINEERING <br>
-          <span class="stroke-text">DIGITAL</span> MASTERPIECES.
-        </h1>
-
-        <div class="hero-bottom-row">
-          <p class="hero-philosophy-lead font-sans">
-            Crafting category-defining web flagships, interactive WebGL worlds, and quiet luxury storefronts. Engineered for ambitious founders who demand undeniable market stature and conversion velocity.
-          </p>
-
-          <div class="hero-ctas-strip font-mono">
-            <a href="#theater" class="btn-editorial-primary">
-              <span>EXPLORE THEATER</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-            </a>
-
-            <a href="#commission" class="btn-editorial-ghost">
-              <span>COMMISSION WORK</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         03. FULL-WIDTH CINEMATIC PROJECT SHOWCASES (THEATER)
-         ========================================================================= -->
-    <section id="theater" class="editorial-theater">
-      <div class="container-full">
-        
-        <div class="theater-header">
-          <div>
-            <div class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--platinum-dim); margin-bottom: 0.5rem;">
-              01 // CURATED ARCHIVE
-            </div>
-            <h2 class="theater-heading font-display">SELECTED WORKS THEATER</h2>
-          </div>
-          <div class="font-mono" style="font-size: 0.8rem; color: var(--platinum-dim);">
-            [4 FLAGSHIPS LOCKED]
-          </div>
-        </div>
-
-        <!-- Project 01: Atelier Ora -->
-        <article class="project-spread" data-cursor="view">
-          <div class="spread-meta-top font-mono">
-            <span>FLAGSHIP 01 // QUIET LUXURY APPAREL</span>
-            <span>ATELIER-ORA.VERCEL.APP</span>
-            <span>2026 PRODUCTION</span>
-          </div>
-
-          <div class="spread-hero-viewport" data-open-modal="atelier">
-            <img src="assets/images/remake-fashion-preview.png" alt="Atelier Ora Digital Boutique" loading="lazy">
-          </div>
-
-          <div class="spread-details-grid">
-            <div>
-              <h3 class="spread-title font-display">ATELIER ORA</h3>
-              <div class="spread-kicker font-mono">HAUTE COUTURE DIGITAL BOUTIQUE &bull; 12 PIECE SIGNATURE SHOWCASE</div>
-              <p class="spread-desc">
-                An uncompromising digital showroom set on travertine limestone. Tailored with surgical typography tension, tactile PDP fabric texture switchers, and zero-distraction editorial checkout.
-              </p>
-              
-              <div class="spread-actions font-mono">
-                <button type="button" class="btn-editorial-primary" data-open-modal="atelier">
-                  <span>INSPECT CASE STUDY</span>
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                </button>
-                <a href="https://atelier-ora.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-editorial-ghost">
-                  <span>LIVE DEMO</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="spread-specs-col font-mono">
-              <div class="spread-metrics-row">
-                <div class="metric-stat">
-                  <span class="val font-display">+148%</span>
-                  <span class="lbl">CONVERSION LIFT</span>
-                </div>
-                <div class="metric-stat">
-                  <span class="val font-display">60 FPS</span>
-                  <span class="lbl">WEBGL RENDER</span>
-                </div>
-                <div class="metric-stat">
-                  <span class="val font-display">&lt;320ms</span>
-                  <span class="lbl">EDGE LATENCY</span>
-                </div>
-              </div>
-              <div style="font-size: 0.75rem; color: var(--platinum-dim); line-height: 1.6;">
-                CORE STACK: HTML5 &bull; WebGL Physics &bull; CSS Subgrid &bull; Vercel Edge CDN
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 02: Amazon Luxury Remake -->
-        <article class="project-spread" data-cursor="view">
-          <div class="spread-meta-top font-mono">
-            <span>FLAGSHIP 02 // ENTERPRISE E-COMMERCE REMAKE</span>
-            <span>AMAZON-REDESIGN.VERCEL.APP</span>
-            <span>2026 PRODUCTION</span>
-          </div>
-
-          <div class="spread-hero-viewport" data-open-modal="amazon">
-            <img src="assets/images/remake-amazon-preview.png" alt="Amazon Luxury E-Commerce Redesign" loading="lazy">
-          </div>
-
-          <div class="spread-details-grid">
-            <div>
-              <h3 class="spread-title font-display">AMAZON LUXURY</h3>
-              <div class="spread-kicker font-mono" style="color: #ffffff;">MASS-MARKET STOREFRONT ELEVATION &bull; RUNWAY PDP</div>
-              <p class="spread-desc">
-                Complete architectural remake of Amazon e-commerce. Stripping away visual noise and dark patterns to deliver runway-grade product curation, instant drawer carts, and high-velocity micro-interactions.
-              </p>
-              
-              <div class="spread-actions font-mono">
-                <button type="button" class="btn-editorial-primary" data-open-modal="amazon">
-                  <span>INSPECT CASE STUDY</span>
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                </button>
-                <a href="https://amazon-redesign-nine.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-editorial-ghost">
-                  <span>LIVE DEMO</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="spread-specs-col font-mono">
-              <div class="spread-metrics-row">
-                <div class="metric-stat">
-                  <span class="val font-display">+92%</span>
-                  <span class="lbl">USER RETENTION</span>
-                </div>
-                <div class="metric-stat">
-                  <span class="val font-display">2.1s</span>
-                  <span class="lbl">CHECKOUT SPEED</span>
-                </div>
-                <div class="metric-stat">
-                  <span class="val font-display">-41%</span>
-                  <span class="lbl">BOUNCE RATE</span>
-                </div>
-              </div>
-              <div style="font-size: 0.75rem; color: var(--platinum-dim); line-height: 1.6;">
-                CORE STACK: Next.js &bull; TypeScript &bull; Framer Motion &bull; Stripe API
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 03: Piebot Discord Engine -->
-        <article class="project-spread" data-cursor="view">
-          <div class="spread-meta-top font-mono">
-            <span>FLAGSHIP 03 // DISTRIBUTED INFRASTRUCTURE</span>
-            <span>GITHUB.COM/MOBPIE15/PIEBOT</span>
-            <span>2026 LIVE</span>
-          </div>
-
-          <div class="spread-hero-viewport" data-open-modal="piebot">
-            <img src="assets/images/remakes/remake-tech.jpg" alt="Piebot Infrastructure" loading="lazy">
-          </div>
-
-          <div class="spread-details-grid">
-            <div>
-              <h3 class="spread-title font-display">PIEBOT CORE</h3>
-              <div class="spread-kicker font-mono" style="color: var(--accent-cyan);">HIGH-CONCURRENCE BOT ENGINE &bull; REAL-TIME TELEMETRY</div>
-              <p class="spread-desc">
-                High-throughput community automation engine powering multi-server moderation, role-granting pipelines, custom audio streaming, and live WebSocket telemetry dashboards.
-              </p>
-              
-              <div class="spread-actions font-mono">
-                <button type="button" class="btn-editorial-primary" data-open-modal="piebot">
-                  <span>INSPECT ARCHITECTURE</span>
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                </button>
-                <a href="https://github.com/Mobpie15/Piebot" target="_blank" rel="noopener noreferrer" class="btn-editorial-ghost">
-                  <span>GITHUB REPO</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="spread-specs-col font-mono">
-              <div class="spread-metrics-row">
-                <div class="metric-stat">
-                  <span class="val font-display">18ms</span>
-                  <span class="lbl">SOCKET LATENCY</span>
-                </div>
-                <div class="metric-stat">
-                  <span class="val font-display">99.98%</span>
-                  <span class="lbl">PROD UPTIME</span>
-                </div>
-                <div class="metric-stat">
-                  <span class="val font-display">10K+</span>
-                  <span class="lbl">CONCURRENT OPS</span>
-                </div>
-              </div>
-              <div style="font-size: 0.75rem; color: var(--platinum-dim); line-height: 1.6;">
-                CORE STACK: Node.js &bull; Discord.js &bull; WebSocket API &bull; Redis Cache
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 04: @mobpie-op Creator Hub -->
-        <article class="project-spread" data-cursor="view">
-          <div class="spread-meta-top font-mono">
-            <span>FLAGSHIP 04 // DATA ARCHITECTURE</span>
-            <span>YOUTUBE.COM/@MOBPIE-OP</span>
-            <span>2026 AUDITED</span>
-          </div>
-
-          <div class="spread-hero-viewport" data-open-modal="creator">
-            <img src="assets/images/remakes/remake-streetwear.jpg" alt="Gaming Creator Platform" loading="lazy">
-          </div>
-
-          <div class="spread-details-grid">
-            <div>
-              <h3 class="spread-title font-display">EXPLOIT HUB</h3>
-              <div class="spread-kicker font-mono" style="color: var(--accent-orange);">GAMING CREATOR INTELLIGENCE &bull; 46 AUDITED EPISODES</div>
-              <p class="spread-desc">
-                Deep analytical audit of 46 creator uploads (GTA 5 & Minecraft exploit systems). Architected 0-fluff retention funnels yielding 66% total watch time concentration.
-              </p>
-              
-              <div class="spread-actions font-mono">
-                <button type="button" class="btn-editorial-primary" data-open-modal="creator">
-                  <span>INSPECT STRATEGY</span>
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                </button>
-                <a href="https://youtube.com/@mobpie-op" target="_blank" rel="noopener noreferrer" class="btn-editorial-ghost">
-                  <span>YOUTUBE CHANNEL</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="spread-specs-col font-mono">
-              <div class="spread-metrics-row">
-                <div class="metric-stat">
-                  <span class="val font-display">8.5%</span>
-                  <span class="lbl">CTR PEAK</span>
-                </div>
-                <div class="metric-stat">
-                  <span class="val font-display">66%</span>
-                  <span class="lbl">WATCH CONV</span>
-                </div>
-                <div class="metric-stat">
-                  <span class="val font-display">+74%</span>
-                  <span class="lbl">HOOK RETENTION</span>
-                </div>
-              </div>
-              <div style="font-size: 0.75rem; color: var(--platinum-dim); line-height: 1.6;">
-                CORE STACK: YouTube Analytics API &bull; Python Pandas &bull; FastAPI &bull; Chart.js
-              </div>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         04. HIGH-FASHION CAPABILITY INDEX
-         ========================================================================= -->
-    <section id="capabilities" class="editorial-arsenal">
-      <div class="container-full">
-        
-        <div class="theater-header">
-          <div>
-            <div class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--platinum-dim); margin-bottom: 0.5rem;">
-              02 // ENGINEERING SPEC LAB
-            </div>
-            <h2 class="theater-heading font-display">CORE CAPABILITIES</h2>
-          </div>
-          <div class="font-mono" style="font-size: 0.8rem; color: var(--platinum-dim);">
-            [DISCIPLINED MASTERY]
-          </div>
-        </div>
-
-        <div class="arsenal-row font-mono">
-          <div class="arsenal-num">01</div>
-          <div class="arsenal-content font-sans">
-            <h3 class="font-display">Spatial WebGL & GLSL Shaders</h3>
-            <p>Full-bleed ambient 3D viewports, liquid specular mercury materials, vertex displacement meshes, and pointer torchlights with 0% CPU waste off-screen.</p>
-          </div>
-          <div class="arsenal-badge">THREE.JS / WEBGL 2.0</div>
-        </div>
-
-        <div class="arsenal-row font-mono">
-          <div class="arsenal-num">02</div>
-          <div class="arsenal-content font-sans">
-            <h3 class="font-display">Full-Stack Edge Architecture</h3>
-            <p>Sub-320ms global edge rendering, type-safe API contracts, reactive frameworks, and high-concurrency Node.js WebSocket microservices.</p>
-          </div>
-          <div class="arsenal-badge">NEXT.JS / TYPESCRIPT / NODE</div>
-        </div>
-
-        <div class="arsenal-row font-mono">
-          <div class="arsenal-num">03</div>
-          <div class="arsenal-content font-sans">
-            <h3 class="font-display">High-Ticket Neuromarketing</h3>
-            <p>Class 11th Commerce foundations applied to conversion science. 60-30-10 ratio, optical typography hierarchy, and the "Pay Without Thinking" standard.</p>
-          </div>
-          <div class="arsenal-badge">CONVERSION PSYCHOLOGY</div>
-        </div>
-
-        <div class="arsenal-row font-mono">
-          <div class="arsenal-num">04</div>
-          <div class="arsenal-content font-sans">
-            <h3 class="font-display">Procedural Haptics & Motion Physics</h3>
-            <p>0kb Web Audio API procedural sound engine, Lenis-style inertial smooth scrolling, and velocity-stretching magnetic cursors.</p>
-          </div>
-          <div class="arsenal-badge">WEB AUDIO / FRAMER MOTION</div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         05. THE ANTI-AI MANIFESTO
-         ========================================================================= -->
-    <section id="manifesto" class="editorial-manifesto">
-      <div class="container-full">
-        
-        <div class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--platinum-dim); margin-bottom: 1.5rem;">
-          03 // THE MOBPIE DOCTRINE
-        </div>
-
-        <h2 class="manifesto-lead font-display">
-          WE REJECT COOKIE-CUTTER AI TEMPLATES, CHEAP PURPLE GRADIENTS, AND NOISY EMOJI STUFFING. WE BUILD CATEGORY-DEFINING DIGITAL WEAPONS.
-        </h2>
-
-        <div class="manifesto-steps-grid font-mono">
-          <div>
-            <div class="m-step-num">PHASE 01 // FOUNDATION</div>
-            <h3 class="m-step-title font-display">Deep Research</h3>
-            <p class="m-step-desc font-sans">
-              Deconstructing target founder emotional psychology, competitor weaknesses, and pricing power before touching a single line of code.
-            </p>
-          </div>
-
-          <div>
-            <div class="m-step-num">PHASE 02 // ART DIRECTION</div>
-            <h3 class="m-step-title font-display">Bespoke Curation</h3>
-            <p class="m-step-desc font-sans">
-              Bespoke color palettes, deliberate font pairing tension (editorial serifs + surgical sans), and sensible 3D spatial mechanics.
-            </p>
-          </div>
-
-          <div>
-            <div class="m-step-num">PHASE 03 // EXECUTION</div>
-            <h3 class="m-step-title font-display">Pixel-Perfect Engineering</h3>
-            <p class="m-step-desc font-sans">
-              Clean, bare-metal optimized code, crisp SVG vector icons, and the undeniable "Pay Without Thinking" UI authority.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         06. VIP COMMISSION MONOLITH
-         ========================================================================= -->
-    <section id="commission" class="editorial-commission">
-      <div class="container-full">
-        
-        <div class="commission-monolith">
-          <div class="commission-grid">
-            
-            <div>
-              <div class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--platinum-dim); margin-bottom: 0.5rem;">
-                04 // DIRECT VIP COMMISSION
-              </div>
-              <h2 class="spread-title font-display" style="margin-bottom: 1rem;">INITIATE ENGAGEMENT</h2>
-              <p class="spread-desc" style="margin-bottom: 2rem;">
-                Direct 1:1 founder collaboration with Mobpie. Zero account managers, zero bloated agency overhead. Select your project scope:
-              </p>
-
-              <div class="estimator-scope-list font-mono">
-                <div class="estimator-scope-item" data-price="1800">
-                  <div>
-                    <div class="scope-item-title font-display">Brand Flagship Showcase</div>
-                    <div class="scope-item-sub font-sans">High-converting editorial showcase for funding & startups</div>
-                  </div>
-                  <div class="scope-item-price font-display">$1,800</div>
-                </div>
-
-                <div class="estimator-scope-item" data-price="2600">
-                  <div>
-                    <div class="scope-item-title font-display">Luxury E-Commerce Boutique</div>
-                    <div class="scope-item-sub font-sans">Catalog, bespoke PDP, cart drawer & Stripe checkout</div>
-                  </div>
-                  <div class="scope-item-price font-display">$2,600</div>
-                </div>
-
-                <div class="estimator-scope-item selected" data-price="3400">
-                  <div>
-                    <div class="scope-item-title font-display">3D WebGL World & Custom Shaders</div>
-                    <div class="scope-item-sub font-sans">Spatial physics, PBR materials, custom interactive shaders</div>
-                  </div>
-                  <div class="scope-item-price font-display">$3,400</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="commission-summary-card font-mono">
-              <div>
-                <span style="font-size: 0.75rem; letter-spacing: 0.1em; color: var(--platinum-dim);">APPROXIMATE INVESTMENT</span>
-                <div id="estimate-cost" class="summary-price-display font-display">$3,400</div>
-                <p style="font-size: 0.8rem; color: var(--platinum-dim); line-height: 1.6; margin-bottom: 2rem;">
-                  Includes full art direction, responsive coding, 3D WebGL integration, and direct pair programming with Mobpie.
-                </p>
-              </div>
-
-              <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <a href="https://wa.me/918957420306" id="estimator-whatsapp-btn" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-hotline">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.82 2.791.82 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.514-4.486 10-10 10-1.741 0-3.376-.45-4.809-1.238l-7.191 1.883 1.917-7.009c-.846-1.488-1.334-3.21-1.334-5.053 0-5.514 4.486-10 10-10 5.514 0 10 4.486 10 10z"/></svg>
-                  <span>LOCK TIMELINE ON WHATSAPP (+91 89574 20306)</span>
-                </a>
-
-                <button type="button" class="btn-copy-mail-direct" data-copy-email>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  <span>COPY BUSINESS EMAIL</span>
-                </button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </section>
   </main>
 
   <!-- =========================================================================
-       07. MINIMALIST EDITORIAL FOOTER
+       SECTION 01: ABOUT ME (INDIVIDUAL WEBSITE DESIGNER FROM INDIA)
+       Featuring Pose 01: Perspective Step (pose-01-step.png)
        ========================================================================= -->
-  <footer class="editorial-footer font-mono">
-    <div class="container-full">
-      <div class="footer-row">
-        
-        <div>
-          <span class="font-display" style="font-weight: 900; font-size: 1.1rem; color: #ffffff;">MOBPIE</span>
-          <span style="font-size: 0.75rem; color: var(--platinum-dim); margin-left: 0.75rem;">&copy; 2026 DIGITAL CRAFTSMAN</span>
+  <section id="about" class="details-section">
+    <div class="container">
+      <div class="section-tag">01 / ABOUT THE ENGINEER &amp; DESIGNER</div>
+      <h2 class="section-title font-display text-uppercase">Independent Full-Stack Engineer &amp; Designer From India.</h2>
+
+      <div class="about-grid-card">
+        <!-- Left Photo: Pose 01 Striding Forward -->
+        <div class="about-hero-photo">
+          <img src="assets/images/pose-01-step.png" alt="Mobpie Full-Stack Web Engineer from India" loading="lazy">
         </div>
 
-        <div style="display: flex; gap: 2rem; font-size: 0.8rem;">
-          <a href="https://github.com/Mobpie15" target="_blank" rel="noopener noreferrer">GITHUB</a>
-          <a href="https://youtube.com/@mobpie-op" target="_blank" rel="noopener noreferrer">YOUTUBE</a>
-          <a href="https://wa.me/918957420306" target="_blank" rel="noopener noreferrer">WHATSAPP</a>
-          <a href="#hero">TOP &uarr;</a>
+        <!-- Right Text: 100% Pure English -->
+        <div class="about-hero-text">
+          <span class="about-kicker">SOLO PASSION &bull; WORLD-CLASS CRAFTSMANSHIP</span>
+          <h3 class="about-main-title font-display">Crafting Websites That Elevate Your Brand To The Highest Tier.</h3>
+          
+          <p class="about-para">
+            Hello, I am Mobpie — an independent full-stack web engineer and creative designer based in India. I specialize in designing and engineering high-end, visually stunning, and blazing-fast digital flagships — from bespoke frontend interfaces and 3D WebGL experiences to robust backend architectures, custom APIs, fast databases, and headless CMS integrations.
+          </p>
+          
+          <p class="about-para">
+            Traditional digital agencies charge excessive retainers, insert multiple layers of account managers, and outsource your project to junior interns. When you work with me, you collaborate directly with the designer and engineer writing every single line of code. You get obsessive craftsmanship, direct WhatsApp communication, and rapid turnarounds.
+          </p>
+
+          <div class="about-highlights-grid">
+            <div class="highlight-item">
+              <span class="hl-title">SOLO SENIOR CRAFTSMANSHIP</span>
+              <span class="hl-desc">Direct WhatsApp collaboration, zero middle-men, immediate feedback loops.</span>
+            </div>
+            <div class="highlight-item">
+              <span class="hl-title">BLAZING SPEED (<span class="stat-counter" data-target="0.4" data-prefix="&lt; " data-suffix="s">&lt; 0.4s</span>)</span>
+              <span class="hl-desc">Sub-second page loads so your mobile visitors never bounce or abandon.</span>
+            </div>
+            <div class="highlight-item">
+              <span class="hl-title">WEBSITE DEMOS EXPERT</span>
+              <span class="hl-desc">Transforming cluttered, slow, or outdated sites into clean luxury flagships.</span>
+            </div>
+            <div class="highlight-item">
+              <span class="hl-title"><span class="stat-counter" data-target="100" data-suffix="%">100%</span> CODE OWNERSHIP</span>
+              <span class="hl-desc">You own the complete source code and assets. Zero monthly subscription traps.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 02: CAPABILITIES (WHAT I DO & WEBSITE REMAKES)
+       ========================================================================= -->
+  <section id="capabilities" class="details-section">
+    <div class="container">
+      <div class="section-tag">02 / CAPABILITIES &amp; SKILLS</div>
+      <h2 class="section-title font-display text-uppercase">Bespoke Engineering For Modern Brands.</h2>
+      <p class="section-subtitle">
+        High-impact digital services designed to elevate brand prestige and drive conversions.
+      </p>
+
+      <div class="capabilities-grid">
+        <!-- Capability 01: Website Modernization (Highlighted) -->
+        <div class="capability-card featured-cap">
+          <div class="cap-badge">CORE SPECIALTY</div>
+          <span class="cap-num font-mono">01</span>
+          <h3 class="cap-title font-display">Website Modernization &amp; Re-architecture</h3>
+          <p class="cap-desc">
+            If your current website feels slow, cluttered, or outdated, I completely rebuild it from scratch into a sleek, high-end digital flagship. Stripping out bloat, introducing clean layouts, premium typography, and modern aesthetics that justify luxury pricing.
+          </p>
+          <div class="cap-footer-tags">
+            <span>Cluttered to Clean</span>
+            <span>Brand Makeover</span>
+            <span>High Conversion</span>
+          </div>
+        </div>
+
+        <!-- Capability 02: Full-Stack Web Engineering (Frontend + Backend) -->
+        <div class="capability-card">
+          <span class="cap-num font-mono">02</span>
+          <h3 class="cap-title font-display">Full-Stack Web Engineering</h3>
+          <p class="cap-desc">
+            Complete end-to-end development. We engineer not only world-class frontend interfaces and 3D experiences, but also high-throughput backend services, secure REST/GraphQL APIs, resilient database architectures, and headless CMS integrations.
+          </p>
+          <div class="cap-footer-tags">
+            <span>Frontend + Backend</span>
+            <span>Custom APIs</span>
+            <span>Database &amp; CMS</span>
+          </div>
+        </div>
+
+        <!-- Capability 03: Speed Surgery & Performance -->
+        <div class="capability-card">
+          <span class="cap-num font-mono">03</span>
+          <h3 class="cap-title font-display">Speed Surgery (&lt; 0.4s Load)</h3>
+          <p class="cap-desc">
+            Pruning heavy tracking scripts, optimizing asset pipelines, and achieving green 99/100 Google Core Web Vitals scores. Sub-second first contentful paint so mobile shoppers never abandon your store.
+          </p>
+          <div class="cap-footer-tags">
+            <span>&lt; 0.4s FCP</span>
+            <span>99/100 Vitals</span>
+            <span>Zero Bounce</span>
+          </div>
+        </div>
+
+        <!-- Capability 04: E-Commerce & 1-Tap Checkout -->
+        <div class="capability-card">
+          <span class="cap-num font-mono">04</span>
+          <h3 class="cap-title font-display">Modern E-Commerce &amp; 1-Tap Checkout</h3>
+          <p class="cap-desc">
+            Frictionless shopping experiences with slideout cart drawers, dynamic free-shipping progress bars, direct UPI intent triggers, and Apple Pay express checkout that reduce cart abandonment by up to 40%.
+          </p>
+          <div class="cap-footer-tags">
+            <span>Slideout Cart</span>
+            <span>Instant UPI</span>
+            <span>Shopify / Custom</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 03: LIVE DEMOS SHOWCASE (FEATURING AMAZON ATELIER)
+       Featuring Pose 02: Bespoke Kingpin (pose-02-standing.png)
+       ========================================================================= -->
+  <section id="remakes" class="details-section">
+    <div class="container">
+      <div class="section-tag font-mono">03 / INTERACTIVE DEMOS &bull; LIVE CASE STUDIES</div>
+      <div class="section-header-flex">
+        <div>
+          <h2 class="section-title font-display text-uppercase">Bespoke Concepts &bull; Live Demonstrations</h2>
+          <p class="section-subtitle">
+            Explore interactive demo concepts engineered by Mobpie to showcase high-ticket design, full-stack architecture, and 3D web capabilities. Click on any browser preview to launch the live demo.
+          </p>
+        </div>
+      </div>
+
+      <!-- DUAL SHOWCASE: REAL MAC BROWSER MOCKUPS OF LIVE SITES -->
+      <div class="dual-showcase-grid">
+
+        <!-- ==========================================
+             SHOWCASE 1: AMAZON ATELIER (PORT 5174)
+             ========================================== -->
+        <div class="remake-showcase-box">
+          <!-- Left: Mac Browser Window Mockup Frame with Real Website Screenshot -->
+          <div class="remake-browser-col">
+            <div class="browser-mockup-frame">
+              <!-- Window Chrome Header -->
+              <div class="browser-window-header">
+                <div class="browser-traffic-lights">
+                  <span class="traffic-dot dot-red"></span>
+                  <span class="traffic-dot dot-yellow"></span>
+                  <span class="traffic-dot dot-green"></span>
+                </div>
+                <div class="browser-url-pill font-mono">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <span>amazon.atelier.internal // LIVE DEMO</span>
+                </div>
+                <div class="browser-status-chip font-mono">
+                  <span class="live-dot-pulse"></span>
+                  <span>LIVE 5174</span>
+                </div>
+              </div>
+
+              <!-- Browser Viewport with Real Website Screenshot -->
+              <a href="https://amazon-redesign-five.vercel.app" target="_blank" rel="noopener noreferrer" class="browser-viewport-screen" title="Click to Launch Live Amazon Atelier (Port 5174)">
+                <img src="assets/images/remake-amazon-preview.png" alt="Amazon Atelier Website Live Preview" loading="lazy">
+                <div class="browser-hover-glass">
+                  <div class="browser-hover-badge font-mono">
+                    <span class="live-dot-pulse"></span>
+                    <span>LAUNCH LIVE SITE (PORT 5174)</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Footer info under browser window -->
+            <div class="browser-under-bar font-mono">
+              <span>DESKTOP &amp; MOBILE RESPONSIVE</span>
+              <span>&bull;</span>
+              <span>PRODUCTION ACTIVE</span>
+            </div>
+          </div>
+
+          <!-- Right: Project Narrative & Transformation Highlights -->
+          <div class="remake-content-col">
+            <div class="remake-live-header">
+              <span class="remake-tag font-mono">DEMO CONCEPT &bull; FLAGSHIP E-COMMERCE DEMO</span>
+              <h3 class="remake-brand-title font-display">Amazon Atelier Edition</h3>
+            </div>
+
+            <p class="remake-summary-text">
+              A radical architectural transformation of Amazon. Replaced 2010 supermarket banner clutter with an editorial luxury shopping experience, sub-second headless filtering, multi-currency geo-routing, and 1-tap Prime checkout.
+            </p>
+
+            <div class="before-after-grid font-mono">
+              <div class="comp-card before">
+                <span class="comp-label">TRADITIONAL AMAZON</span>
+                <ul>
+                  <li>Cluttered promotional banners</li>
+                  <li>Slow multi-megabyte payload</li>
+                  <li>Overwhelming visual noise</li>
+                </ul>
+              </div>
+              <div class="comp-card after">
+                <span class="comp-label highlight">MOBPIE ATELIER DEMO</span>
+                <ul>
+                  <li>Sub-0.3s Instant headless load</li>
+                  <li>Minimalist industrial design</li>
+                  <li>Dedicated native mobile app UI</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="remake-action-bar">
+              <a href="https://amazon-redesign-five.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-live-primary font-mono">
+                <span class="live-dot-pulse"></span>
+                <span>LAUNCH AMAZON ATELIER</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+              <span class="remake-meta-note font-mono">Skill Showcase Demo: Full-Stack Architecture / Headless Filtering</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             SHOWCASE 2: ATELIER ORA CLOTHING BRAND (PORT 5175)
+             ========================================== -->
+        <div class="remake-showcase-box fashion-showcase">
+          <!-- Left: Mac Browser Window Mockup Frame with Real Website Screenshot -->
+          <div class="remake-browser-col">
+            <div class="browser-mockup-frame">
+              <!-- Window Chrome Header -->
+              <div class="browser-window-header">
+                <div class="browser-traffic-lights">
+                  <span class="traffic-dot dot-red"></span>
+                  <span class="traffic-dot dot-yellow"></span>
+                  <span class="traffic-dot dot-green"></span>
+                </div>
+                <div class="browser-url-pill font-mono">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <span>atelier-ora.clothing // LIVE 3D APPAREL</span>
+                </div>
+                <div class="browser-status-chip font-mono highlight-3d">
+                  <span class="live-dot-pulse"></span>
+                  <span>LIVE 3D APPAREL</span>
+                </div>
+              </div>
+
+              <!-- Browser Viewport with Real Website Screenshot -->
+              <a href="https://fashion-brand-dun.vercel.app" target="_blank" rel="noopener noreferrer" class="browser-viewport-screen" title="Click to Launch Live Atelier Ora Clothing Brand (Port 5175)">
+                <img src="assets/images/remake-fashion-preview.png" alt="Atelier Ora Clothing Brand Live Preview" loading="lazy">
+                <div class="browser-hover-glass">
+                  <div class="browser-hover-badge font-mono">
+                    <span class="live-dot-pulse"></span>
+                    <span>LAUNCH ATELIER ORA (PORT 5175)</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Footer info under browser window -->
+            <div class="browser-under-bar font-mono">
+              <span>WARM TRAVERTINE THEME &bull; 3D CLOTHING STUDIO</span>
+              <span>&bull;</span>
+              <span>PRODUCTION ACTIVE</span>
+            </div>
+          </div>
+
+          <!-- Right: Project Narrative & Transformation Highlights -->
+          <div class="remake-content-col">
+            <div class="remake-live-header">
+              <span class="remake-tag font-mono highlight-fashion">DEMO CONCEPT &bull; 3D GARMENT STUDIO</span>
+              <h3 class="remake-brand-title font-display">Atelier Ora &bull; Heavyweight Clothing Brand</h3>
+            </div>
+
+            <p class="remake-summary-text">
+              A warm travertine editorial flagship for a contemporary luxury apparel house. Features a real-time interactive 3D Garment Studio (360° rotation, live fabric color swatches, wind drape simulation), custom 500 GSM loopback cotton fleece catalog, and 1-tap checkout.
+            </p>
+
+            <div class="before-after-grid font-mono">
+              <div class="comp-card before">
+                <span class="comp-label">GENERIC SHOPIFY THEME</span>
+                <ul>
+                  <li>Flat static image carousel</li>
+                  <li>No tactile fabric weight metrics</li>
+                  <li>Generic cookie-cutter black &amp; white layout</li>
+                </ul>
+              </div>
+              <div class="comp-card after">
+                <span class="comp-label highlight">MOBPIE ATELIER ORA DEMO</span>
+                <ul>
+                  <li>Interactive 3D Clothing Studio (Color/Wind)</li>
+                  <li>Warm travertine &amp; oat milk luxury aesthetic</li>
+                  <li>500 GSM loopback fleece provenance</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="remake-action-bar">
+              <a href="https://fashion-brand-dun.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-live-primary font-mono">
+                <span class="live-dot-pulse"></span>
+                <span>LAUNCH ATELIER ORA APPAREL</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+              <span class="remake-meta-note font-mono">Skill Showcase Demo: 3D Clothing Studio / Warm Travertine Palette / 1-Tap Bag</span>
+            </div>
+          </div>
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 04: WHY CHOOSE MOBPIE (WHY US?) - NEW SECTION
+       ========================================================================= -->
+  <section id="why-us" class="details-section">
+    <div class="container">
+      <div class="section-tag">04 / WHY CHOOSE MOBPIE &bull; THE PRESTIGE ADVANTAGE</div>
+      <div class="section-header-flex">
+        <div>
+          <h2 class="section-title font-display text-uppercase">Engineered For Excellence. Managed For Growth.</h2>
+          <p class="section-subtitle">
+            Why visionary founders choose Mobpie over traditional agencies and freelancers.
+          </p>
+        </div>
+      </div>
+
+      <div class="why-us-grid">
+        <!-- Card 1: Fast & Sub-Second -->
+        <div class="why-card">
+          <div class="why-num font-mono">01</div>
+          <h3 class="why-title font-display">Sub-Second Speed (&lt; 0.4s)</h3>
+          <p class="why-text">
+            We write clean, modular code with zero bloat. Pages load in under 400 milliseconds, ensuring mobile visitors never wait and search engines reward your site with top rankings.
+          </p>
+          <span class="why-tag"><span class="stat-counter" data-target="99" data-suffix="/100">99/100</span> Core Web Vitals</span>
+        </div>
+
+        <!-- Card 2: Smooth, Modern Aesthetic -->
+        <div class="why-card">
+          <div class="why-num font-mono">02</div>
+          <h3 class="why-title font-display">Smooth &amp; Modern Aesthetics</h3>
+          <p class="why-text">
+            Every pixel is styled with editorial precision. High-fashion typography, obsidian minimalism, and buttery-smooth 60fps micro-interactions that make your brand feel ultra-luxurious.
+          </p>
+          <span class="why-tag">High-Ticket Prestige</span>
+        </div>
+
+        <!-- Card 3: Bank-Grade Security -->
+        <div class="why-card">
+          <div class="why-num font-mono">03</div>
+          <h3 class="why-title font-display">Enterprise Security &amp; Safety</h3>
+          <p class="why-text">
+            Hardened edge headers, automatic SSL encryption, clean decoupled architecture, and zero vulnerable third-party plugins. Your data, customers, and transactions remain 100% protected.
+          </p>
+          <span class="why-tag">Zero Vulnerabilities</span>
+        </div>
+
+        <!-- Card 4: Ongoing Monthly Management -->
+        <div class="why-card featured-why">
+          <div class="why-badge">EXCLUSIVE BENEFIT</div>
+          <div class="why-num font-mono">04</div>
+          <h3 class="why-title font-display">Ongoing Monthly Management</h3>
+          <p class="why-text">
+            We do not just build your website and disappear. We offer dedicated monthly management, security patching, speed optimization, and regular updates so your website stays in pristine condition forever.
+          </p>
+          <span class="why-tag highlight">Complete Peace of Mind</span>
+        </div>
+
+        <!-- Card 5: Direct 1-on-1 Senior Partnership -->
+        <div class="why-card">
+          <div class="why-num font-mono">05</div>
+          <h3 class="why-title font-display">Direct 1-on-1 Partnership</h3>
+          <p class="why-text">
+            Zero account managers playing telephone, zero junior interns practicing on your dime. You work directly with the senior engineer crafting every single line of code and design.
+          </p>
+          <span class="why-tag">WhatsApp Hotline</span>
+        </div>
+
+        <!-- Card 6: 100% Code Ownership -->
+        <div class="why-card">
+          <div class="why-num font-mono">06</div>
+          <h3 class="why-title font-display">100% Full Code Ownership</h3>
+          <p class="why-text">
+            You own 100% of your source code, design assets, and Git repository. No proprietary subscription lock-in, no hostage fees, and complete intellectual property freedom.
+          </p>
+          <span class="why-tag"><span class="stat-counter" data-target="100" data-suffix="%">100%</span> Total IP Ownership</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 05: CONTACT ME (PHONE, EMAIL, WHATSAPP, DIRECT FORM)
+       Featuring Pose 03: Double-Breasted Shades (pose-03-shades.png)
+       ========================================================================= -->
+  <section id="contact" class="details-section">
+    <div class="container">
+      <div class="section-tag">05 / GET IN TOUCH &bull; DIRECT CONTACT</div>
+      <h2 class="section-title font-display text-uppercase">Start Your Project Today.</h2>
+      <p class="section-subtitle">
+        Direct founder-to-designer communication. Message me anytime on WhatsApp or submit your project details below.
+      </p>
+
+      <div class="contact-split-wrapper">
+        <!-- Left Column: Character & Direct Channels -->
+        <div class="contact-left-card">
+          <div class="contact-photo-box">
+            <img src="assets/images/pose-03-shades.png" alt="Mobpie Direct Contact" loading="lazy">
+            <div class="contact-status-chip font-mono">
+              <span class="live-green-dot"></span>
+              <span>TYPICALLY REPLIES WITHIN 15 MINS</span>
+            </div>
+          </div>
+
+          <div class="direct-channels-list font-mono">
+            <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I%20want%20to%20discuss%20a%20website%20project%20with%20you." target="_blank" rel="noopener noreferrer" class="channel-card highlight">
+              <div class="channel-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              </div>
+              <div class="channel-info">
+                <span class="channel-name">WHATSAPP &amp; CALL (DIRECT HOTLINE)</span>
+                <span class="channel-val">+91 89574 20306</span>
+              </div>
+            </a>
+
+            <a href="mailto:mobpiexd@gmail.com?subject=Website%20Commission%20Inquiry" class="channel-card">
+              <div class="channel-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div class="channel-info">
+                <span class="channel-name">DIRECT EMAIL</span>
+                <span class="channel-val">mobpiexd@gmail.com</span>
+              </div>
+            </a>
+
+            <a href="https://instagram.com/mobpie_dev" target="_blank" rel="noopener noreferrer" class="channel-card">
+              <div class="channel-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </div>
+              <div class="channel-info">
+                <span class="channel-name">INSTAGRAM</span>
+                <span class="channel-val">@mobpie_dev</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Clean Project Inquiry Form (Zero Broken Buttons) -->
+        <div class="contact-form-card">
+          <div class="form-header-box">
+            <h3 class="contact-form-title font-display">Send a Direct Project Inquiry</h3>
+            <p class="contact-form-subtitle">Submit your requirements to receive a guaranteed sprint timeline &amp; quote.</p>
+          </div>
+
+          <form id="inquiry-form" class="inquiry-form-clean" onsubmit="return false;">
+            <div class="form-row-duo">
+              <div class="form-field">
+                <label for="inq-name" class="field-label font-mono">YOUR NAME</label>
+                <input type="text" id="inq-name" class="field-input" placeholder="e.g. Alexander Vance" required>
+              </div>
+
+              <div class="form-field">
+                <label for="inq-brand" class="field-label font-mono">BRAND / BUSINESS NAME</label>
+                <input type="text" id="inq-brand" class="field-input" placeholder="e.g. Atelier Noir" required>
+              </div>
+            </div>
+
+            <div class="form-row-duo">
+              <div class="form-field">
+                <label for="inq-url" class="field-label font-mono">CURRENT WEBSITE (OR 'NEW PROJECT')</label>
+                <input type="text" id="inq-url" class="field-input" placeholder="e.g. https://mybrand.com" required>
+              </div>
+
+              <div class="form-field">
+                <label for="inq-scope" class="field-label font-mono">SELECT SPRINT PLAN</label>
+                <select id="inq-scope" class="field-select font-mono">
+                  <option value="Standard Plan (Full Custom Website / Demo)">Standard Plan (7 - 10 Days &bull; Recommended)</option>
+                  <option value="Basic Plan (Fast Starter / Landing Page)">Basic Plan (3 - 5 Days Starter)</option>
+                  <option value="Pro Plan (3D WebGL &amp; Interactive Flagship)">Pro Plan (14 - 20 Days 3D Flagship)</option>
+                  <option value="Custom Plan (Special Tailored Scope)">Custom Plan (Enterprise Architecture)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field full-width">
+              <label for="inq-notes" class="field-label font-mono">PROJECT SCOPE &amp; DETAILS</label>
+              <textarea id="inq-notes" class="field-textarea" rows="4" placeholder="Tell me about your brand vision, key bottlenecks, desired launch date, or reference websites you admire..."></textarea>
+            </div>
+
+            <!-- FIXED & IMPROVED FULL-WIDTH ACTION BUTTONS (NO SQUISHING, NO WRAPPING) -->
+            <div class="inquiry-buttons-stack">
+              <button type="button" id="inquiry-wa-btn" class="btn-inquiry-primary font-mono">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+                <span>SEND VIA WHATSAPP (+91 89574 20306)</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </button>
+
+              <button type="button" id="inquiry-mail-btn" class="btn-inquiry-secondary font-mono">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span>SEND VIA DIRECT EMAIL (MOBPIEXD@GMAIL.COM)</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="container">
+    <div class="footer-bar">
+      <div>&copy; 2026 MOBPIE &bull; INDEPENDENT WEBSITE DESIGNER &amp; DEVELOPER (INDIA)</div>
+      <div>WHATSAPP: +91 89574 20306 &bull; EMAIL: MOBPIEXD@GMAIL.COM &bull; INSTAGRAM: @MOBPIE_DEV</div>
     </div>
   </footer>
 
-  <!-- Project Preview Modal -->
-  <div id="project-modal" class="project-modal" aria-hidden="true" role="dialog">
-    <div class="modal-backdrop"></div>
-    <div class="modal-content">
-      <div class="modal-header font-mono">
-        <div>
-          <span id="modal-badge" style="font-size: 0.7rem; color: var(--platinum-dim);">CASE STUDY</span>
-          <h3 id="modal-title" class="font-display" style="font-size: 1.8rem; color: #ffffff; margin-top: 0.25rem;">PROJECT TITLE</h3>
-          <span id="modal-kicker" style="font-size: 0.75rem; color: var(--platinum-muted);">KICKER</span>
-        </div>
-        <button type="button" class="modal-close" aria-label="Close Modal">&times;</button>
-      </div>
-
-      <div class="modal-body">
-        <div style="width: 100%; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
-          <img id="modal-img" src="" alt="Project Preview" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-
-        <p id="modal-desc" style="font-size: 1rem; color: var(--platinum-silk); line-height: 1.7; margin-bottom: 1.5rem;"></p>
-
-        <div id="modal-metrics" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;"></div>
-
-        <div style="margin-top: 1.5rem;">
-          <span class="font-mono" style="font-size: 0.75rem; color: var(--platinum-dim); font-weight: 700;">TECHNOLOGY STACK:</span>
-          <div id="modal-stack" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;"></div>
-        </div>
-      </div>
-
-      <div style="padding: 1.25rem 2.5rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: flex-end; gap: 1rem;" class="font-mono">
-        <a id="modal-github-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-editorial-ghost" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;">
-          <span>VIEW CODE</span>
-        </a>
-        <a id="modal-live-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-editorial-primary" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;">
-          <span>VISIT PRODUCTION</span>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast -->
-  <div id="copy-toast" class="copy-toast font-mono">COPIED TO CLIPBOARD</div>
-
   <!-- Scripts -->
   <script src="assets/js/three.min.js"></script>
-  <script src="assets/js/audio-synthesizer.js"></script>
-  <script src="assets/js/smooth-scroll.js"></script>
-  <script src="assets/js/cursor.js"></script>
   <script src="assets/js/three-scene.js"></script>
+  <script src="assets/js/audio-player.js"></script>
+  <script src="assets/js/waveform-bg.js"></script>
+  <script src="assets/js/tilt-fx.js"></script>
+  <script src="assets/js/cursor.js"></script>
+  <script src="assets/js/mobile-nav.js"></script>
   <script src="assets/js/main.js"></script>
+
+  <!-- =========================================================================
+       DEDICATED MOBILE BOTTOM ACTION DOCK (VISIBLE <= 860px)
+       ========================================================================= -->
+  <nav class="mobile-portfolio-bottom-bar">
+    <a href="#hero" class="mobile-dock-tab active" data-tab="hero">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span>Hero</span>
+    </a>
+    <a href="#capabilities" class="mobile-dock-tab" data-tab="capabilities">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+        <line x1="8" y1="21" x2="16" y2="21"></line>
+        <line x1="12" y1="17" x2="12" y2="21"></line>
+      </svg>
+      <span>Services</span>
+    </a>
+    <a href="#remakes" class="mobile-dock-tab" data-tab="demos">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
+      </svg>
+      <span>Demos</span>
+    </a>
+    <a href="https://wa.me/918957420306?text=Hi%20Mobpie,%20I%20am%20interested%20in%20commissioning%20a%20website%20project." target="_blank" rel="noopener noreferrer" class="mobile-dock-tab cta-dock" data-tab="whatsapp">
+      <div class="dock-wa-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+        <span class="dock-wa-dot"></span>
+      </div>
+      <span>Chat</span>
+    </a>
+  </nav>
+
 </body>
 </html>
