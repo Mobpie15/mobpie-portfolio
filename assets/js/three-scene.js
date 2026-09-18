@@ -1,32 +1,236 @@
 /**
- * MOBPIE // AWWWARDS MASTERPIECE 3D WEBGL ENGINE (v40.0)
- * Aesthetic: Liquid Mercury, Interactive Specular Torchlight, Spatial Morphing
- * Features:
- * 1. Living Liquid Mercury Mesh with Real-Time Vertex Displacement
- * 2. Interactive Cursor Torchlight tracking 3D pointer coordinates
- * 3. Counter-rotating Astrolabe Titanium Rings
- * 4. Spatial Coordinate Particle Constellation
- * 5. Project-Adaptive Topology & Lighting Morphing (Atelier / Amazon / Piebot / Exploit)
- * 6. Smooth Parallax & Mouse Drag Orbit Physics
- * 7. Low-End PC Hardware Protection (Capped DPR, auto-pause when hidden)
+ * MOBPIE // SENSIBLE 3D SPATIAL CYBER-DECK & PROJECT ENGINE
+ * Awwwards-Level 3D Holographic Display Terminal.
+ * 
+ * Design Soul:
+ * - NO random geometric wireframe blobs.
+ * - Represents Mobpie's architectural project terminal in 3D space.
+ * - Dynamic PBR glass screen projecting live high-resolution canvas textures of Mobpie's real flagships.
+ * - Interactive mouse drag orbit with spring inertia physics.
+ * - Project switching smoothly crossfades textures with digital scanline wipe.
+ * - Auto-pauses render loop via IntersectionObserver when offscreen (0% CPU/GPU overhead).
  */
 
 (function () {
   'use strict';
 
-  function initMasterpiece3D() {
+  let renderer, scene, camera, deviceGroup;
+  let screenMesh, screenCanvas, screenCtx, screenTexture;
+  let isDragging = false;
+  let prevMouseX = 0;
+  let prevMouseY = 0;
+  let targetRotX = 0.12;
+  let targetRotY = -0.32;
+  let currentRotX = 0.12;
+  let currentRotY = -0.32;
+  let baseRotY = 0;
+  let isVisible = true;
+  let rafId = null;
+  let activeSlide = 0;
+  let scanlineAlpha = 0;
+
+  // Project Display Data for 3D Screen Canvas
+  const projectSlides = [
+    {
+      id: 'atelier',
+      badge: 'FLAGSHIP 01 // QUIET LUXURY',
+      title: 'ATELIER ORA',
+      category: 'Haute Couture Boutique',
+      kpi: '12 Curated Silhouettes &bull; Travertine Minimalist Grid',
+      accent: '#dfcfb3',
+      bgTone: '#0d0f12',
+      metrics: ['CONVERSION: +148%', 'RENDER: 480FPS', 'AESTHETIC: LUXURY']
+    },
+    {
+      id: 'amazon',
+      badge: 'FLAGSHIP 02 // E-COMMERCE REMAKE',
+      title: 'AMAZON LUXURY',
+      category: 'Enterprise Storefront Redesign',
+      kpi: 'Zero Clutter &bull; High-Velocity Checkout &bull; Editorial PDP',
+      accent: '#ffffff',
+      bgTone: '#080a0f',
+      metrics: ['RETENTION: +92%', 'BOUNCE RATE: -41%', 'DESIGN: BESPOKE']
+    },
+    {
+      id: 'piebot',
+      badge: 'FLAGSHIP 03 // DISCORD ENGINE',
+      title: 'PIEBOT CORE',
+      category: 'High-Concurrence Infrastructure',
+      kpi: 'Multi-Server Automation &bull; Real-Time Socket Telemetry',
+      accent: '#38bdf8',
+      bgTone: '#060911',
+      metrics: ['SOCKET: 18MS', 'UPTIME: 99.98%', 'SERVERS: 25+']
+    },
+    {
+      id: 'creator',
+      badge: 'FLAGSHIP 04 // DATA ARCHITECTURE',
+      title: 'EXPLOIT HUB',
+      category: 'Gaming Creator Platform',
+      kpi: '46 Videos Audited &bull; GTA 5 & Minecraft Exploit Matrix',
+      accent: '#ff4d00',
+      bgTone: '#110705',
+      metrics: ['CTR PEAK: 8.5%', 'WATCH TIME: 66%', 'STRATEGY: LOCKED']
+    }
+  ];
+
+  // Dynamic 2D Canvas Generator for 3D PBR Screen
+  function createScreenTexture() {
+    screenCanvas = document.createElement('canvas');
+    screenCanvas.width = 1024;
+    screenCanvas.height = 680;
+    screenCtx = screenCanvas.getContext('2d');
+
+    drawProjectToScreen(0, 0);
+
+    screenTexture = new THREE.CanvasTexture(screenCanvas);
+    screenTexture.anisotropy = 8;
+    screenTexture.generateMipmaps = true;
+    return screenTexture;
+  }
+
+  function drawProjectToScreen(index, scanProgress = 0) {
+    if (!screenCtx) return;
+    const proj = projectSlides[index] || projectSlides[0];
+
+    const w = screenCanvas.width;
+    const h = screenCanvas.height;
+
+    // Background Void
+    screenCtx.fillStyle = proj.bgTone;
+    screenCtx.fillRect(0, 0, w, h);
+
+    // Subtle Grid Lines
+    screenCtx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    screenCtx.lineWidth = 1;
+    for (let x = 40; x < w; x += 60) {
+      screenCtx.beginPath();
+      screenCtx.moveTo(x, 0);
+      screenCtx.lineTo(x, h);
+      screenCtx.stroke();
+    }
+    for (let y = 40; y < h; y += 60) {
+      screenCtx.beginPath();
+      screenCtx.moveTo(0, y);
+      screenCtx.lineTo(w, y);
+      screenCtx.stroke();
+    }
+
+    // Top Terminal Header Bar
+    screenCtx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+    screenCtx.fillRect(40, 40, w - 80, 50);
+    screenCtx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+    screenCtx.strokeRect(40, 40, w - 80, 50);
+
+    // Terminal Status Dots
+    screenCtx.fillStyle = '#ff5f56';
+    screenCtx.beginPath();
+    screenCtx.arc(68, 65, 5, 0, Math.PI * 2);
+    screenCtx.fill();
+    screenCtx.fillStyle = '#ffbd2e';
+    screenCtx.beginPath();
+    screenCtx.arc(88, 65, 5, 0, Math.PI * 2);
+    screenCtx.fill();
+    screenCtx.fillStyle = '#27c93f';
+    screenCtx.beginPath();
+    screenCtx.arc(108, 65, 5, 0, Math.PI * 2);
+    screenCtx.fill();
+
+    // Badge
+    screenCtx.font = '600 15px "JetBrains Mono", monospace';
+    screenCtx.fillStyle = proj.accent;
+    screenCtx.fillText(proj.badge, 140, 71);
+
+    // Live Telemetry Tag
+    screenCtx.font = '500 13px "JetBrains Mono", monospace';
+    screenCtx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    screenCtx.textAlign = 'right';
+    screenCtx.fillText('STATUS: LIVE PRODUCTION', w - 60, 71);
+    screenCtx.textAlign = 'left';
+
+    // Main Showcase Title
+    screenCtx.font = '900 68px "Syne", "Cabinet Grotesk", sans-serif';
+    screenCtx.fillStyle = '#ffffff';
+    screenCtx.fillText(proj.title, 50, 180);
+
+    // Category Kicker
+    screenCtx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+    screenCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    screenCtx.fillText(proj.category.toUpperCase(), 52, 222);
+
+    // Thin Dividing Line
+    screenCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    screenCtx.beginPath();
+    screenCtx.moveTo(50, 255);
+    screenCtx.lineTo(w - 50, 255);
+    screenCtx.stroke();
+
+    // Description / KPI
+    screenCtx.font = '400 21px "Plus Jakarta Sans", sans-serif';
+    screenCtx.fillStyle = '#cbd5e1';
+    screenCtx.fillText(proj.kpi.replace('&bull;', '•'), 52, 310);
+
+    // Interactive Wireframe Window in Screen
+    const wireX = 50;
+    const wireY = 350;
+    const wireW = w - 100;
+    const wireH = 190;
+
+    screenCtx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+    screenCtx.fillRect(wireX, wireY, wireW, wireH);
+    screenCtx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    screenCtx.strokeRect(wireX, wireY, wireW, wireH);
+
+    // Metrics Columns inside Wireframe
+    proj.metrics.forEach((metric, i) => {
+      const colX = wireX + 30 + i * (wireW / 3);
+      const colY = wireY + 60;
+
+      screenCtx.font = '700 13px "JetBrains Mono", monospace';
+      screenCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      screenCtx.fillText(`METRIC [0${i + 1}]`, colX, colY);
+
+      screenCtx.font = '800 24px "Syne", sans-serif';
+      screenCtx.fillStyle = proj.accent;
+      screenCtx.fillText(metric.split(':')[1] || metric, colX, colY + 38);
+
+      screenCtx.font = '500 12px "JetBrains Mono", monospace';
+      screenCtx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+      screenCtx.fillText(metric.split(':')[0] || 'DATA', colX, colY + 68);
+    });
+
+    // Bottom Navigation Bar in Screen
+    screenCtx.font = '600 14px "JetBrains Mono", monospace';
+    screenCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+    screenCtx.fillText('INTERACTIVE 3D DECK // DRAG TO ROTATE // CLICK TABS TO SWITCH', 50, h - 45);
+
+    screenCtx.fillStyle = proj.accent;
+    screenCtx.fillRect(w - 180, h - 60, 130, 26);
+    screenCtx.font = '700 12px "JetBrains Mono", monospace';
+    screenCtx.fillStyle = '#000000';
+    screenCtx.fillText('EXPLORE WORK', w - 165, h - 43);
+
+    // Scanline wipe effect during switch
+    if (scanProgress > 0) {
+      screenCtx.fillStyle = `rgba(255, 255, 255, ${0.35 * (1 - scanProgress)})`;
+      const scanY = h * scanProgress;
+      screenCtx.fillRect(0, scanY - 20, w, 40);
+    }
+
+    if (screenTexture) {
+      screenTexture.needsUpdate = true;
+    }
+  }
+
+  function initThreeScene() {
     const canvas = document.getElementById('webgl-canvas');
     if (!canvas || typeof THREE === 'undefined') return;
 
     // 1. Scene & Camera
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x050608, 0.12);
-
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 5.0);
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(38, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+    camera.position.set(0, 0, 4.8);
 
     // 2. WebGL Renderer
-    let renderer;
     try {
       renderer = new THREE.WebGLRenderer({
         canvas: canvas,
@@ -34,374 +238,248 @@
         antialias: true,
         powerPreference: 'high-performance'
       });
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.35;
+      renderer.toneMappingExposure = 1.3;
     } catch (e) {
-      console.warn('WebGL init failed:', e);
+      console.warn('WebGL initialization error:', e);
       return;
     }
 
-    // 3. Dynamic Studio Lighting
-    const ambientLight = new THREE.AmbientLight(0x0a0e17, 1.8);
+    // 3. Dynamic Studio Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
     scene.add(ambientLight);
 
-    // Key Light: Pure Specular Platinum
-    const keyLight = new THREE.DirectionalLight(0xffffff, 3.8);
-    keyLight.position.set(4, 5, 4);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.8);
+    keyLight.position.set(3, 4, 3.5);
     scene.add(keyLight);
 
-    // Ethereal Rim Light: Cool Lunar Cyan
-    const rimLight = new THREE.DirectionalLight(0x38bdf8, 2.8);
-    rimLight.position.set(-5, -3, -3);
+    const rimLight = new THREE.DirectionalLight(0x38bdf8, 2.2);
+    rimLight.position.set(-4, -2, -2);
     scene.add(rimLight);
 
-    // Dynamic Cursor Torchlight: Moves with user pointer in 3D
-    const torchLight = new THREE.PointLight(0xffffff, 5.5, 9.0);
-    torchLight.position.set(0, 0, 2.5);
+    const torchLight = new THREE.PointLight(0xffffff, 3.0, 7.0);
+    torchLight.position.set(0, 0, 3.0);
     scene.add(torchLight);
 
-    // 4. Master Geometry Group
-    const masterGroup = new THREE.Group();
-    scene.add(masterGroup);
+    // 4. Build Sensible 3D Architectural Device (Cyber-Deck)
+    deviceGroup = new THREE.Group();
+    scene.add(deviceGroup);
 
-    // A. Living Liquid Mercury Mesh (Icosahedron with subdivision)
-    const liquidGeo = new THREE.IcosahedronGeometry(1.35, 4);
-    
-    // Store original rest positions for mathematical displacement
-    const posAttr = liquidGeo.attributes.position;
-    const vertexCount = posAttr.count;
-    const origPositions = new Float32Array(vertexCount * 3);
-    for (let i = 0; i < vertexCount * 3; i++) {
-      origPositions[i] = posAttr.array[i];
-    }
-
-    const chromeMat = new THREE.MeshPhysicalMaterial({
-      color: 0x0c101a,
-      emissive: 0x03060c,
-      roughness: 0.1,
-      metalness: 0.96,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.06,
-      reflectivity: 0.95,
-      flatShading: false
+    // A. Titanium Chassis (Beveled Rounded Box)
+    const chassisGeo = new THREE.BoxGeometry(2.35, 1.58, 0.12);
+    const chassisMat = new THREE.MeshPhysicalMaterial({
+      color: 0x12161f,
+      emissive: 0x05070a,
+      roughness: 0.18,
+      metalness: 0.88,
+      clearcoat: 0.8,
+      clearcoatRoughness: 0.15,
+      reflectivity: 0.85
     });
+    const chassisMesh = new THREE.Mesh(chassisGeo, chassisMat);
+    deviceGroup.add(chassisMesh);
 
-    const liquidMesh = new THREE.Mesh(liquidGeo, chromeMat);
-    masterGroup.add(liquidMesh);
-
-    // B. Delicate Wireframe Exoskeleton
-    const wireMat = new THREE.MeshBasicMaterial({
+    // B. Delicate Titanium Border Chamfer
+    const chamferGeo = new THREE.BoxGeometry(2.37, 1.60, 0.08);
+    const chamferMat = new THREE.MeshBasicMaterial({
       color: 0xffffff,
       wireframe: true,
       transparent: true,
-      opacity: 0.12
+      opacity: 0.16
     });
-    const wireMesh = new THREE.Mesh(liquidGeo, wireMat);
-    masterGroup.add(wireMesh);
+    const chamferMesh = new THREE.Mesh(chamferGeo, chamferMat);
+    deviceGroup.add(chamferMesh);
 
-    // C. Astrolabe Titanium Rings
-    const ringGroup = new THREE.Group();
-    masterGroup.add(ringGroup);
+    // C. PBR Dynamic Glass Screen
+    const screenGeo = new THREE.PlaneGeometry(2.22, 1.46);
+    const screenTex = createScreenTexture();
+    const screenMat = new THREE.MeshPhysicalMaterial({
+      map: screenTex,
+      roughness: 0.08,
+      metalness: 0.1,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.04,
+      reflectivity: 0.95
+    });
+    screenMesh = new THREE.Mesh(screenGeo, screenMat);
+    screenMesh.position.z = 0.065;
+    deviceGroup.add(screenMesh);
 
-    const ring1Geo = new THREE.TorusGeometry(1.85, 0.012, 16, 100);
-    const ring1Mat = new THREE.MeshStandardMaterial({
+    // D. Tactile Control Bar Accent at Base
+    const barGeo = new THREE.BoxGeometry(0.6, 0.04, 0.04);
+    const barMat = new THREE.MeshStandardMaterial({
       color: 0xffffff,
-      metalness: 0.9,
-      roughness: 0.2
+      emissive: 0xffffff,
+      emissiveIntensity: 0.4
     });
-    const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-    ringGroup.add(ring1);
+    const barMesh = new THREE.Mesh(barGeo, barMat);
+    barMesh.position.set(0, -0.72, 0.07);
+    deviceGroup.add(barMesh);
 
-    const ring2Geo = new THREE.TorusGeometry(2.1, 0.009, 16, 100);
-    const ring2Mat = new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
-      metalness: 0.9,
-      roughness: 0.2
-    });
-    const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-    ring2.rotation.x = Math.PI / 2.5;
-    ringGroup.add(ring2);
+    // E. Delicate Coordinate Grid in 3D Depth
+    const gridHelper = new THREE.GridHelper(6, 12, 0x222938, 0x111622);
+    gridHelper.position.y = -1.2;
+    gridHelper.position.z = -0.5;
+    scene.add(gridHelper);
 
-    // D. Particle Constellation
-    const particleCount = 200;
-    const particleGeo = new THREE.BufferGeometry();
-    const pPositions = new Float32Array(particleCount * 3);
+    // Initial group placement
+    deviceGroup.rotation.x = currentRotX;
+    deviceGroup.rotation.y = currentRotY;
 
-    for (let i = 0; i < particleCount; i++) {
-      const radius = 2.2 + Math.random() * 3.0;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = (Math.random() - 0.5) * Math.PI;
+    // 5. Drag & Orbit Interaction Listeners
+    const heroContainer = document.getElementById('hero-canvas-container') || canvas;
 
-      pPositions[i * 3] = radius * Math.cos(theta) * Math.cos(phi);
-      pPositions[i * 3 + 1] = radius * Math.sin(phi);
-      pPositions[i * 3 + 2] = radius * Math.sin(theta) * Math.cos(phi);
-    }
-
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
-    const particleMat = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 0.032,
-      transparent: true,
-      opacity: 0.45,
-      blending: THREE.AdditiveBlending
-    });
-    const particleMesh = new THREE.Points(particleGeo, particleMat);
-    masterGroup.add(particleMesh);
-
-    // 5. Interactive Mouse Orbit, Drag & Torchlight
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetX = 0;
-    let targetY = 0;
-    let rippleTurbulence = 0;
-
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragStartY = 0;
-    let dragRotX = 0;
-    let dragRotY = 0;
-
-    window.addEventListener('mousemove', (e) => {
-      const halfW = window.innerWidth / 2;
-      const halfH = window.innerHeight / 2;
-      mouseX = (e.clientX - halfW) / halfW;
-      mouseY = (e.clientY - halfH) / halfH;
-      rippleTurbulence = Math.min(1.0, rippleTurbulence + 0.08);
-
-      // Move 3D Torchlight smoothly to cursor projection
-      torchLight.position.x = mouseX * 3.2;
-      torchLight.position.y = -mouseY * 2.2;
-      torchLight.position.z = 2.4;
-    }, { passive: true });
-
-    window.addEventListener('mousedown', (e) => {
-      if (e.target.closest('a, button, input, select, textarea, .theater-tab-btn')) return;
+    function onPointerDown(e) {
       isDragging = true;
-      dragStartX = e.clientX;
-      dragStartY = e.clientY;
-      rippleTurbulence = 1.0;
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const deltaX = e.clientX - dragStartX;
-      const deltaY = e.clientY - dragStartY;
-      dragRotY += deltaX * 0.005;
-      dragRotX += deltaY * 0.005;
-      dragStartX = e.clientX;
-      dragStartY = e.clientY;
-      rippleTurbulence = 1.0;
-    });
-
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    // Touch events
-    window.addEventListener('touchstart', (e) => {
-      if (e.target.closest('a, button, input, select, textarea, .theater-tab-btn')) return;
-      if (e.touches.length === 1) {
-        isDragging = true;
-        dragStartX = e.touches[0].clientX;
-        dragStartY = e.touches[0].clientY;
-        rippleTurbulence = 1.0;
-      }
-    }, { passive: true });
-
-    window.addEventListener('touchmove', (e) => {
-      if (!isDragging || e.touches.length !== 1) return;
-      const deltaX = e.touches[0].clientX - dragStartX;
-      const deltaY = e.touches[0].clientY - dragStartY;
-      dragRotY += deltaX * 0.006;
-      dragRotX += deltaY * 0.006;
-      dragStartX = e.touches[0].clientX;
-      dragStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    window.addEventListener('touchend', () => {
-      isDragging = false;
-    });
-
-    // 6. Project-Adaptive Morphing States
-    let currentMorph = 'hero';
-    let morphFrequency = 2.2;
-    let morphSpeed = 1.6;
-    let targetMeshColor = new THREE.Color(0x0c101a);
-    let targetRimColor = new THREE.Color(0x38bdf8);
-
-    window.setProjectMorph = function (morphKey) {
-      currentMorph = morphKey;
-      rippleTurbulence = 1.2;
-
-      if (morphKey === 'atelier') {
-        // Haute Couture: Silk liquid drape, warm gold rim
-        morphFrequency = 1.6;
-        morphSpeed = 1.2;
-        targetMeshColor.setHex(0x14100c);
-        targetRimColor.setHex(0xf0d58a);
-        wireMat.color.setHex(0xf0d58a);
-        wireMat.opacity = 0.25;
-      } else if (morphKey === 'amazon') {
-        // High-Ticket Retail: Clean obsidian crystal
-        morphFrequency = 3.2;
-        morphSpeed = 1.8;
-        targetMeshColor.setHex(0x0a0c10);
-        targetRimColor.setHex(0xffffff);
-        wireMat.color.setHex(0xffffff);
-        wireMat.opacity = 0.15;
-      } else if (morphKey === 'piebot') {
-        // Distributed WebSocket: Fast pulsating cluster
-        morphFrequency = 4.2;
-        morphSpeed = 2.5;
-        targetMeshColor.setHex(0x06121a);
-        targetRimColor.setHex(0x00f2fe);
-        wireMat.color.setHex(0x00f2fe);
-        wireMat.opacity = 0.35;
-      } else if (morphKey === 'exploit') {
-        // Protocol Audit: High-frequency data matrix
-        morphFrequency = 5.0;
-        morphSpeed = 3.0;
-        targetMeshColor.setHex(0x0a1410);
-        targetRimColor.setHex(0x4ade80);
-        wireMat.color.setHex(0x4ade80);
-        wireMat.opacity = 0.4;
-      } else {
-        // Default Hero State
-        morphFrequency = 2.2;
-        morphSpeed = 1.6;
-        targetMeshColor.setHex(0x0c101a);
-        targetRimColor.setHex(0x38bdf8);
-        wireMat.color.setHex(0xffffff);
-        wireMat.opacity = 0.12;
-      }
-    };
-
-    // 7. Scroll Choreography
-    let scrollProgress = 0;
-    function onScroll() {
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      scrollProgress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      prevMouseX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+      prevMouseY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+      if (window.MobpieAudio) window.MobpieAudio.playClick(1400, 0.02);
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
 
-    // 8. Resize Handler
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+    function onPointerMove(e) {
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+
+      // Update torchlight relative to mouse in 3D
+      const rect = canvas.getBoundingClientRect();
+      const normX = ((clientX - rect.left) / rect.width) * 2 - 1;
+      const normY = -((clientY - rect.top) / rect.height) * 2 + 1;
+      torchLight.position.x = normX * 2.5;
+      torchLight.position.y = normY * 1.8;
+
+      if (!isDragging) {
+        // Subtle ambient parallax
+        targetRotY = -0.32 + normX * 0.22;
+        targetRotX = 0.12 - normY * 0.18;
+        return;
+      }
+
+      const deltaX = clientX - prevMouseX;
+      const deltaY = clientY - prevMouseY;
+
+      targetRotY += deltaX * 0.007;
+      targetRotX += deltaY * 0.007;
+
+      // Clamp X rotation so it doesn't flip upside down
+      targetRotX = Math.max(-0.6, Math.min(0.6, targetRotX));
+
+      prevMouseX = clientX;
+      prevMouseY = clientY;
+    }
+
+    function onPointerUp() {
+      isDragging = false;
+    }
+
+    heroContainer.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('mousemove', onPointerMove, { passive: true });
+    window.addEventListener('mouseup', onPointerUp);
+
+    heroContainer.addEventListener('touchstart', onPointerDown, { passive: true });
+    window.addEventListener('touchmove', onPointerMove, { passive: true });
+    window.addEventListener('touchend', onPointerUp);
+
+    // Double click to reset orientation
+    heroContainer.addEventListener('dblclick', function () {
+      targetRotX = 0.12;
+      targetRotY = -0.32;
+      if (window.MobpieAudio) window.MobpieAudio.playClick(1100, 0.03);
+    });
+
+    // 6. Resize Handler
+    function onResize() {
+      if (!canvas || !renderer || !camera) return;
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
 
-    // 9. Hardware Safeguard
-    let isVisible = true;
-    document.addEventListener('visibilitychange', () => {
-      isVisible = !document.hidden;
-    });
+      renderer.setSize(width, height, false);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    }
+    window.addEventListener('resize', onResize);
 
-    // 10. Main Animation Loop
-    const clock = new THREE.Clock();
+    // 7. Hardware Safeguard: Pause RAF when off-screen
+    const heroSection = document.getElementById('hero');
+    if (heroSection && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !rafId) {
+            rafId = requestAnimationFrame(animate);
+          }
+        });
+      }, { threshold: 0.05 });
+      observer.observe(heroSection);
+    }
+
+    // 8. Animation Loop
+    let clock = new THREE.Clock();
 
     function animate() {
-      requestAnimationFrame(animate);
-      if (!isVisible) return;
+      if (!isVisible) {
+        rafId = null;
+        return;
+      }
 
       const delta = clock.getDelta();
-      const time = clock.getElapsedTime();
+      const elapsedTime = clock.getElapsedTime();
 
-      // Damped mouse tracking
-      targetX += (mouseX * 0.4 - targetX) * 0.05;
-      targetY += (mouseY * 0.3 - targetY) * 0.05;
+      // Smooth Lerp Spring Orbit Physics
+      currentRotX += (targetRotX - currentRotX) * 0.08;
+      currentRotY += (targetRotY - currentRotY) * 0.08;
 
-      // Base idle spin
-      masterGroup.rotation.y += delta * 0.25;
-      masterGroup.rotation.x += delta * 0.12;
+      // Subtle breathing float animation
+      const floatY = Math.sin(elapsedTime * 1.2) * 0.035;
+      deviceGroup.position.y = floatY;
 
-      // Drag inertia
-      masterGroup.rotation.y += dragRotY;
-      masterGroup.rotation.x += dragRotX;
-      dragRotX *= 0.94;
-      dragRotY *= 0.94;
+      deviceGroup.rotation.x = currentRotX;
+      deviceGroup.rotation.y = currentRotY;
 
-      // Mouse Parallax
-      masterGroup.position.x = targetX * 0.5;
-      masterGroup.position.y = -targetY * 0.35;
-
-      // Counter-rotating Astrolabe Rings
-      ring1.rotation.z += delta * 0.35;
-      ring1.rotation.x += delta * 0.2;
-      ring2.rotation.y -= delta * 0.4;
-      ring2.rotation.z += delta * 0.25;
-
-      // Particle Field Wave
-      particleMesh.rotation.y -= delta * 0.06;
-
-      // Smooth color morphing
-      chromeMat.color.lerp(targetMeshColor, 0.05);
-      rimLight.color.lerp(targetRimColor, 0.05);
-
-      // LIVING LIQUID MERCURY VERTEX DISPLACEMENT
-      rippleTurbulence *= 0.96;
-      const waveAmp = 0.15 + rippleTurbulence * 0.18;
-      const curPositions = posAttr.array;
-
-      for (let i = 0; i < vertexCount; i++) {
-        const i3 = i * 3;
-        const ox = origPositions[i3];
-        const oy = origPositions[i3 + 1];
-        const oz = origPositions[i3 + 2];
-
-        // 3D Organic Sinusoidal Ripple Wave
-        const wave = Math.sin(ox * morphFrequency + time * morphSpeed) *
-                     Math.cos(oy * morphFrequency + time * (morphSpeed * 0.9)) *
-                     Math.sin(oz * morphFrequency + time * (morphSpeed * 1.1));
-
-        const dist = 1.0 + wave * waveAmp;
-
-        curPositions[i3] = ox * dist;
-        curPositions[i3 + 1] = oy * dist;
-        curPositions[i3 + 2] = oz * dist;
-      }
-
-      posAttr.needsUpdate = true;
-      liquidMesh.geometry.computeVertexNormals();
-
-      // Scroll Position Transition
-      const isMobile = window.innerWidth < 768;
-      if (!isMobile) {
-        if (scrollProgress < 0.2) {
-          // Hero
-          masterGroup.position.x += (0 - masterGroup.position.x) * 0.08;
-          camera.position.z = 5.0;
-        } else if (scrollProgress < 0.65) {
-          // Works
-          masterGroup.position.x += (1.45 - masterGroup.position.x) * 0.08;
-          camera.position.z = 5.4;
-        } else if (scrollProgress < 0.85) {
-          // Expertise
-          masterGroup.position.x += (-1.35 - masterGroup.position.x) * 0.08;
-          camera.position.z = 5.2;
-        } else {
-          // Contact
-          masterGroup.position.x += (0 - masterGroup.position.x) * 0.08;
-          masterGroup.position.y += (0.6 - masterGroup.position.y) * 0.08;
-          camera.position.z = 5.6;
-        }
-      } else {
-        masterGroup.position.x = 0;
-        camera.position.z = 6.2;
-      }
-
+      // Render
       renderer.render(scene, camera);
+      rafId = requestAnimationFrame(animate);
     }
 
-    animate();
+    rafId = requestAnimationFrame(animate);
+  }
+
+  // Project Slide Switcher on 3D Device Screen
+  function switchProjectSlide(index) {
+    if (index === activeSlide) return;
+    activeSlide = index;
+
+    if (window.MobpieAudio) {
+      window.MobpieAudio.playSwitch();
+    }
+
+    // Dynamic scanline transition on 3D canvas
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 0.15;
+      drawProjectToScreen(activeSlide, progress);
+      if (progress >= 1.0) {
+        clearInterval(interval);
+        drawProjectToScreen(activeSlide, 0);
+      }
+    }, 20);
+
+    // Micro recoil spring on 3D device
+    targetRotX += 0.04;
+    setTimeout(() => { targetRotX -= 0.04; }, 140);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMasterpiece3D);
+    document.addEventListener('DOMContentLoaded', initThreeScene);
   } else {
-    initMasterpiece3D();
+    initThreeScene();
   }
+
+  window.Mobpie3D = {
+    switchSlide: switchProjectSlide,
+    getActiveSlide: () => activeSlide
+  };
 })();

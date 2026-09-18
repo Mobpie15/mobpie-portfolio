@@ -1,369 +1,376 @@
 /**
- * MOBPIE // AWWWARDS MASTERPIECE CONTROLLER (v40.0)
- * Features:
- * 1. Synthesized Web Audio API Micro-Haptics (Sub-Bass Resonance & Glass Click)
- * 2. Live Atomic IST Clock (New Delhi, Asia/Kolkata)
- * 3. Pinned Horizon Project Theater Controller (Crossfade + Real-Time 3D Morph Dispatch)
- * 4. Precision Spatial Cursor with Interactive Orbit State
- * 5. Mobile Drawer Controller
- * 6. Video Performance Observer (Low-End PC Safeguard)
+ * MOBPIE // MASTER CONTROLLER & TELEMETRY HUB
+ * Orchestrates IST Clock, WebGL FPS Tracker, Project Switcher,
+ * Scope Estimator, Modal Viewports, and Clipboard Haptics.
  */
 
 (function () {
   'use strict';
 
-  // -------------------------------------------------------------------------
-  // 1. SYNTHESIZED WEB AUDIO API MICRO-HAPTICS
-  // -------------------------------------------------------------------------
-  let audioCtx = null;
-  let isSoundEnabled = false;
-
-  function initAudio() {
-    if (!audioCtx) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) audioCtx = new AudioContext();
-    }
-    if (audioCtx && audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-  }
-
-  function playSubBass() {
-    if (!isSoundEnabled || !audioCtx) return;
-    try {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      const now = audioCtx.currentTime;
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(65, now);
-      osc.frequency.exponentialRampToValueAtTime(32, now + 0.18);
-
-      gain.gain.setValueAtTime(0.2, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      osc.start(now);
-      osc.stop(now + 0.18);
-    } catch (e) {
-      // Audio fallback
-    }
-  }
-
-  function playGlassClick() {
-    if (!isSoundEnabled || !audioCtx) return;
-    try {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      const now = audioCtx.currentTime;
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(1400, now);
-      osc.frequency.exponentialRampToValueAtTime(400, now + 0.05);
-
-      gain.gain.setValueAtTime(0.12, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      osc.start(now);
-      osc.stop(now + 0.05);
-    } catch (e) {
-      // Audio fallback
-    }
-  }
-
-  window.toggleSoundAura = function () {
-    initAudio();
-    isSoundEnabled = !isSoundEnabled;
-    const soundText = document.getElementById('sound-toggle-text');
-    if (soundText) {
-      soundText.textContent = isSoundEnabled ? 'SOUND [ON]' : 'SOUND [OFF]';
-    }
-    if (isSoundEnabled) playGlassClick();
-  };
-
-  // -------------------------------------------------------------------------
-  // 2. LIVE NEW DELHI IST ATOMIC CLOCK
-  // -------------------------------------------------------------------------
-  function initLiveClock() {
+  // 1. Live IST Clock
+  function initISTClock() {
     const clockEl = document.getElementById('ist-time');
     if (!clockEl) return;
 
-    function updateTime() {
-      try {
-        const now = new Date();
-        const options = {
-          timeZone: 'Asia/Kolkata',
-          hour12: false,
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        };
-        const timeStr = new Intl.DateTimeFormat('en-GB', options).format(now);
-        clockEl.textContent = `${timeStr} IST`;
-      } catch (e) {
-        const now = new Date();
-        const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-        const ist = new Date(utc + (3600000 * 5.5));
-        const hh = String(ist.getHours()).padStart(2, '0');
-        const mm = String(ist.getMinutes()).padStart(2, '0');
-        const ss = String(ist.getSeconds()).padStart(2, '0');
-        clockEl.textContent = `${hh}:${mm}:${ss} IST`;
-      }
+    function update() {
+      const options = {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      };
+      const formatter = new Intl.DateTimeFormat('en-GB', options);
+      clockEl.textContent = `${formatter.format(new Date())} IST`;
     }
 
-    updateTime();
-    setInterval(updateTime, 1000);
+    update();
+    setInterval(update, 1000);
   }
 
-  // -------------------------------------------------------------------------
-  // 3. PINNED HORIZON PROJECT THEATER CONTROLLER
-  // -------------------------------------------------------------------------
-  const PROJECTS_DATA = [
-    {
-      id: 'atelier',
-      index: '01 / 04',
-      badge: '60 FPS WEBGL &bull; THREE.JS',
-      domain: 'HAUTE COUTURE 3D',
-      title: 'Atelier Ora &bull; 3D Garment Studio & Logistics ERP',
-      narrative: 'Proprietary Three.js 3D garment inspection with 360° orbit, real-time colorway switching, fabric drape physics simulation, mobile checkout, and an independent Patron & Inventory Management ERP.',
-      specs: ['Three.js WebGL', 'Sub-340ms Edge', 'Zero Plugin Tax', 'Stripe Webhooks'],
-      video: 'assets/videos/mouse-4-650.webm',
-      launchUrl: 'https://fashion-brand-dun.vercel.app',
-      launchText: 'LAUNCH 3D ATELIER',
-      secondaryUrl: 'https://fashion-brand-dun.vercel.app/admin.html',
-      secondaryText: 'INSPECT ADMIN ERP'
-    },
-    {
-      id: 'amazon',
-      index: '02 / 04',
-      badge: 'EDITORIAL COMMERCE',
-      domain: 'ENTERPRISE REDESIGN',
-      title: 'Amazon Luxury &bull; High-Ticket Retail Reimagination',
-      narrative: 'Transforms cluttered mass-market retail into an editorial luxury shopping destination. Zero-reload instantaneous category filtering, Swiss architectural typography, and seamless single-stream checkout.',
-      specs: ['Swiss Grid Typography', 'Zero-Reload State', 'Sub-Second Conversion'],
-      video: 'assets/videos/sliders-7-650.webm',
-      launchUrl: 'https://amazon-redesign-five.vercel.app',
-      launchText: 'INSPECT FLAGSHIP',
-      secondaryUrl: null,
-      secondaryText: null
-    },
-    {
-      id: 'piebot',
-      index: '03 / 04',
-      badge: '18MS INTERNAL DISPATCH',
-      domain: 'SYSTEM AUTOMATION',
-      title: 'Piebot Engine &bull; WebSocket Infrastructure Core',
-      narrative: 'Autonomous community infrastructure engine built with bare-metal Node.js and real-time WebSocket architecture. Powers mission-critical community infrastructure with continuous 99.9% uptime.',
-      specs: ['Node.js WebSockets', '99.9% Production SLA', 'Distributed Event Queue'],
-      video: 'assets/videos/scroll-48-650.webm',
-      launchUrl: 'https://wa.me/918957420306?text=Hello%20Mobpie!%20I\'m%20interested%20in%20custom%20real-time%20automation%20infrastructure.',
-      launchText: 'DISCUSS ARCHITECTURE',
-      secondaryUrl: null,
-      secondaryText: null
-    },
-    {
-      id: 'exploit',
-      index: '04 / 04',
-      badge: 'STATE SYNCHRONIZATION',
-      domain: 'PROTOCOL RESEARCH',
-      title: 'Exploit Labs &bull; Game Sandbox Protocol Mechanics',
-      narrative: 'Technical reverse-engineering studies analyzing sandbox game state mechanics, packet flow synchronization, and client-server authoritative game loops published via @mobpie-op.',
-      specs: ['Protocol Reverse-Engineering', 'Low-Level Logic', 'State Audited'],
-      video: 'assets/videos/scroll-30-650.webm',
-      launchUrl: 'https://wa.me/918957420306?text=Hello%20Mobpie!%20Saw%20your%20Exploit%20Labs%20technical%20studies.',
-      launchText: 'INQUIRE RESEARCH',
-      secondaryUrl: null,
-      secondaryText: null
+  // 2. Real-Time FPS Tracker
+  function initFPSTracker() {
+    const fpsBadge = document.getElementById('fps-badge');
+    if (!fpsBadge) return;
+
+    let frameCount = 0;
+    let lastTime = performance.now();
+
+    function checkFPS() {
+      frameCount++;
+      const now = performance.now();
+      if (now - lastTime >= 1000) {
+        const fps = Math.round((frameCount * 1000) / (now - lastTime));
+        fpsBadge.textContent = `${fps} FPS WEBGL`;
+        frameCount = 0;
+        lastTime = now;
+      }
+      requestAnimationFrame(checkFPS);
     }
-  ];
+    requestAnimationFrame(checkFPS);
+  }
 
-  let currentProjectIdx = 0;
+  // 3. Sound Aura Toggle in HUD
+  window.toggleSoundAura = function () {
+    if (!window.MobpieAudio) return;
+    const isNowActive = window.MobpieAudio.toggleAmbient();
+    const soundText = document.getElementById('sound-toggle-text');
+    const soundBtn = document.getElementById('sound-toggle-btn');
 
-  window.selectTheaterProject = function (idx, btn) {
-    if (idx === currentProjectIdx && btn.classList.contains('active')) return;
-    currentProjectIdx = idx;
-
-    // Update buttons
-    document.querySelectorAll('.theater-tab-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-
-    const project = PROJECTS_DATA[idx];
-    if (!project) return;
-
-    // Trigger Web Audio
-    playSubBass();
-
-    // Trigger 3D WebGL Morph
-    if (typeof window.setProjectMorph === 'function') {
-      window.setProjectMorph(project.id);
-    }
-
-    // Smoothly crossfade theater display elements
-    const video = document.getElementById('theater-video');
-    const badge = document.getElementById('theater-badge');
-    const index = document.getElementById('theater-index');
-    const domain = document.getElementById('theater-domain');
-    const title = document.getElementById('theater-title');
-    const narrative = document.getElementById('theater-narrative');
-    const specs = document.getElementById('theater-specs');
-    const launchBtn = document.getElementById('theater-launch-btn');
-    const secBtn = document.getElementById('theater-sec-btn');
-
-    if (video) {
-      video.style.opacity = '0.3';
-      setTimeout(() => {
-        video.src = project.video;
-        video.play().catch(() => {});
-        video.style.opacity = '1';
-      }, 150);
-    }
-
-    if (badge) badge.innerHTML = project.badge;
-    if (index) index.textContent = project.index;
-    if (domain) domain.textContent = project.domain;
-    if (title) title.textContent = project.title;
-    if (narrative) narrative.textContent = project.narrative;
-
-    if (specs) {
-      specs.innerHTML = project.specs.map(s => `<span>${s}</span>`).join('<span class="spec-dot">&bull;</span>');
-    }
-
-    if (launchBtn) {
-      launchBtn.href = project.launchUrl;
-      launchBtn.querySelector('span').textContent = project.launchText;
-    }
-
-    if (secBtn) {
-      if (project.secondaryUrl) {
-        secBtn.style.display = 'inline-flex';
-        secBtn.href = project.secondaryUrl;
-        secBtn.textContent = project.secondaryText;
+    if (soundText && soundBtn) {
+      if (isNowActive) {
+        soundText.textContent = 'SOUND [ON]';
+        soundBtn.classList.add('sound-active');
       } else {
-        secBtn.style.display = 'none';
+        soundText.textContent = 'SOUND [OFF]';
+        soundBtn.classList.remove('sound-active');
       }
     }
   };
 
-  // -------------------------------------------------------------------------
-  // 4. PRECISION SPATIAL CURSOR
-  // -------------------------------------------------------------------------
-  function initSpatialCursor() {
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  // 4. Hero Project Switcher Tabs
+  function initHeroProjectTabs() {
+    const tabs = document.querySelectorAll('.hero-project-tab');
+    if (!tabs.length) return;
 
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    if (!dot || !ring) return;
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', function () {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
 
-    let mouseX = -100;
-    let mouseY = -100;
-    let ringX = -100;
-    let ringY = -100;
-    let isVisible = false;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      if (!isVisible) {
-        isVisible = true;
-        dot.style.opacity = '1';
-        ring.style.opacity = '1';
-      }
-
-      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-    }, { passive: true });
-
-    document.addEventListener('mouseleave', () => {
-      isVisible = false;
-      dot.style.opacity = '0';
-      ring.style.opacity = '0';
-    });
-
-    function renderRing() {
-      requestAnimationFrame(renderRing);
-      ringX += (mouseX - ringX) * 0.22;
-      ringY += (mouseY - ringY) * 0.22;
-      ring.style.transform = `translate3d(${ringX.toFixed(2)}px, ${ringY.toFixed(2)}px, 0) translate(-50%, -50%)`;
-    }
-    renderRing();
-
-    // Hover Expansion on Interactive Targets
-    const targets = document.querySelectorAll('a, button, .theater-tab-btn, .btn-spatial-primary, .btn-spatial-ghost, .btn-wa-monolith');
-    targets.forEach(el => {
-      el.addEventListener('mouseenter', () => ring.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => ring.classList.remove('cursor-hover'));
-      el.addEventListener('click', () => playGlassClick());
+        if (window.Mobpie3D) {
+          window.Mobpie3D.switchSlide(index);
+        }
+      });
     });
   }
 
-  // -------------------------------------------------------------------------
-  // 5. MOBILE DRAWER CONTROLLER
-  // -------------------------------------------------------------------------
-  function initMobileDrawer() {
-    const toggleBtn = document.getElementById('mobile-toggle-btn');
-    const closeBtn = document.getElementById('drawer-close-btn');
-    const drawer = document.getElementById('mobile-drawer');
-    if (!toggleBtn || !drawer) return;
+  // 5. Interactive Commission Estimator
+  function initScopeEstimator() {
+    const scopeOptions = document.querySelectorAll('.estimator-option[data-scope]');
+    const timelineOptions = document.querySelectorAll('.estimator-option[data-timeline]');
+    const addonOptions = document.querySelectorAll('.estimator-option[data-addon]');
+    const costDisplay = document.getElementById('estimate-cost');
+    const whatsappBtn = document.getElementById('estimator-whatsapp-btn');
 
-    toggleBtn.addEventListener('click', () => {
-      drawer.classList.add('open');
-      drawer.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      playGlassClick();
-    });
+    let basePrice = 2400;
+    let timelineMultiplier = 1.0;
+    let addonsTotal = 0;
 
-    function closeDrawer() {
-      drawer.classList.remove('open');
-      drawer.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      playGlassClick();
+    let selectedScopeName = 'Bespoke 3D WebGL World';
+    let selectedTimelineName = 'Standard (3-4 Weeks)';
+
+    function recalculate() {
+      const total = Math.round((basePrice + addonsTotal) * timelineMultiplier);
+      if (costDisplay) {
+        costDisplay.textContent = `$${total.toLocaleString('en-US')}`;
+      }
+
+      if (whatsappBtn) {
+        const msg = encodeURIComponent(
+          `Hello Mobpie! I configured a project on your portfolio:\n\n• Tier: ${selectedScopeName}\n• Timeline: ${selectedTimelineName}\n• Approx Value: $${total.toLocaleString('en-US')}\n\nI'd like to discuss scheduling and kickoff!`
+        );
+        whatsappBtn.href = `https://wa.me/918957420306?text=${msg}`;
+      }
     }
 
+    scopeOptions.forEach(opt => {
+      opt.addEventListener('click', function () {
+        scopeOptions.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        basePrice = parseInt(opt.getAttribute('data-price') || '2400', 10);
+        selectedScopeName = opt.querySelector('.option-title')?.textContent || 'Bespoke';
+        if (window.MobpieAudio) window.MobpieAudio.playClick(1100, 0.03);
+        recalculate();
+      });
+    });
+
+    timelineOptions.forEach(opt => {
+      opt.addEventListener('click', function () {
+        timelineOptions.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        timelineMultiplier = parseFloat(opt.getAttribute('data-mult') || '1.0');
+        selectedTimelineName = opt.querySelector('.option-title')?.textContent || 'Standard';
+        if (window.MobpieAudio) window.MobpieAudio.playClick(1200, 0.03);
+        recalculate();
+      });
+    });
+
+    addonOptions.forEach(opt => {
+      opt.addEventListener('click', function () {
+        opt.classList.toggle('selected');
+        const price = parseInt(opt.getAttribute('data-price') || '0', 10);
+        if (opt.classList.contains('selected')) {
+          addonsTotal += price;
+        } else {
+          addonsTotal -= price;
+        }
+        if (window.MobpieAudio) window.MobpieAudio.playClick(900, 0.03);
+        recalculate();
+      });
+    });
+
+    recalculate();
+  }
+
+  // 6. Project Modal Dialog Viewports
+  const projectDetails = {
+    'atelier': {
+      title: 'ATELIER ORA',
+      badge: 'QUIET LUXURY DIGITAL FLAGSHIP',
+      kicker: 'HAUTE COUTURE APPAREL // 12-PIECE SIGNATURE DEMO',
+      image: 'assets/images/remake-fashion-preview.png',
+      desc: 'Engineered as an uncompromising digital showroom for bespoke tailoring. Features a tactile travertine limestone palette, surgical typography, interactive PDP with fabric texture switchers, and zero-distraction editorial checkout.',
+      metrics: [
+        { label: 'CONVERSION VELOCITY', val: '+148%' },
+        { label: 'RENDER PERFORMANCE', val: '60 FPS' },
+        { label: 'BOUNCE RATE', val: '18.4%' }
+      ],
+      stack: ['HTML5 / WebGL', 'Vanilla JS Physics', 'CSS Subgrid', 'Vercel Edge'],
+      liveUrl: 'https://atelier-ora.vercel.app',
+      githubUrl: 'https://github.com/Mobpie15/fashion-brand'
+    },
+    'amazon': {
+      title: 'AMAZON LUXURY REMAKE',
+      badge: 'ENTERPRISE STOREFRONT REDESIGN',
+      kicker: 'MASS-MARKET INTERFACE ELEVATION // ZERO CLUTTER',
+      image: 'assets/images/remake-amazon-preview.png',
+      desc: 'Complete architectural remake of Amazon e-commerce. Strips away banner clutter, visual noise, and dark patterns, replacing them with runway-grade product curation, instant drawer carts, and high-velocity micro-interactions.',
+      metrics: [
+        { label: 'USER RETENTION', val: '+92%' },
+        { label: 'CHECKOUT LATENCY', val: '2.1s' },
+        { label: 'SEARCH SPEED', val: '< 50ms' }
+      ],
+      stack: ['Next.js / TypeScript', 'Tailwind Core', 'Framer Motion', 'Stripe API'],
+      liveUrl: 'https://amazon-redesign-nine.vercel.app',
+      githubUrl: 'https://github.com/Mobpie15/amazon-redesign'
+    },
+    'piebot': {
+      title: 'PIEBOT INFRASTRUCTURE',
+      badge: 'HIGH-CONCURRENCE BOT ENGINE',
+      kicker: 'DISCORD AUTOMATION // REAL-TIME TELEMETRY',
+      image: 'assets/images/remakes/remake-tech.jpg',
+      desc: 'Custom-engineered high-throughput Discord engine powering multi-server moderation, role-granting pipelines, custom audio streaming, and live WebSocket telemetry dashboards.',
+      metrics: [
+        { label: 'SOCKET LATENCY', val: '18ms' },
+        { label: 'UPTIME RECORD', val: '99.98%' },
+        { label: 'CONCURRENT OPS', val: '10,000+' }
+      ],
+      stack: ['Node.js / Discord.js', 'WebSocket API', 'Redis Cache', 'Docker'],
+      liveUrl: 'https://discord.gg/9k7c8qG',
+      githubUrl: 'https://github.com/Mobpie15/Piebot'
+    },
+    'creator': {
+      title: 'EXPLOIT CREATOR HUB',
+      badge: 'GAMING DATA ARCHITECTURE',
+      kicker: '@MOBPIE-OP // 46 AUDITED EPISODES',
+      image: 'assets/images/remakes/remake-streetwear.jpg',
+      desc: 'YouTube creator intelligence platform analyzing 46 deep gaming uploads (GTA 5 Story Mode & Minecraft Exploit systems) to systematically maximize viewer retention and CTR.',
+      metrics: [
+        { label: 'CTR PEAK', val: '8.5%' },
+        { label: 'WATCH TIME CONV', val: '66%' },
+        { label: 'HOOK RETENTION', val: '+74%' }
+      ],
+      stack: ['YouTube Analytics API', 'Python / Pandas', 'Chart.js', 'FastAPI'],
+      liveUrl: 'https://youtube.com/@mobpie-op',
+      githubUrl: 'https://github.com/Mobpie15'
+    }
+  };
+
+  function initProjectModals() {
+    const modal = document.getElementById('project-modal');
+    if (!modal) return;
+
+    const modalClose = modal.querySelector('.modal-close');
+    const modalBackdrop = modal.querySelector('.modal-backdrop');
+
+    const modalTitle = document.getElementById('modal-title');
+    const modalBadge = document.getElementById('modal-badge');
+    const modalKicker = document.getElementById('modal-kicker');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalImage = document.getElementById('modal-img');
+    const modalMetrics = document.getElementById('modal-metrics');
+    const modalStack = document.getElementById('modal-stack');
+    const modalLive = document.getElementById('modal-live-btn');
+    const modalGithub = document.getElementById('modal-github-btn');
+
+    function openModal(id) {
+      const data = projectDetails[id];
+      if (!data) return;
+
+      if (modalTitle) modalTitle.textContent = data.title;
+      if (modalBadge) modalBadge.textContent = data.badge;
+      if (modalKicker) modalKicker.textContent = data.kicker;
+      if (modalDesc) modalDesc.textContent = data.desc;
+      if (modalImage) modalImage.src = data.image;
+
+      if (modalMetrics) {
+        modalMetrics.innerHTML = data.metrics.map(m => `
+          <div class="m-metric-box">
+            <span class="m-metric-val font-display">${m.val}</span>
+            <span class="m-metric-lbl font-mono">${m.label}</span>
+          </div>
+        `).join('');
+      }
+
+      if (modalStack) {
+        modalStack.innerHTML = data.stack.map(s => `
+          <span class="m-stack-pill font-mono">${s}</span>
+        `).join('');
+      }
+
+      if (modalLive) modalLive.href = data.liveUrl;
+      if (modalGithub) modalGithub.href = data.githubUrl;
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      if (window.MobpieAudio) window.MobpieAudio.playClick(1300, 0.04);
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      if (window.MobpieAudio) window.MobpieAudio.playClick(800, 0.02);
+    }
+
+    document.querySelectorAll('[data-open-modal]').forEach(trigger => {
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        const id = trigger.getAttribute('data-open-modal');
+        openModal(id);
+      });
+    });
+
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  }
+
+  // 7. Copy Email with Toast Feedback
+  function initCopyEmail() {
+    const copyBtns = document.querySelectorAll('[data-copy-email]');
+    const toast = document.getElementById('copy-toast');
+
+    copyBtns.forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const email = 'mobpie.business@gmail.com';
+
+        navigator.clipboard.writeText(email).then(() => {
+          if (toast) {
+            toast.textContent = `COPIED TO CLIPBOARD: ${email}`;
+            toast.classList.add('show');
+            setTimeout(() => {
+              toast.classList.remove('show');
+            }, 3000);
+          }
+          if (window.MobpieAudio) window.MobpieAudio.playClick(1500, 0.04);
+        });
+      });
+    });
+  }
+
+  // 8. Mobile Drawer
+  function initMobileDrawer() {
+    const toggleBtn = document.getElementById('mobile-toggle-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    const closeBtn = document.getElementById('drawer-close-btn');
+    const drawerLinks = document.querySelectorAll('.mobile-drawer .d-link');
+
+    if (!drawer) return;
+
+    function openDrawer() {
+      drawer.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (window.MobpieAudio) window.MobpieAudio.playClick(1200, 0.03);
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('active');
+      document.body.style.overflow = '';
+      if (window.MobpieAudio) window.MobpieAudio.playClick(800, 0.02);
+    }
+
+    if (toggleBtn) toggleBtn.addEventListener('click', openDrawer);
     if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
 
-    document.querySelectorAll('.d-link').forEach(link => {
+    drawerLinks.forEach(link => {
       link.addEventListener('click', closeDrawer);
     });
   }
 
-  // -------------------------------------------------------------------------
-  // 6. VIDEO INTERSECTION OBSERVER (LOW-END PC SAFEGUARD)
-  // -------------------------------------------------------------------------
-  function initVideoPerformance() {
-    if (!('IntersectionObserver' in window)) return;
+  // 9. Scroll Reveal Observers
+  function initScrollReveals() {
+    const revealEls = document.querySelectorAll('.reveal-on-scroll');
+    if (!revealEls.length || !('IntersectionObserver' in window)) return;
 
-    const videos = document.querySelectorAll('video');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.play().catch(() => {});
-        } else {
-          entry.target.pause();
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.15 });
 
-    videos.forEach(v => observer.observe(v));
+    revealEls.forEach(el => observer.observe(el));
   }
 
-  // -------------------------------------------------------------------------
-  // INITIALIZATION
-  // -------------------------------------------------------------------------
-  function init() {
-    initLiveClock();
-    initSpatialCursor();
+  // Master Boot
+  document.addEventListener('DOMContentLoaded', function () {
+    initISTClock();
+    initFPSTracker();
+    initHeroProjectTabs();
+    initScopeEstimator();
+    initProjectModals();
+    initCopyEmail();
     initMobileDrawer();
-    initVideoPerformance();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+    initScrollReveals();
+  });
 })();

@@ -1,47 +1,31 @@
 /**
- * Mobpie Cyber Magnetic Cursor Engine
- * - Smooth 2-tier cursor: precision laser dot + fluid trailing lag ring
- * - Transforms to large "EXPLORE" badge over browser demo frames
- * - Magnetic suction on links, buttons, and interactive CTA pills
- * - Automatically skipped on touch/mobile devices
+ * MOBPIE // MAGNETIC VELOCITY CURSOR ENGINE
+ * Dual-node precision cursor with velocity stretching, magnetic snapping,
+ * and contextual hover modes.
  */
 
 (function () {
   'use strict';
 
-  // Strictly skip touch devices
-  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if (isTouch) return;
 
-  // Use existing DOM elements or create if missing
-  let dot = document.getElementById('cursor-dot') || document.getElementById('cyber-cursor-dot');
-  let ring = document.getElementById('cursor-ring') || document.getElementById('cyber-cursor-ring');
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  const label = ring ? ring.querySelector('.cursor-label') : null;
 
-  if (!dot) {
-    dot = document.createElement('div');
-    dot.id = 'cursor-dot';
-    dot.className = 'cyber-cursor-dot';
-    document.body.appendChild(dot);
-  }
+  if (!dot || !ring) return;
 
-  if (!ring) {
-    ring = document.createElement('div');
-    ring.id = 'cursor-ring';
-    ring.className = 'cyber-cursor-ring';
-    const badge = document.createElement('span');
-    badge.className = 'cursor-badge-text font-mono';
-    badge.textContent = 'EXPLORE';
-    ring.appendChild(badge);
-    document.body.appendChild(ring);
-  }
-
-  let mouseX = -100;
-  let mouseY = -100;
-  let ringX = -100;
-  let ringY = -100;
-  let magneticTarget = null;
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
+  let ringScale = 1;
   let isVisible = false;
+  let currentMode = 'default';
 
-  window.addEventListener('mousemove', (e) => {
+  // Mouse move tracker
+  window.addEventListener('mousemove', function (e) {
     mouseX = e.clientX;
     mouseY = e.clientY;
 
@@ -51,69 +35,117 @@
       ring.style.opacity = '1';
     }
 
-    dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+    // Instant dot movement
+    dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
   }, { passive: true });
 
-  document.addEventListener('mouseleave', () => {
+  window.addEventListener('mouseleave', function () {
     isVisible = false;
     dot.style.opacity = '0';
     ring.style.opacity = '0';
   });
 
-  // Smooth trailing spring loop for ring
-  function renderCursor() {
-    requestAnimationFrame(renderCursor);
+  window.addEventListener('mouseenter', function () {
+    isVisible = true;
+    dot.style.opacity = '1';
+    ring.style.opacity = '1';
+  });
 
-    if (magneticTarget) {
-      const rect = magneticTarget.getBoundingClientRect();
-      const targetCenterX = rect.left + rect.width / 2;
-      const targetCenterY = rect.top + rect.height / 2;
-      ringX += (targetCenterX - ringX) * 0.24;
-      ringY += (targetCenterY - ringY) * 0.24;
-    } else {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
+  // Physics animation loop for smooth trailing ring
+  function renderCursor() {
+    if (isVisible) {
+      const dx = mouseX - ringX;
+      const dy = mouseY - ringY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      // Lerp positioning
+      ringX += dx * 0.18;
+      ringY += dy * 0.18;
+
+      // Velocity stretching
+      const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+      const stretch = Math.min(dist * 0.002, 0.35);
+      const scaleX = ringScale * (1 + stretch);
+      const scaleY = ringScale * (1 - stretch);
+
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) rotate(${angle}deg) scale(${scaleX}, ${scaleY})`;
     }
 
-    ring.style.transform = `translate3d(${ringX.toFixed(2)}px, ${ringY.toFixed(2)}px, 0) translate(-50%, -50%)`;
+    requestAnimationFrame(renderCursor);
   }
-  renderCursor();
+  requestAnimationFrame(renderCursor);
 
-  // Attach magnetic hover events
-  function initHoverListeners() {
-    const interactives = document.querySelectorAll(
-      'a, button, .btn-primary-azure, .btn-primary-volt, .btn-secondary-ghost, .hud-cta-btn, .btn-whatsapp-direct, .btn-theater-action, .btn-dispatch-blueprint, .cat-pill, .sprint-pill, .cmd-item, .sound-toggle-btn'
-    );
+  // Contextual Hover Modes
+  function setCursorMode(mode, text = '') {
+    currentMode = mode;
+    ring.setAttribute('data-mode', mode);
 
-    interactives.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        ring.classList.add('cursor-hover');
-        if (el.classList.contains('btn-primary-azure') || el.classList.contains('btn-primary-volt') || el.classList.contains('hud-cta-btn') || el.classList.contains('btn-whatsapp-direct')) {
-          magneticTarget = el;
-        }
-      });
+    if (label) {
+      label.textContent = text;
+      label.style.opacity = text ? '1' : '0';
+    }
 
-      el.addEventListener('mouseleave', () => {
-        ring.classList.remove('cursor-hover');
-        magneticTarget = null;
-      });
-    });
-
-    // Special "DRAG" state for sandbox playground and weapon preview stages
-    const dragStages = document.querySelectorAll('.sandbox-canvas-area, .weapon-preview-stage, .circular-mask-stage');
-    dragStages.forEach(demo => {
-      demo.addEventListener('mouseenter', () => {
-        ring.classList.add('cursor-work-hover');
-      });
-      demo.addEventListener('mouseleave', () => {
-        ring.classList.remove('cursor-work-hover');
-      });
-    });
+    if (mode === 'drag') {
+      ringScale = 2.2;
+    } else if (mode === 'view') {
+      ringScale = 2.0;
+    } else if (mode === 'pointer') {
+      ringScale = 1.4;
+    } else if (mode === 'copy') {
+      ringScale = 1.8;
+    } else {
+      ringScale = 1;
+    }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHoverListeners);
-  } else {
-    initHoverListeners();
-  }
+  // Hover detection delegation
+  document.addEventListener('mouseover', function (e) {
+    const target = e.target;
+
+    const dragTarget = target.closest('[data-cursor="drag"]') || target.closest('#hero-canvas-container');
+    if (dragTarget) {
+      setCursorMode('drag', 'DRAG 3D');
+      if (window.MobpieAudio) window.MobpieAudio.playHover(3000);
+      return;
+    }
+
+    const viewTarget = target.closest('[data-cursor="view"]');
+    if (viewTarget) {
+      setCursorMode('view', 'VIEW');
+      if (window.MobpieAudio) window.MobpieAudio.playHover(2600);
+      return;
+    }
+
+    const copyTarget = target.closest('[data-cursor="copy"]');
+    if (copyTarget) {
+      setCursorMode('copy', 'COPY');
+      if (window.MobpieAudio) window.MobpieAudio.playHover(2800);
+      return;
+    }
+
+    const clickable = target.closest('a, button, input, select, textarea, [data-cursor="pointer"]');
+    if (clickable) {
+      setCursorMode('pointer', '');
+      if (window.MobpieAudio) window.MobpieAudio.playHover(2400);
+      return;
+    }
+
+    setCursorMode('default', '');
+  });
+
+  document.addEventListener('mouseout', function (e) {
+    const related = e.relatedTarget;
+    if (!related || !related.closest('a, button, input, select, [data-cursor]')) {
+      setCursorMode('default', '');
+    }
+  });
+
+  // Click pulse animation
+  document.addEventListener('mousedown', function () {
+    ring.classList.add('cursor-active');
+  });
+
+  document.addEventListener('mouseup', function () {
+    ring.classList.remove('cursor-active');
+  });
 })();
