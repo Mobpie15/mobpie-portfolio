@@ -36,9 +36,6 @@
       <a href="#why-us" class="top-pill-link">Why Us?</a>
       <a href="#contact" class="top-pill-link">Contact</a>
       <button type="button" class="top-pill-link sound-toggle-btn" title="Toggle ambient music">
-        <div class="sound-eq-bars" aria-hidden="true">
-          <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
-        </div>
         <span class="btn-label">SOUND: MUTED</span>
       </button>
     </div>
@@ -46,9 +43,7 @@
     <!-- Mobile Header Quick Controls (Visible <= 860px) -->
     <div class="mobile-header-actions">
       <button type="button" class="mobile-sound-pill sound-toggle-btn" title="Toggle Sound">
-        <div class="sound-eq-bars" aria-hidden="true">
-          <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
-        </div>
+        <span class="sound-dot"></span>
         <span class="btn-label">SOUND OFF</span>
       </button>
       <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle-btn" aria-label="Open Navigation Drawer">
@@ -135,10 +130,6 @@
     <!-- MINIMALIST LUXURY HERO BOTTOM BAR (CLEAN, SPACIOUS, ZERO BOXES) -->
     <div class="hero-minimal-bar">
       <div class="hero-minimal-info">
-        <div class="hero-live-telemetry font-mono">
-          <span class="live-dot-pulse"></span>
-          <span>STUDIO STATUS: ACTIVE &bull; 2 SPRINT SLOTS AVAILABLE</span>
-        </div>
         <span class="hero-mini-kicker font-mono">
           <span class="live-green-dot"></span>
           <span>MOBPIE &bull; INDEPENDENT FULL-STACK ENGINEER &amp; DESIGNER &bull; INDIA</span>
@@ -202,7 +193,7 @@
               <span class="hl-desc">Direct WhatsApp collaboration, zero middle-men, immediate feedback loops.</span>
             </div>
             <div class="highlight-item">
-              <span class="hl-title">BLAZING SPEED (<span class="stat-counter" data-target="0.4" data-prefix="&lt; " data-suffix="s">&lt; 0.4s</span>)</span>
+              <span class="hl-title">BLAZING SPEED (&lt; 0.4s)</span>
               <span class="hl-desc">Sub-second page loads so your mobile visitors never bounce or abandon.</span>
             </div>
             <div class="highlight-item">
@@ -210,7 +201,7 @@
               <span class="hl-desc">Transforming cluttered, slow, or outdated sites into clean luxury flagships.</span>
             </div>
             <div class="highlight-item">
-              <span class="hl-title"><span class="stat-counter" data-target="100" data-suffix="%">100%</span> CODE OWNERSHIP</span>
+              <span class="hl-title">100% CODE OWNERSHIP</span>
               <span class="hl-desc">You own the complete source code and assets. Zero monthly subscription traps.</span>
             </div>
           </div>
@@ -527,7 +518,7 @@
           <p class="why-text">
             We write clean, modular code with zero bloat. Pages load in under 400 milliseconds, ensuring mobile visitors never wait and search engines reward your site with top rankings.
           </p>
-          <span class="why-tag"><span class="stat-counter" data-target="99" data-suffix="/100">99/100</span> Core Web Vitals</span>
+          <span class="why-tag">99/100 Core Web Vitals</span>
         </div>
 
         <!-- Card 2: Smooth, Modern Aesthetic -->
@@ -578,7 +569,7 @@
           <p class="why-text">
             You own 100% of your source code, design assets, and Git repository. No proprietary subscription lock-in, no hostage fees, and complete intellectual property freedom.
           </p>
-          <span class="why-tag"><span class="stat-counter" data-target="100" data-suffix="%">100%</span> Total IP Ownership</span>
+          <span class="why-tag">Total IP Ownership</span>
         </div>
       </div>
     </div>
@@ -732,7 +723,6 @@
   <script src="assets/js/audio-player.js"></script>
   <script src="assets/js/waveform-bg.js"></script>
   <script src="assets/js/tilt-fx.js"></script>
-  <script src="assets/js/cursor.js"></script>
   <script src="assets/js/mobile-nav.js"></script>
   <script src="assets/js/main.js"></script>
 
