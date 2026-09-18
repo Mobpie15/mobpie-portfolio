@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MOBPIE // Creative Technologist &bull; 3D Digital Craftsman</title>
-  <meta name="description" content="Awwwards-level minimalist 3D WebGL experiences, tactile digital flagships, and high-performance brand engineering by Mobpie.">
+  <title>MOBPIE // Digital Architect &bull; Creative Technologist</title>
+  <meta name="description" content="Awwwards-level full-bleed 3D WebGL flagships, luxury digital boutiques, and high-conversion startup engineering by Mobpie.">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
   <link rel="shortcut icon" href="favicon.ico">
 
-  <!-- Curated High-Ticket Typography -->
+  <!-- Curated Runway Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
@@ -21,557 +21,487 @@
 </head>
 <body>
 
-  <!-- Sub-Atmosphere Tactile Film Grain -->
+  <!-- Full-Bleed Spatial 3D Canvas (Edge-to-Edge) -->
+  <canvas id="webgl-canvas" class="webgl-fixed-canvas"></canvas>
+
+  <!-- Sub-Atmospheric Tactile Film Grain -->
   <div class="spatial-grain" aria-hidden="true"></div>
 
-  <!-- Magnetic Dual-Node Cursor -->
+  <!-- Magnetic Velocity Cursor -->
   <div class="spatial-cursor-dot" id="cursor-dot" aria-hidden="true"></div>
   <div class="spatial-cursor-ring" id="cursor-ring" aria-hidden="true">
     <span class="cursor-label font-mono"></span>
   </div>
 
   <!-- =========================================================================
-       01. FLOATING MINIMALIST HUD NAVIGATION
+       01. EDITORIAL FLOATING HUD
        ========================================================================= -->
-  <header class="spatial-hud" id="main-hud">
-    <div class="hud-container">
+  <header class="editorial-hud" id="main-hud">
+    <div class="hud-inner font-mono">
       
-      <!-- Brand Identity -->
+      <!-- Monogram Identity -->
       <a href="#hero" class="hud-brand" aria-label="Mobpie Home">
-        <span class="hud-mark font-mono">M//</span>
-        <span class="hud-name font-display">MOBPIE</span>
+        <span class="mark">M//</span>
+        <span class="name font-display">MOBPIE</span>
       </a>
 
-      <div class="hud-separator"></div>
-
-      <!-- Live Telemetry Status -->
-      <div class="hud-telemetry font-mono">
-        <span class="tele-dot"></span>
-        <span id="ist-time" class="tele-text">--:--:-- IST</span>
-        <span id="fps-badge" class="tele-badge">60 FPS WEBGL</span>
-      </div>
-
-      <div class="hud-separator"></div>
-
-      <!-- Navigation Links -->
-      <nav class="hud-nav font-mono" aria-label="Primary Navigation">
-        <a href="#works" class="hud-link">01 // THEATER</a>
-        <a href="#arsenal" class="hud-link">02 // ARSENAL</a>
-        <a href="#philosophy" class="hud-link">03 // PHILOSOPHY</a>
-        <a href="#commission" class="hud-link">04 // COMMISSION</a>
+      <!-- Primary Nav -->
+      <nav class="hud-nav" aria-label="Primary Navigation">
+        <a href="#theater">01 // THEATER</a>
+        <a href="#capabilities">02 // CAPABILITIES</a>
+        <a href="#manifesto">03 // MANIFESTO</a>
+        <a href="#commission">04 // COMMISSION</a>
       </nav>
 
-      <div class="hud-separator"></div>
-
-      <!-- Synthesized Sound Aura & VIP WhatsApp Action -->
-      <div class="hud-actions">
-        <button type="button" id="sound-toggle-btn" class="hud-sound-btn font-mono" onclick="toggleSoundAura()" aria-label="Toggle Procedural Sound Aura">
-          <span class="sound-eq"><span></span><span></span><span></span></span>
+      <!-- Right Telemetry & Actions -->
+      <div class="hud-right">
+        <span id="ist-time" class="hud-tele-badge">--:--:-- IST</span>
+        
+        <button type="button" id="sound-toggle-btn" class="hud-sound-toggle" onclick="toggleSoundAura()" aria-label="Toggle Procedural Sound Aura">
           <span id="sound-toggle-text">SOUND [OFF]</span>
         </button>
 
-        <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20ready%20to%20commission%20a%20flagship%20digital%20masterpiece." target="_blank" rel="noopener noreferrer" class="hud-vip-btn font-mono">
+        <a href="https://wa.me/918957420306?text=Hello%20Mobpie!%20I'm%20ready%20to%20commission%20a%20flagship%20digital%20masterpiece." target="_blank" rel="noopener noreferrer" class="hud-vip-btn">
           <span>VIP DIRECT</span>
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
         </a>
-
-        <!-- Mobile Drawer Trigger -->
-        <button type="button" id="mobile-toggle-btn" class="hud-mobile-toggle" aria-label="Toggle Menu">
-          <span></span><span></span>
-        </button>
       </div>
 
     </div>
   </header>
 
-  <!-- Mobile Minimal Drawer -->
-  <aside id="mobile-drawer" class="mobile-drawer font-mono" aria-label="Mobile Navigation">
-    <div class="drawer-top">
-      <span class="drawer-brand font-display">MOBPIE</span>
-      <button type="button" id="drawer-close-btn" class="drawer-close" aria-label="Close">&times;</button>
-    </div>
-    <div class="drawer-links font-display">
-      <a href="#hero" class="d-link">00 &mdash; HOME</a>
-      <a href="#works" class="d-link">01 &mdash; PROJECT THEATER</a>
-      <a href="#arsenal" class="d-link">02 &mdash; CORE ARSENAL</a>
-      <a href="#philosophy" class="d-link">03 &mdash; PHILOSOPHY</a>
-      <a href="#commission" class="d-link">04 &mdash; COMMISSION</a>
-    </div>
-    <div class="drawer-bottom">
-      <a href="https://wa.me/918957420306" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-direct font-mono">
-        <span>VIP WHATSAPP HOTLINE</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-      </a>
-      <button type="button" class="btn-copy-email font-mono" data-copy-email>COPY BUSINESS EMAIL</button>
-    </div>
-  </aside>
-
   <!-- =========================================================================
-       02. HERO SECTION & SENSIBLE 3D VIEWPORT
+       02. MONUMENTAL FULL-BLEED HERO ACT
        ========================================================================= -->
   <main>
-    <section id="hero" class="hero-section">
-      <div class="container">
-        <div class="hero-grid">
-          
-          <!-- Left Column: Architectural Messaging -->
-          <div class="hero-content">
-            <div class="hero-kicker-badge font-mono">
-              <span class="badge-pulse"></span>
-              <span>CREATIVE TECHNOLOGIST // INTERFACE ARCHITECT</span>
-            </div>
-
-            <h1 class="hero-title font-display">
-              ENGINEERING HIGH-TICKET <span class="title-accent">DIGITAL MASTERPIECES</span> & 3D EXPERIENCES.
-            </h1>
-
-            <p class="hero-subtitle">
-              Crafting category-defining web flagships, interactive WebGL worlds, and high-conversion startup brands. Built for ambitious founders who demand undeniable market authority.
-            </p>
-
-            <div class="hero-cta-group">
-              <a href="#works" class="btn-primary font-mono">
-                <span>EXPLORE THEATER</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-              </a>
-
-              <a href="#commission" class="btn-secondary font-mono">
-                <span>INITIATE COMMISSION</span>
-              </a>
-            </div>
-
-            <!-- Proof of Velocity Strip -->
-            <div class="hero-metrics-strip font-mono">
-              <div class="h-metric-item">
-                <span class="h-metric-val font-display">+148%</span>
-                <span class="h-metric-lbl">CONVERSION LIFT</span>
-              </div>
-              <div class="h-metric-item">
-                <span class="h-metric-val font-display">&lt;380ms</span>
-                <span class="h-metric-lbl">EDGE LATENCY</span>
-              </div>
-              <div class="h-metric-item">
-                <span class="h-metric-val font-display">60 FPS</span>
-                <span class="h-metric-lbl">HARDWARE LOCK</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Column: Sensible 3D Cyber-Deck Terminal -->
-          <div class="hero-stage-column">
-            <div class="hero-canvas-wrapper" id="hero-canvas-container" data-cursor="drag">
-              
-              <div class="canvas-top-bar font-mono">
-                <span>TERMINAL_3D // SPATIAL DECK</span>
-                <div class="canvas-drag-hint">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
-                  <span>DRAG TO ROTATE</span>
-                </div>
-              </div>
-
-              <!-- WebGL Canvas for 3D Cyber-Deck -->
-              <canvas id="webgl-canvas" class="webgl-canvas-el"></canvas>
-
-              <!-- Interactive Project Tabs (Syncs with 3D Screen) -->
-              <div class="hero-project-tabs font-mono">
-                <button type="button" class="hero-project-tab active" data-slide="0">01 ATELIER</button>
-                <button type="button" class="hero-project-tab" data-slide="1">02 AMAZON</button>
-                <button type="button" class="hero-project-tab" data-slide="2">03 PIEBOT</button>
-                <button type="button" class="hero-project-tab" data-slide="3">04 EXPLOIT</button>
-              </div>
-
-            </div>
-          </div>
-
+    <section id="hero" class="editorial-hero">
+      <div class="container-full">
+        
+        <div class="hero-meta-kicker font-mono">
+          <span>EST. 2026 // NEW DELHI &bull; WORLDWIDE REMOTE</span>
+          <span>CREATIVE TECHNOLOGIST &bull; INTERFACE ARCHITECT</span>
+          <span>CLASS 11TH COMMERCE &bull; HIGH-TICKET POSITIONING</span>
         </div>
+
+        <h1 class="hero-title-monumental font-display">
+          ENGINEERING <br>
+          <span class="stroke-text">DIGITAL</span> MASTERPIECES.
+        </h1>
+
+        <div class="hero-bottom-row">
+          <p class="hero-philosophy-lead font-sans">
+            Crafting category-defining web flagships, interactive WebGL worlds, and quiet luxury storefronts. Engineered for ambitious founders who demand undeniable market stature and conversion velocity.
+          </p>
+
+          <div class="hero-ctas-strip font-mono">
+            <a href="#theater" class="btn-editorial-primary">
+              <span>EXPLORE THEATER</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+
+            <a href="#commission" class="btn-editorial-ghost">
+              <span>COMMISSION WORK</span>
+            </a>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <!-- =========================================================================
-         03. SELECTED WORKS THEATER
+         03. FULL-WIDTH CINEMATIC PROJECT SHOWCASES (THEATER)
          ========================================================================= -->
-    <section id="works" class="section-spacer">
-      <div class="container">
+    <section id="theater" class="editorial-theater">
+      <div class="container-full">
         
-        <div class="section-header reveal-on-scroll">
-          <div class="section-kicker font-mono">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <span>FLAGSHIP PROOF OF WORK</span>
+        <div class="theater-header">
+          <div>
+            <div class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--platinum-dim); margin-bottom: 0.5rem;">
+              01 // CURATED ARCHIVE
+            </div>
+            <h2 class="theater-heading font-display">SELECTED WORKS THEATER</h2>
           </div>
-          <h2 class="section-title font-display">SELECTED WORKS THEATER</h2>
-          <p class="section-desc">
-            Four category-defining case studies demonstrating mastery in quiet luxury, enterprise e-commerce, high-concurrence infrastructure, and data architectures.
-          </p>
+          <div class="font-mono" style="font-size: 0.8rem; color: var(--platinum-dim);">
+            [4 FLAGSHIPS LOCKED]
+          </div>
         </div>
 
-        <div class="project-grid">
+        <!-- Project 01: Atelier Ora -->
+        <article class="project-spread" data-cursor="view">
+          <div class="spread-meta-top font-mono">
+            <span>FLAGSHIP 01 // QUIET LUXURY APPAREL</span>
+            <span>ATELIER-ORA.VERCEL.APP</span>
+            <span>2026 PRODUCTION</span>
+          </div>
 
-          <!-- Project 01: Atelier Ora -->
-          <article class="project-card tilt-card reveal-on-scroll" data-cursor="view">
-            <div class="p-card-top font-mono">
-              <span class="p-badge">01 // QUIET LUXURY</span>
-              <span class="p-num">2026</span>
-            </div>
+          <div class="spread-hero-viewport" data-open-modal="atelier">
+            <img src="assets/images/remake-fashion-preview.png" alt="Atelier Ora Digital Boutique" loading="lazy">
+          </div>
 
-            <div class="p-card-media">
-              <img src="assets/images/remake-fashion-preview.png" alt="Atelier Ora Haute Couture Preview" loading="lazy">
-            </div>
-
-            <div class="p-card-content">
-              <h3 class="font-display">ATELIER ORA</h3>
-              <div class="p-category font-mono">HAUTE COUTURE DIGITAL BOUTIQUE</div>
-              <p class="p-summary">
-                12-piece luxury apparel flagship set on travertine limestone. Precision typography, tactile interactive PDP fabric switchers, and zero-friction editorial checkout.
+          <div class="spread-details-grid">
+            <div>
+              <h3 class="spread-title font-display">ATELIER ORA</h3>
+              <div class="spread-kicker font-mono">HAUTE COUTURE DIGITAL BOUTIQUE &bull; 12 PIECE SIGNATURE SHOWCASE</div>
+              <p class="spread-desc">
+                An uncompromising digital showroom set on travertine limestone. Tailored with surgical typography tension, tactile PDP fabric texture switchers, and zero-distraction editorial checkout.
               </p>
-            </div>
-
-            <div class="p-card-footer">
-              <div class="p-stack-list font-mono">
-                <span class="p-pill">HTML5/WebGL</span>
-                <span class="p-pill">Vanilla Physics</span>
-                <span class="p-pill">CSS Subgrid</span>
+              
+              <div class="spread-actions font-mono">
+                <button type="button" class="btn-editorial-primary" data-open-modal="atelier">
+                  <span>INSPECT CASE STUDY</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </button>
+                <a href="https://atelier-ora.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-editorial-ghost">
+                  <span>LIVE DEMO</span>
+                </a>
               </div>
-              <button type="button" class="p-action-btn font-mono" data-open-modal="atelier">
-                <span>CASE STUDY</span>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-              </button>
-            </div>
-          </article>
-
-          <!-- Project 02: Amazon Luxury Remake -->
-          <article class="project-card tilt-card reveal-on-scroll" data-cursor="view">
-            <div class="p-card-top font-mono">
-              <span class="p-badge">02 // E-COMMERCE REMAKE</span>
-              <span class="p-num">2026</span>
             </div>
 
-            <div class="p-card-media">
-              <img src="assets/images/remake-amazon-preview.png" alt="Amazon Luxury Remake Preview" loading="lazy">
+            <div class="spread-specs-col font-mono">
+              <div class="spread-metrics-row">
+                <div class="metric-stat">
+                  <span class="val font-display">+148%</span>
+                  <span class="lbl">CONVERSION LIFT</span>
+                </div>
+                <div class="metric-stat">
+                  <span class="val font-display">60 FPS</span>
+                  <span class="lbl">WEBGL RENDER</span>
+                </div>
+                <div class="metric-stat">
+                  <span class="val font-display">&lt;320ms</span>
+                  <span class="lbl">EDGE LATENCY</span>
+                </div>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--platinum-dim); line-height: 1.6;">
+                CORE STACK: HTML5 &bull; WebGL Physics &bull; CSS Subgrid &bull; Vercel Edge CDN
+              </div>
             </div>
+          </div>
+        </article>
 
-            <div class="p-card-content">
-              <h3 class="font-display">AMAZON LUXURY</h3>
-              <div class="p-category font-mono">ENTERPRISE STOREFRONT ELEVATION</div>
-              <p class="p-summary">
-                Mass-market interface reimagination. Stripping away visual noise and dark patterns to deliver runway-grade product curation, instant drawer carts, and high-velocity conversions.
+        <!-- Project 02: Amazon Luxury Remake -->
+        <article class="project-spread" data-cursor="view">
+          <div class="spread-meta-top font-mono">
+            <span>FLAGSHIP 02 // ENTERPRISE E-COMMERCE REMAKE</span>
+            <span>AMAZON-REDESIGN.VERCEL.APP</span>
+            <span>2026 PRODUCTION</span>
+          </div>
+
+          <div class="spread-hero-viewport" data-open-modal="amazon">
+            <img src="assets/images/remake-amazon-preview.png" alt="Amazon Luxury E-Commerce Redesign" loading="lazy">
+          </div>
+
+          <div class="spread-details-grid">
+            <div>
+              <h3 class="spread-title font-display">AMAZON LUXURY</h3>
+              <div class="spread-kicker font-mono" style="color: #ffffff;">MASS-MARKET STOREFRONT ELEVATION &bull; RUNWAY PDP</div>
+              <p class="spread-desc">
+                Complete architectural remake of Amazon e-commerce. Stripping away visual noise and dark patterns to deliver runway-grade product curation, instant drawer carts, and high-velocity micro-interactions.
               </p>
-            </div>
-
-            <div class="p-card-footer">
-              <div class="p-stack-list font-mono">
-                <span class="p-pill">Next.js</span>
-                <span class="p-pill">TypeScript</span>
-                <span class="p-pill">Framer Motion</span>
+              
+              <div class="spread-actions font-mono">
+                <button type="button" class="btn-editorial-primary" data-open-modal="amazon">
+                  <span>INSPECT CASE STUDY</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </button>
+                <a href="https://amazon-redesign-nine.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-editorial-ghost">
+                  <span>LIVE DEMO</span>
+                </a>
               </div>
-              <button type="button" class="p-action-btn font-mono" data-open-modal="amazon">
-                <span>CASE STUDY</span>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-              </button>
-            </div>
-          </article>
-
-          <!-- Project 03: Piebot Discord Engine -->
-          <article class="project-card tilt-card reveal-on-scroll" data-cursor="view">
-            <div class="p-card-top font-mono">
-              <span class="p-badge">03 // DISCORD INFRASTRUCTURE</span>
-              <span class="p-num">2026</span>
             </div>
 
-            <div class="p-card-media">
-              <img src="assets/images/remakes/remake-tech.jpg" alt="Piebot Infrastructure Preview" loading="lazy">
+            <div class="spread-specs-col font-mono">
+              <div class="spread-metrics-row">
+                <div class="metric-stat">
+                  <span class="val font-display">+92%</span>
+                  <span class="lbl">USER RETENTION</span>
+                </div>
+                <div class="metric-stat">
+                  <span class="val font-display">2.1s</span>
+                  <span class="lbl">CHECKOUT SPEED</span>
+                </div>
+                <div class="metric-stat">
+                  <span class="val font-display">-41%</span>
+                  <span class="lbl">BOUNCE RATE</span>
+                </div>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--platinum-dim); line-height: 1.6;">
+                CORE STACK: Next.js &bull; TypeScript &bull; Framer Motion &bull; Stripe API
+              </div>
             </div>
+          </div>
+        </article>
 
-            <div class="p-card-content">
-              <h3 class="font-display">PIEBOT CORE</h3>
-              <div class="p-category font-mono">HIGH-CONCURRENCE BOT ENGINE</div>
-              <p class="p-summary">
+        <!-- Project 03: Piebot Discord Engine -->
+        <article class="project-spread" data-cursor="view">
+          <div class="spread-meta-top font-mono">
+            <span>FLAGSHIP 03 // DISTRIBUTED INFRASTRUCTURE</span>
+            <span>GITHUB.COM/MOBPIE15/PIEBOT</span>
+            <span>2026 LIVE</span>
+          </div>
+
+          <div class="spread-hero-viewport" data-open-modal="piebot">
+            <img src="assets/images/remakes/remake-tech.jpg" alt="Piebot Infrastructure" loading="lazy">
+          </div>
+
+          <div class="spread-details-grid">
+            <div>
+              <h3 class="spread-title font-display">PIEBOT CORE</h3>
+              <div class="spread-kicker font-mono" style="color: var(--accent-cyan);">HIGH-CONCURRENCE BOT ENGINE &bull; REAL-TIME TELEMETRY</div>
+              <p class="spread-desc">
                 High-throughput community automation engine powering multi-server moderation, role-granting pipelines, custom audio streaming, and live WebSocket telemetry dashboards.
               </p>
-            </div>
-
-            <div class="p-card-footer">
-              <div class="p-stack-list font-mono">
-                <span class="p-pill">Node.js</span>
-                <span class="p-pill">Discord.js</span>
-                <span class="p-pill">WebSocket</span>
-              </div>
-              <button type="button" class="p-action-btn font-mono" data-open-modal="piebot">
-                <span>CASE STUDY</span>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-              </button>
-            </div>
-          </article>
-
-          <!-- Project 04: @mobpie-op Creator Hub -->
-          <article class="project-card tilt-card reveal-on-scroll" data-cursor="view">
-            <div class="p-card-top font-mono">
-              <span class="p-badge">04 // DATA ARCHITECTURE</span>
-              <span class="p-num">2026</span>
-            </div>
-
-            <div class="p-card-media">
-              <img src="assets/images/remakes/remake-streetwear.jpg" alt="Exploit Creator Hub Preview" loading="lazy">
-            </div>
-
-            <div class="p-card-content">
-              <h3 class="font-display">EXPLOIT HUB</h3>
-              <div class="p-category font-mono">GAMING CREATOR INTELLIGENCE</div>
-              <p class="p-summary">
-                Deep analytical audit of 46 creator uploads (GTA 5 & Minecraft exploit roadmaps). Architected 0-fluff retention funnels yielding 66% total watch time concentration.
-              </p>
-            </div>
-
-            <div class="p-card-footer">
-              <div class="p-stack-list font-mono">
-                <span class="p-pill">Python</span>
-                <span class="p-pill">FastAPI</span>
-                <span class="p-pill">Chart.js</span>
-              </div>
-              <button type="button" class="p-action-btn font-mono" data-open-modal="creator">
-                <span>CASE STUDY</span>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-              </button>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         04. TECHNICAL ARSENAL & CAPABILITIES (BENTO)
-         ========================================================================= -->
-    <section id="arsenal" class="section-spacer">
-      <div class="container">
-        
-        <div class="section-header reveal-on-scroll">
-          <div class="section-kicker font-mono">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-            <span>ENGINEERING & DESIGN SPEC LAB</span>
-          </div>
-          <h2 class="section-title font-display">CAPABILITIES & ARSENAL</h2>
-          <p class="section-desc">
-            Surgical execution across 3D WebGL physics, modern reactive frameworks, and neuromarketing interface design.
-          </p>
-        </div>
-
-        <div class="arsenal-bento">
-          
-          <!-- Bento 1: 3D WebGL -->
-          <div class="bento-card bento-span-2 reveal-on-scroll">
-            <div>
-              <div class="b-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-              </div>
-              <h3 class="b-title font-display">Spatial WebGL & GLSL Shaders</h3>
-              <p class="b-desc">
-                Building sensible, physical 3D viewports, custom PBR glass materials, vertex displacement meshes, and real-time pointer torchlights. Every scene is throttled via IntersectionObserver to guarantee 60 FPS without choking client hardware.
-              </p>
-            </div>
-            <ul class="b-list font-mono">
-              <li>Three.js / React Three Fiber / WebGL 2.0</li>
-              <li>Custom GLSL Shaders & Specular Refraction</li>
-              <li>Hardware-Aware Adaptive DPR & Memory Pools</li>
-            </ul>
-          </div>
-
-          <!-- Bento 2: Full-Stack Architecture -->
-          <div class="bento-card reveal-on-scroll">
-            <div>
-              <div class="b-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-              </div>
-              <h3 class="b-title font-display">Full-Stack Precision</h3>
-              <p class="b-desc">
-                Sub-380ms edge rendering architectures, type-safe API contracts, and high-concurrency microservices.
-              </p>
-            </div>
-            <ul class="b-list font-mono">
-              <li>Next.js / TypeScript / Node.js</li>
-              <li>WebSocket & REST APIs</li>
-              <li>Vercel Edge Network</li>
-            </ul>
-          </div>
-
-          <!-- Bento 3: Neuromarketing & UI/UX -->
-          <div class="bento-card reveal-on-scroll">
-            <div>
-              <div class="b-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path></svg>
-              </div>
-              <h3 class="b-title font-display">High-Ticket Neuromarketing</h3>
-              <p class="b-desc">
-                Class 11th Commerce foundations applied to conversion science. 60-30-10 ratio, Hick's Law, and zero-distraction checkouts.
-              </p>
-            </div>
-            <ul class="b-list font-mono">
-              <li>Frictionless Founder Conversion Funnels</li>
-              <li>Optical Typography & Visual Hierarchy</li>
-              <li>"Pay Without Thinking" UI Standard</li>
-            </ul>
-          </div>
-
-          <!-- Bento 4: Micro-Interactions & Haptics -->
-          <div class="bento-card bento-span-2 reveal-on-scroll">
-            <div>
-              <div class="b-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-              </div>
-              <h3 class="b-title font-display">Procedural Haptics & Motion Physics</h3>
-              <p class="b-desc">
-                Synthetic Web Audio API micro-haptics (0kb audio assets), velocity-stretching magnetic cursors, inertial smooth scrolling, and 3D card perspective tilt with raytraced specular glare.
-              </p>
-            </div>
-            <ul class="b-list font-mono">
-              <li>0kb Procedural Web Audio Synthesizer</li>
-              <li>Lenis-Style Inertial Smooth Scroll</li>
-              <li>Magnetic Cursor with Velocity Stretching</li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         05. ANTI-AI SLOP PHILOSOPHY & WORKFLOW
-         ========================================================================= -->
-    <section id="philosophy" class="section-spacer">
-      <div class="container">
-        
-        <div class="section-header reveal-on-scroll">
-          <div class="section-kicker font-mono">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            <span>THE MOBPIE STANDARD</span>
-          </div>
-          <h2 class="section-title font-display">THE ANTI-AI SLOP MANIFESTO</h2>
-          <p class="section-desc">
-            We reject cookie-cutter AI templates, cheap purple gradients, and generic emoji stuffing. Every project follows a deliberate 3-phase creative doctrine.
-          </p>
-        </div>
-
-        <div class="philosophy-grid">
-          
-          <div class="philo-card reveal-on-scroll">
-            <div class="philo-step font-mono">PHASE 01 // FOUNDATION</div>
-            <h3 class="philo-title font-display">Deep Research & Soul</h3>
-            <p class="philo-desc">
-              We deconstruct the target founder's emotional triggers, competitor weaknesses, and pricing power before touching a single line of code.
-            </p>
-          </div>
-
-          <div class="philo-card reveal-on-scroll">
-            <div class="philo-step font-mono">PHASE 02 // ART DIRECTION</div>
-            <h3 class="philo-title font-display">Bespoke Curation</h3>
-            <p class="philo-desc">
-              Custom-researched color palettes, optical font pairing tension (editorial serifs + surgical sans), and sensible 3D interactive mechanics.
-            </p>
-          </div>
-
-          <div class="philo-card reveal-on-scroll">
-            <div class="philo-step font-mono">PHASE 03 // EXECUTION</div>
-            <h3 class="philo-title font-display">Pixel-Perfect Engineering</h3>
-            <p class="philo-desc">
-              Clean, ultra-optimized code with 0% CPU waste offscreen, crisp SVG vectors, and the undeniable "Pay Without Thinking" UI standard.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         06. INTERACTIVE COMMISSION ESTIMATOR & VIP TERMINAL
-         ========================================================================= -->
-    <section id="commission" class="section-spacer">
-      <div class="container">
-        
-        <div class="terminal-wrapper reveal-on-scroll">
-          
-          <div class="section-header" style="margin-bottom: 2rem;">
-            <div class="section-kicker font-mono">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-              <span>DIRECT VIP ACCESS</span>
-            </div>
-            <h2 class="section-title font-display">COMMISSION TERMINAL</h2>
-            <p class="section-desc">
-              Select your project parameters to estimate scope and initiate priority scheduling directly with Mobpie.
-            </p>
-          </div>
-
-          <div class="estimator-layout">
-            
-            <!-- Left: Config Options -->
-            <div class="estimator-controls">
               
-              <!-- Scope Select -->
-              <div class="e-block">
-                <span class="e-label font-mono">01 // SELECT PROJECT SCOPE</span>
-                <div class="e-options-grid font-mono">
-                  <div class="estimator-option" data-scope data-price="1400">
-                    <div class="option-title font-display">Brand Flagship</div>
-                    <div class="option-sub">High-converting landing showcase</div>
-                  </div>
-                  <div class="estimator-option" data-scope data-price="2200">
-                    <div class="option-title font-display">Luxury E-Commerce</div>
-                    <div class="option-sub">Catalog, PDP, cart & checkout</div>
-                  </div>
-                  <div class="estimator-option selected" data-scope data-price="3200">
-                    <div class="option-title font-display">3D WebGL World</div>
-                    <div class="option-sub">Spatial physics & custom shaders</div>
-                  </div>
-                </div>
+              <div class="spread-actions font-mono">
+                <button type="button" class="btn-editorial-primary" data-open-modal="piebot">
+                  <span>INSPECT ARCHITECTURE</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </button>
+                <a href="https://github.com/Mobpie15/Piebot" target="_blank" rel="noopener noreferrer" class="btn-editorial-ghost">
+                  <span>GITHUB REPO</span>
+                </a>
               </div>
-
-              <!-- Timeline Select -->
-              <div class="e-block">
-                <span class="e-label font-mono">02 // DELIVERY TIMELINE</span>
-                <div class="e-options-grid font-mono">
-                  <div class="estimator-option selected" data-timeline data-mult="1.0">
-                    <div class="option-title font-display">Standard Run</div>
-                    <div class="option-sub">3–4 Weeks full production</div>
-                  </div>
-                  <div class="estimator-option" data-timeline data-mult="1.35">
-                    <div class="option-title font-display">High-Velocity Sprint</div>
-                    <div class="option-sub">10–14 Days dedicated priority</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Add-ons -->
-              <div class="e-block">
-                <span class="e-label font-mono">03 // OPTIONAL ENHANCEMENTS</span>
-                <div class="e-options-grid font-mono">
-                  <div class="estimator-option" data-addon data-price="400">
-                    <div class="option-title font-display">Sound Aura Engine</div>
-                    <div class="option-sub">Web Audio procedural sound (+$400)</div>
-                  </div>
-                  <div class="estimator-option" data-addon data-price="600">
-                    <div class="option-title font-display">Custom CMS Pipeline</div>
-                    <div class="option-sub">Headless content editor (+$600)</div>
-                  </div>
-                </div>
-              </div>
-
             </div>
 
-            <!-- Right: Dynamic Summary -->
-            <div class="e-summary-box font-mono">
+            <div class="spread-specs-col font-mono">
+              <div class="spread-metrics-row">
+                <div class="metric-stat">
+                  <span class="val font-display">18ms</span>
+                  <span class="lbl">SOCKET LATENCY</span>
+                </div>
+                <div class="metric-stat">
+                  <span class="val font-display">99.98%</span>
+                  <span class="lbl">PROD UPTIME</span>
+                </div>
+                <div class="metric-stat">
+                  <span class="val font-display">10K+</span>
+                  <span class="lbl">CONCURRENT OPS</span>
+                </div>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--platinum-dim); line-height: 1.6;">
+                CORE STACK: Node.js &bull; Discord.js &bull; WebSocket API &bull; Redis Cache
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 04: @mobpie-op Creator Hub -->
+        <article class="project-spread" data-cursor="view">
+          <div class="spread-meta-top font-mono">
+            <span>FLAGSHIP 04 // DATA ARCHITECTURE</span>
+            <span>YOUTUBE.COM/@MOBPIE-OP</span>
+            <span>2026 AUDITED</span>
+          </div>
+
+          <div class="spread-hero-viewport" data-open-modal="creator">
+            <img src="assets/images/remakes/remake-streetwear.jpg" alt="Gaming Creator Platform" loading="lazy">
+          </div>
+
+          <div class="spread-details-grid">
+            <div>
+              <h3 class="spread-title font-display">EXPLOIT HUB</h3>
+              <div class="spread-kicker font-mono" style="color: var(--accent-orange);">GAMING CREATOR INTELLIGENCE &bull; 46 AUDITED EPISODES</div>
+              <p class="spread-desc">
+                Deep analytical audit of 46 creator uploads (GTA 5 & Minecraft exploit systems). Architected 0-fluff retention funnels yielding 66% total watch time concentration.
+              </p>
+              
+              <div class="spread-actions font-mono">
+                <button type="button" class="btn-editorial-primary" data-open-modal="creator">
+                  <span>INSPECT STRATEGY</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </button>
+                <a href="https://youtube.com/@mobpie-op" target="_blank" rel="noopener noreferrer" class="btn-editorial-ghost">
+                  <span>YOUTUBE CHANNEL</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="spread-specs-col font-mono">
+              <div class="spread-metrics-row">
+                <div class="metric-stat">
+                  <span class="val font-display">8.5%</span>
+                  <span class="lbl">CTR PEAK</span>
+                </div>
+                <div class="metric-stat">
+                  <span class="val font-display">66%</span>
+                  <span class="lbl">WATCH CONV</span>
+                </div>
+                <div class="metric-stat">
+                  <span class="val font-display">+74%</span>
+                  <span class="lbl">HOOK RETENTION</span>
+                </div>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--platinum-dim); line-height: 1.6;">
+                CORE STACK: YouTube Analytics API &bull; Python Pandas &bull; FastAPI &bull; Chart.js
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         04. HIGH-FASHION CAPABILITY INDEX
+         ========================================================================= -->
+    <section id="capabilities" class="editorial-arsenal">
+      <div class="container-full">
+        
+        <div class="theater-header">
+          <div>
+            <div class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--platinum-dim); margin-bottom: 0.5rem;">
+              02 // ENGINEERING SPEC LAB
+            </div>
+            <h2 class="theater-heading font-display">CORE CAPABILITIES</h2>
+          </div>
+          <div class="font-mono" style="font-size: 0.8rem; color: var(--platinum-dim);">
+            [DISCIPLINED MASTERY]
+          </div>
+        </div>
+
+        <div class="arsenal-row font-mono">
+          <div class="arsenal-num">01</div>
+          <div class="arsenal-content font-sans">
+            <h3 class="font-display">Spatial WebGL & GLSL Shaders</h3>
+            <p>Full-bleed ambient 3D viewports, liquid specular mercury materials, vertex displacement meshes, and pointer torchlights with 0% CPU waste off-screen.</p>
+          </div>
+          <div class="arsenal-badge">THREE.JS / WEBGL 2.0</div>
+        </div>
+
+        <div class="arsenal-row font-mono">
+          <div class="arsenal-num">02</div>
+          <div class="arsenal-content font-sans">
+            <h3 class="font-display">Full-Stack Edge Architecture</h3>
+            <p>Sub-320ms global edge rendering, type-safe API contracts, reactive frameworks, and high-concurrency Node.js WebSocket microservices.</p>
+          </div>
+          <div class="arsenal-badge">NEXT.JS / TYPESCRIPT / NODE</div>
+        </div>
+
+        <div class="arsenal-row font-mono">
+          <div class="arsenal-num">03</div>
+          <div class="arsenal-content font-sans">
+            <h3 class="font-display">High-Ticket Neuromarketing</h3>
+            <p>Class 11th Commerce foundations applied to conversion science. 60-30-10 ratio, optical typography hierarchy, and the "Pay Without Thinking" standard.</p>
+          </div>
+          <div class="arsenal-badge">CONVERSION PSYCHOLOGY</div>
+        </div>
+
+        <div class="arsenal-row font-mono">
+          <div class="arsenal-num">04</div>
+          <div class="arsenal-content font-sans">
+            <h3 class="font-display">Procedural Haptics & Motion Physics</h3>
+            <p>0kb Web Audio API procedural sound engine, Lenis-style inertial smooth scrolling, and velocity-stretching magnetic cursors.</p>
+          </div>
+          <div class="arsenal-badge">WEB AUDIO / FRAMER MOTION</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         05. THE ANTI-AI MANIFESTO
+         ========================================================================= -->
+    <section id="manifesto" class="editorial-manifesto">
+      <div class="container-full">
+        
+        <div class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--platinum-dim); margin-bottom: 1.5rem;">
+          03 // THE MOBPIE DOCTRINE
+        </div>
+
+        <h2 class="manifesto-lead font-display">
+          WE REJECT COOKIE-CUTTER AI TEMPLATES, CHEAP PURPLE GRADIENTS, AND NOISY EMOJI STUFFING. WE BUILD CATEGORY-DEFINING DIGITAL WEAPONS.
+        </h2>
+
+        <div class="manifesto-steps-grid font-mono">
+          <div>
+            <div class="m-step-num">PHASE 01 // FOUNDATION</div>
+            <h3 class="m-step-title font-display">Deep Research</h3>
+            <p class="m-step-desc font-sans">
+              Deconstructing target founder emotional psychology, competitor weaknesses, and pricing power before touching a single line of code.
+            </p>
+          </div>
+
+          <div>
+            <div class="m-step-num">PHASE 02 // ART DIRECTION</div>
+            <h3 class="m-step-title font-display">Bespoke Curation</h3>
+            <p class="m-step-desc font-sans">
+              Bespoke color palettes, deliberate font pairing tension (editorial serifs + surgical sans), and sensible 3D spatial mechanics.
+            </p>
+          </div>
+
+          <div>
+            <div class="m-step-num">PHASE 03 // EXECUTION</div>
+            <h3 class="m-step-title font-display">Pixel-Perfect Engineering</h3>
+            <p class="m-step-desc font-sans">
+              Clean, bare-metal optimized code, crisp SVG vector icons, and the undeniable "Pay Without Thinking" UI authority.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         06. VIP COMMISSION MONOLITH
+         ========================================================================= -->
+    <section id="commission" class="editorial-commission">
+      <div class="container-full">
+        
+        <div class="commission-monolith">
+          <div class="commission-grid">
+            
+            <div>
+              <div class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--platinum-dim); margin-bottom: 0.5rem;">
+                04 // DIRECT VIP COMMISSION
+              </div>
+              <h2 class="spread-title font-display" style="margin-bottom: 1rem;">INITIATE ENGAGEMENT</h2>
+              <p class="spread-desc" style="margin-bottom: 2rem;">
+                Direct 1:1 founder collaboration with Mobpie. Zero account managers, zero bloated agency overhead. Select your project scope:
+              </p>
+
+              <div class="estimator-scope-list font-mono">
+                <div class="estimator-scope-item" data-price="1800">
+                  <div>
+                    <div class="scope-item-title font-display">Brand Flagship Showcase</div>
+                    <div class="scope-item-sub font-sans">High-converting editorial showcase for funding & startups</div>
+                  </div>
+                  <div class="scope-item-price font-display">$1,800</div>
+                </div>
+
+                <div class="estimator-scope-item" data-price="2600">
+                  <div>
+                    <div class="scope-item-title font-display">Luxury E-Commerce Boutique</div>
+                    <div class="scope-item-sub font-sans">Catalog, bespoke PDP, cart drawer & Stripe checkout</div>
+                  </div>
+                  <div class="scope-item-price font-display">$2,600</div>
+                </div>
+
+                <div class="estimator-scope-item selected" data-price="3400">
+                  <div>
+                    <div class="scope-item-title font-display">3D WebGL World & Custom Shaders</div>
+                    <div class="scope-item-sub font-sans">Spatial physics, PBR materials, custom interactive shaders</div>
+                  </div>
+                  <div class="scope-item-price font-display">$3,400</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="commission-summary-card font-mono">
               <div>
-                <span class="e-label">ESTIMATED INVESTMENT</span>
-                <div id="estimate-cost" class="e-price-tag font-display">$3,200</div>
-                <p style="font-size: 0.78rem; color: var(--chrome-dim); line-height: 1.5; margin-bottom: 1.5rem;">
-                  Includes bespoke art direction, responsive coding, 3D WebGL integration, and direct pair programming with Mobpie.
+                <span style="font-size: 0.75rem; letter-spacing: 0.1em; color: var(--platinum-dim);">APPROXIMATE INVESTMENT</span>
+                <div id="estimate-cost" class="summary-price-display font-display">$3,400</div>
+                <p style="font-size: 0.8rem; color: var(--platinum-dim); line-height: 1.6; margin-bottom: 2rem;">
+                  Includes full art direction, responsive coding, 3D WebGL integration, and direct pair programming with Mobpie.
                 </p>
               </div>
 
-              <div class="e-terminal-actions">
-                <a href="https://wa.me/918957420306" id="estimator-whatsapp-btn" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-direct">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.82 2.791.82 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.514-4.486 10-10 10-1.741 0-3.376-.45-4.809-1.238l-7.191 1.883 1.917-7.009c-.846-1.488-1.334-3.21-1.334-5.053 0-5.514 4.486-10 10-10 5.514 0 10 4.486 10 10z"/></svg>
-                  <span>LOCK TIMELINE ON WHATSAPP</span>
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <a href="https://wa.me/918957420306" id="estimator-whatsapp-btn" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-hotline">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.82 2.791.82 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.514-4.486 10-10 10-1.741 0-3.376-.45-4.809-1.238l-7.191 1.883 1.917-7.009c-.846-1.488-1.334-3.21-1.334-5.053 0-5.514 4.486-10 10-10 5.514 0 10 4.486 10 10z"/></svg>
+                  <span>LOCK TIMELINE ON WHATSAPP (+91 89574 20306)</span>
                 </a>
 
-                <button type="button" class="btn-copy-email" data-copy-email>
+                <button type="button" class="btn-copy-mail-direct" data-copy-email>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                   <span>COPY BUSINESS EMAIL</span>
                 </button>
@@ -586,80 +516,76 @@
   </main>
 
   <!-- =========================================================================
-       07. MINIMALIST SPATIAL FOOTER
+       07. MINIMALIST EDITORIAL FOOTER
        ========================================================================= -->
-  <footer class="spatial-footer font-mono">
-    <div class="container">
-      <div class="footer-content">
+  <footer class="editorial-footer font-mono">
+    <div class="container-full">
+      <div class="footer-row">
         
-        <div class="footer-brand">
-          <span>&copy; 2026 MOBPIE &bull; HIGH-TICKET DIGITAL CRAFTSMAN</span>
+        <div>
+          <span class="font-display" style="font-weight: 900; font-size: 1.1rem; color: #ffffff;">MOBPIE</span>
+          <span style="font-size: 0.75rem; color: var(--platinum-dim); margin-left: 0.75rem;">&copy; 2026 DIGITAL CRAFTSMAN</span>
         </div>
 
-        <div class="footer-links">
+        <div style="display: flex; gap: 2rem; font-size: 0.8rem;">
           <a href="https://github.com/Mobpie15" target="_blank" rel="noopener noreferrer">GITHUB</a>
           <a href="https://youtube.com/@mobpie-op" target="_blank" rel="noopener noreferrer">YOUTUBE</a>
           <a href="https://wa.me/918957420306" target="_blank" rel="noopener noreferrer">WHATSAPP</a>
-          <a href="#hero">BACK TO TOP &uarr;</a>
+          <a href="#hero">TOP &uarr;</a>
         </div>
 
       </div>
     </div>
   </footer>
 
-  <!-- =========================================================================
-       08. INTERACTIVE PROJECT PREVIEW MODAL
-       ========================================================================= -->
+  <!-- Project Preview Modal -->
   <div id="project-modal" class="project-modal" aria-hidden="true" role="dialog">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
-      
-      <div class="modal-header">
+      <div class="modal-header font-mono">
         <div>
-          <span id="modal-badge" class="p-badge font-mono">CASE STUDY</span>
-          <h3 id="modal-title" class="font-display" style="font-size: 1.6rem; color: #ffffff; margin-top: 0.35rem;">PROJECT TITLE</h3>
-          <span id="modal-kicker" class="font-mono" style="font-size: 0.72rem; color: var(--chrome-muted);">KICKER</span>
+          <span id="modal-badge" style="font-size: 0.7rem; color: var(--platinum-dim);">CASE STUDY</span>
+          <h3 id="modal-title" class="font-display" style="font-size: 1.8rem; color: #ffffff; margin-top: 0.25rem;">PROJECT TITLE</h3>
+          <span id="modal-kicker" style="font-size: 0.75rem; color: var(--platinum-muted);">KICKER</span>
         </div>
         <button type="button" class="modal-close" aria-label="Close Modal">&times;</button>
       </div>
 
       <div class="modal-body">
-        <div class="m-preview-frame">
-          <img id="modal-img" src="" alt="Project Live Preview">
+        <div style="width: 100%; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
+          <img id="modal-img" src="" alt="Project Preview" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
 
-        <p id="modal-desc" style="font-size: 0.95rem; color: var(--chrome-silk); line-height: 1.7;"></p>
+        <p id="modal-desc" style="font-size: 1rem; color: var(--platinum-silk); line-height: 1.7; margin-bottom: 1.5rem;"></p>
 
-        <div id="modal-metrics" class="m-metrics-grid font-mono"></div>
+        <div id="modal-metrics" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;"></div>
 
         <div style="margin-top: 1.5rem;">
-          <span class="font-mono" style="font-size: 0.75rem; color: var(--chrome-dim); font-weight: 700;">TECHNOLOGY STACK:</span>
-          <div id="modal-stack" class="m-stack-list"></div>
+          <span class="font-mono" style="font-size: 0.75rem; color: var(--platinum-dim); font-weight: 700;">TECHNOLOGY STACK:</span>
+          <div id="modal-stack" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;"></div>
         </div>
       </div>
 
-      <div class="modal-footer font-mono">
-        <a id="modal-github-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding: 0.55rem 1.1rem; font-size: 0.75rem;">
-          <span>VIEW REPOSITORY</span>
+      <div style="padding: 1.25rem 2.5rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: flex-end; gap: 1rem;" class="font-mono">
+        <a id="modal-github-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-editorial-ghost" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;">
+          <span>VIEW CODE</span>
         </a>
-        <a id="modal-live-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 0.55rem 1.1rem; font-size: 0.75rem;">
+        <a id="modal-live-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-editorial-primary" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;">
           <span>VISIT PRODUCTION</span>
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
         </a>
       </div>
-
     </div>
   </div>
 
-  <!-- Clipboard Toast -->
+  <!-- Toast -->
   <div id="copy-toast" class="copy-toast font-mono">COPIED TO CLIPBOARD</div>
 
-  <!-- Core Scripts -->
+  <!-- Scripts -->
   <script src="assets/js/three.min.js"></script>
   <script src="assets/js/audio-synthesizer.js"></script>
   <script src="assets/js/smooth-scroll.js"></script>
   <script src="assets/js/cursor.js"></script>
-  <script src="assets/js/tilt-cards.js"></script>
   <script src="assets/js/three-scene.js"></script>
   <script src="assets/js/main.js"></script>
 </body>

@@ -1,14 +1,12 @@
 /**
- * MOBPIE // MASTER CONTROLLER & TELEMETRY HUB
- * Orchestrates IST Clock, WebGL FPS Tracker, Project Switcher,
- * Scope Estimator, Modal Viewports, and Clipboard Haptics.
+ * MOBPIE // EDITORIAL MASTER CONTROLLER
  */
 
 (function () {
   'use strict';
 
   // 1. Live IST Clock
-  function initISTClock() {
+  function initClock() {
     const clockEl = document.getElementById('ist-time');
     if (!clockEl) return;
 
@@ -23,34 +21,11 @@
       const formatter = new Intl.DateTimeFormat('en-GB', options);
       clockEl.textContent = `${formatter.format(new Date())} IST`;
     }
-
     update();
     setInterval(update, 1000);
   }
 
-  // 2. Real-Time FPS Tracker
-  function initFPSTracker() {
-    const fpsBadge = document.getElementById('fps-badge');
-    if (!fpsBadge) return;
-
-    let frameCount = 0;
-    let lastTime = performance.now();
-
-    function checkFPS() {
-      frameCount++;
-      const now = performance.now();
-      if (now - lastTime >= 1000) {
-        const fps = Math.round((frameCount * 1000) / (now - lastTime));
-        fpsBadge.textContent = `${fps} FPS WEBGL`;
-        frameCount = 0;
-        lastTime = now;
-      }
-      requestAnimationFrame(checkFPS);
-    }
-    requestAnimationFrame(checkFPS);
-  }
-
-  // 3. Sound Aura Toggle in HUD
+  // 2. Sound Aura Toggle
   window.toggleSoundAura = function () {
     if (!window.MobpieAudio) return;
     const isNowActive = window.MobpieAudio.toggleAmbient();
@@ -68,84 +43,37 @@
     }
   };
 
-  // 4. Hero Project Switcher Tabs
-  function initHeroProjectTabs() {
-    const tabs = document.querySelectorAll('.hero-project-tab');
-    if (!tabs.length) return;
-
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', function () {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        if (window.Mobpie3D) {
-          window.Mobpie3D.switchSlide(index);
-        }
-      });
-    });
-  }
-
-  // 5. Interactive Commission Estimator
-  function initScopeEstimator() {
-    const scopeOptions = document.querySelectorAll('.estimator-option[data-scope]');
-    const timelineOptions = document.querySelectorAll('.estimator-option[data-timeline]');
-    const addonOptions = document.querySelectorAll('.estimator-option[data-addon]');
-    const costDisplay = document.getElementById('estimate-cost');
+  // 3. Editorial Scope Estimator
+  function initEstimator() {
+    const scopeItems = document.querySelectorAll('.estimator-scope-item');
+    const priceDisplay = document.getElementById('estimate-cost');
     const whatsappBtn = document.getElementById('estimator-whatsapp-btn');
 
-    let basePrice = 2400;
-    let timelineMultiplier = 1.0;
-    let addonsTotal = 0;
-
-    let selectedScopeName = 'Bespoke 3D WebGL World';
-    let selectedTimelineName = 'Standard (3-4 Weeks)';
+    let basePrice = 3200;
+    let selectedName = '3D WebGL World & Custom Shaders';
 
     function recalculate() {
-      const total = Math.round((basePrice + addonsTotal) * timelineMultiplier);
-      if (costDisplay) {
-        costDisplay.textContent = `$${total.toLocaleString('en-US')}`;
+      if (priceDisplay) {
+        priceDisplay.textContent = `$${basePrice.toLocaleString('en-US')}`;
       }
 
       if (whatsappBtn) {
         const msg = encodeURIComponent(
-          `Hello Mobpie! I configured a project on your portfolio:\n\n• Tier: ${selectedScopeName}\n• Timeline: ${selectedTimelineName}\n• Approx Value: $${total.toLocaleString('en-US')}\n\nI'd like to discuss scheduling and kickoff!`
+          `Hello Mobpie! I'm interested in commissioning:\n\n• Scope: ${selectedName}\n• Approx Budget: $${basePrice.toLocaleString('en-US')}\n\nLet's discuss scheduling and kickoff!`
         );
         whatsappBtn.href = `https://wa.me/918957420306?text=${msg}`;
       }
     }
 
-    scopeOptions.forEach(opt => {
-      opt.addEventListener('click', function () {
-        scopeOptions.forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        basePrice = parseInt(opt.getAttribute('data-price') || '2400', 10);
-        selectedScopeName = opt.querySelector('.option-title')?.textContent || 'Bespoke';
-        if (window.MobpieAudio) window.MobpieAudio.playClick(1100, 0.03);
-        recalculate();
-      });
-    });
+    scopeItems.forEach(item => {
+      item.addEventListener('click', function () {
+        scopeItems.forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
 
-    timelineOptions.forEach(opt => {
-      opt.addEventListener('click', function () {
-        timelineOptions.forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        timelineMultiplier = parseFloat(opt.getAttribute('data-mult') || '1.0');
-        selectedTimelineName = opt.querySelector('.option-title')?.textContent || 'Standard';
+        basePrice = parseInt(item.getAttribute('data-price') || '3200', 10);
+        selectedName = item.querySelector('.scope-item-title')?.textContent || 'Bespoke';
+
         if (window.MobpieAudio) window.MobpieAudio.playClick(1200, 0.03);
-        recalculate();
-      });
-    });
-
-    addonOptions.forEach(opt => {
-      opt.addEventListener('click', function () {
-        opt.classList.toggle('selected');
-        const price = parseInt(opt.getAttribute('data-price') || '0', 10);
-        if (opt.classList.contains('selected')) {
-          addonsTotal += price;
-        } else {
-          addonsTotal -= price;
-        }
-        if (window.MobpieAudio) window.MobpieAudio.playClick(900, 0.03);
         recalculate();
       });
     });
@@ -153,7 +81,7 @@
     recalculate();
   }
 
-  // 6. Project Modal Dialog Viewports
+  // 4. Project Modal Viewports
   const projectDetails = {
     'atelier': {
       title: 'ATELIER ORA',
@@ -217,7 +145,7 @@
     }
   };
 
-  function initProjectModals() {
+  function initModals() {
     const modal = document.getElementById('project-modal');
     if (!modal) return;
 
@@ -246,16 +174,16 @@
 
       if (modalMetrics) {
         modalMetrics.innerHTML = data.metrics.map(m => `
-          <div class="m-metric-box">
-            <span class="m-metric-val font-display">${m.val}</span>
-            <span class="m-metric-lbl font-mono">${m.label}</span>
+          <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 1.5rem; font-weight: 800; color: #fff; display: block;" class="font-display">${m.val}</span>
+            <span style="font-size: 0.68rem; color: #94a3b8;" class="font-mono">${m.label}</span>
           </div>
         `).join('');
       }
 
       if (modalStack) {
         modalStack.innerHTML = data.stack.map(s => `
-          <span class="m-stack-pill font-mono">${s}</span>
+          <span style="padding: 0.35rem 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; font-size: 0.75rem;" class="font-mono">${s}</span>
         `).join('');
       }
 
@@ -292,7 +220,7 @@
     });
   }
 
-  // 7. Copy Email with Toast Feedback
+  // 5. Copy Email
   function initCopyEmail() {
     const copyBtns = document.querySelectorAll('[data-copy-email]');
     const toast = document.getElementById('copy-toast');
@@ -316,61 +244,10 @@
     });
   }
 
-  // 8. Mobile Drawer
-  function initMobileDrawer() {
-    const toggleBtn = document.getElementById('mobile-toggle-btn');
-    const drawer = document.getElementById('mobile-drawer');
-    const closeBtn = document.getElementById('drawer-close-btn');
-    const drawerLinks = document.querySelectorAll('.mobile-drawer .d-link');
-
-    if (!drawer) return;
-
-    function openDrawer() {
-      drawer.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      if (window.MobpieAudio) window.MobpieAudio.playClick(1200, 0.03);
-    }
-
-    function closeDrawer() {
-      drawer.classList.remove('active');
-      document.body.style.overflow = '';
-      if (window.MobpieAudio) window.MobpieAudio.playClick(800, 0.02);
-    }
-
-    if (toggleBtn) toggleBtn.addEventListener('click', openDrawer);
-    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-
-    drawerLinks.forEach(link => {
-      link.addEventListener('click', closeDrawer);
-    });
-  }
-
-  // 9. Scroll Reveal Observers
-  function initScrollReveals() {
-    const revealEls = document.querySelectorAll('.reveal-on-scroll');
-    if (!revealEls.length || !('IntersectionObserver' in window)) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    revealEls.forEach(el => observer.observe(el));
-  }
-
-  // Master Boot
   document.addEventListener('DOMContentLoaded', function () {
-    initISTClock();
-    initFPSTracker();
-    initHeroProjectTabs();
-    initScopeEstimator();
-    initProjectModals();
+    initClock();
+    initEstimator();
+    initModals();
     initCopyEmail();
-    initMobileDrawer();
-    initScrollReveals();
   });
 })();

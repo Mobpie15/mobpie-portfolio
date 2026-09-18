@@ -1,7 +1,5 @@
 /**
  * MOBPIE // MAGNETIC VELOCITY CURSOR ENGINE
- * Dual-node precision cursor with velocity stretching, magnetic snapping,
- * and contextual hover modes.
  */
 
 (function () {
@@ -22,9 +20,7 @@
   let ringY = mouseY;
   let ringScale = 1;
   let isVisible = false;
-  let currentMode = 'default';
 
-  // Mouse move tracker
   window.addEventListener('mousemove', function (e) {
     mouseX = e.clientX;
     mouseY = e.clientY;
@@ -35,7 +31,6 @@
       ring.style.opacity = '1';
     }
 
-    // Instant dot movement
     dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
   }, { passive: true });
 
@@ -51,18 +46,15 @@
     ring.style.opacity = '1';
   });
 
-  // Physics animation loop for smooth trailing ring
   function renderCursor() {
     if (isVisible) {
       const dx = mouseX - ringX;
       const dy = mouseY - ringY;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
-      // Lerp positioning
       ringX += dx * 0.18;
       ringY += dy * 0.18;
 
-      // Velocity stretching
       const angle = Math.atan2(dy, dx) * (180 / Math.PI);
       const stretch = Math.min(dist * 0.002, 0.35);
       const scaleX = ringScale * (1 + stretch);
@@ -75,39 +67,24 @@
   }
   requestAnimationFrame(renderCursor);
 
-  // Contextual Hover Modes
   function setCursorMode(mode, text = '') {
-    currentMode = mode;
     ring.setAttribute('data-mode', mode);
-
     if (label) {
       label.textContent = text;
       label.style.opacity = text ? '1' : '0';
     }
 
-    if (mode === 'drag') {
-      ringScale = 2.2;
-    } else if (mode === 'view') {
-      ringScale = 2.0;
+    if (mode === 'view') {
+      ringScale = 2.4;
     } else if (mode === 'pointer') {
-      ringScale = 1.4;
-    } else if (mode === 'copy') {
-      ringScale = 1.8;
+      ringScale = 1.3;
     } else {
       ringScale = 1;
     }
   }
 
-  // Hover detection delegation
   document.addEventListener('mouseover', function (e) {
     const target = e.target;
-
-    const dragTarget = target.closest('[data-cursor="drag"]') || target.closest('#hero-canvas-container');
-    if (dragTarget) {
-      setCursorMode('drag', 'DRAG 3D');
-      if (window.MobpieAudio) window.MobpieAudio.playHover(3000);
-      return;
-    }
 
     const viewTarget = target.closest('[data-cursor="view"]');
     if (viewTarget) {
@@ -116,17 +93,10 @@
       return;
     }
 
-    const copyTarget = target.closest('[data-cursor="copy"]');
-    if (copyTarget) {
-      setCursorMode('copy', 'COPY');
-      if (window.MobpieAudio) window.MobpieAudio.playHover(2800);
-      return;
-    }
-
-    const clickable = target.closest('a, button, input, select, textarea, [data-cursor="pointer"]');
+    const clickable = target.closest('a, button, input, select, textarea, .estimator-scope-item');
     if (clickable) {
       setCursorMode('pointer', '');
-      if (window.MobpieAudio) window.MobpieAudio.playHover(2400);
+      if (window.MobpieAudio) window.MobpieAudio.playHover(2200);
       return;
     }
 
@@ -135,17 +105,8 @@
 
   document.addEventListener('mouseout', function (e) {
     const related = e.relatedTarget;
-    if (!related || !related.closest('a, button, input, select, [data-cursor]')) {
+    if (!related || !related.closest('a, button, [data-cursor="view"]')) {
       setCursorMode('default', '');
     }
-  });
-
-  // Click pulse animation
-  document.addEventListener('mousedown', function () {
-    ring.classList.add('cursor-active');
-  });
-
-  document.addEventListener('mouseup', function () {
-    ring.classList.remove('cursor-active');
   });
 })();
