@@ -5,6 +5,7 @@ import { StarDoodle } from "./Doodles";
 import { PROJECTS } from "@/lib/data";
 
 const META: Record<string, { type: string; stack: string; year: string }> = {
+  "bloom-and-crumb": { type: "Bakery e-commerce", stack: "Next.js · Cart · Checkout · Tracking", year: "2026" },
   northwind: { type: "E-commerce", stack: "Next.js · Search · Checkout", year: "2026" },
   ora: { type: "3D apparel demo", stack: "WebGL studio · Travertine", year: "2025" },
 };

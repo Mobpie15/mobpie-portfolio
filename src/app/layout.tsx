@@ -13,8 +13,6 @@ const space = Space_Grotesk({ variable: "--font-sans", subsets: ["latin"], displ
 const fraunces = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 

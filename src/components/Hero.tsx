@@ -61,13 +61,6 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-4 pb-10 pt-28 sm:px-6 sm:pt-32">
-        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.55, duration: 0.6, ease }}>
-          <p className="sticker inline-flex items-center gap-2 rounded-full bg-card px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] sm:text-xs">
-            <span className="h-2 w-2 rounded-full bg-leaf animate-pulse-dot" />
-            Open for projects
-          </p>
-        </motion.div>
-
         <h1 className="mt-6 font-bold uppercase leading-[0.92] tracking-tight">
           <motion.span
             initial={{ opacity: 0, y: 70 }}

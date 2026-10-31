@@ -86,12 +86,14 @@ export default function Mascot({
       aria-label={title ?? "Mobi, the studio mascot"}
     >
       {/* antenna */}
-      <line x1="60" y1="18" x2="60" y2="34" stroke="#16130e" strokeWidth="5" strokeLinecap="round" />
-      <circle cx="60" cy="13" r="7" fill="#f04a1d" stroke="#16130e" strokeWidth="3.5">
-        {mood === "thinking" && (
-          <animate attributeName="opacity" values="1;0.35;1" dur="1.1s" repeatCount="indefinite" />
-        )}
-      </circle>
+      <g className="origin-[60px_34px] transition-transform duration-300 group-hover:rotate-6">
+        <line x1="60" y1="18" x2="60" y2="34" stroke="#16130e" strokeWidth="5" strokeLinecap="round" />
+        <circle cx="60" cy="13" r="7" fill="#f04a1d" stroke="#16130e" strokeWidth="3.5">
+          {mood === "thinking" && (
+            <animate attributeName="opacity" values="1;0.35;1" dur="1.1s" repeatCount="indefinite" />
+          )}
+        </circle>
+      </g>
       {/* body */}
       <rect x="14" y="32" width="92" height="88" rx="30" fill={body} stroke="#16130e" strokeWidth="4" />
       {/* cheek blush */}

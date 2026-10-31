@@ -1,32 +1,43 @@
-import Mascot from "./Mascot";
+import Mascot, { type MascotMood } from "./Mascot";
 import { Reveal, SectionHead } from "./ui";
 import { HeartDoodle } from "./Doodles";
 import { cn } from "@/lib/utils";
 
-const CARDS = [
+const CARDS: {
+  bg: string;
+  sticker: string;
+  title: string;
+  desc: string;
+  mood: MascotMood;
+  dark?: boolean;
+}[] = [
   {
     bg: "bg-sun",
     sticker: "01 · Speed",
     title: "0.4 seconds, or they bounce.",
     desc: "53% of mobile visitors leave if a page takes over 3 seconds. Mine load in under half a second — clean code, optimized assets, zero bloat. Speed isn't a feature, it's the whole game.",
+    mood: "happy",
   },
   {
     bg: "bg-card",
     sticker: "02 · Mobile-first",
     title: "Your customers live on phones.",
     desc: "Every layout is designed thumb-first: 52px touch targets, readable type, checkout flows that work one-handed on a crowded train. Desktop gets the same love, automatically.",
+    mood: "idle",
   },
   {
     bg: "bg-blush",
     sticker: "03 · Direct line",
     title: "You talk to ME. Nobody else.",
     desc: "No account managers, no juniors practicing on your budget. One WhatsApp chat with the person designing and writing every single line — direct answers, daily updates.",
+    mood: "thinking",
   },
   {
     bg: "bg-ink",
     sticker: "04 · Ownership",
     title: "You own 100% of everything.",
     desc: "Complete source code, assets and repository — yours forever. No monthly traps, no hostage fees, no proprietary lock-in. If we part ways, your site keeps running.",
+    mood: "happy",
     dark: true,
   },
 ];
@@ -48,7 +59,7 @@ export default function Story() {
               <Reveal y={36}>
                 <article
                   className={cn(
-                    "overflow-hidden rounded-[1.75rem] border-[1.5px] border-ink p-6 sm:p-10",
+                    "group overflow-hidden rounded-[1.75rem] border-[1.5px] border-ink p-6 sm:p-10 transition-shadow duration-300 hover:shadow-[6px_6px_0_#16130e]",
                     c.bg,
                     c.dark ? "text-paper" : "text-ink"
                   )}
@@ -71,8 +82,18 @@ export default function Story() {
                       </p>
                     </div>
                     <div className="hidden justify-center md:flex">
-                      <div className="w-40 animate-floaty" style={{ animationDelay: `${i * 0.8}s` }}>
-                        <Mascot body={c.dark ? "#f5f0e4" : i % 2 ? "#f04a1d" : "#ffc53d"} />
+                      <div
+                        className="w-40 animate-floaty transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-3"
+                        style={{
+                          animationDuration: "3.5s",
+                          animationDelay: `${i * 0.7}s`,
+                          "--fl-rot": `${i % 2 === 0 ? "2.5deg" : "-2.5deg"}`,
+                        } as React.CSSProperties}
+                      >
+                        <Mascot
+                          body={c.dark ? "#f5f0e4" : i % 2 ? "#f04a1d" : "#ffc53d"}
+                          mood={c.mood}
+                        />
                       </div>
                     </div>
                   </div>

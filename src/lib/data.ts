@@ -102,6 +102,15 @@ export const SKILLS: { group: string; items: { name: string; level: number }[] }
 
 export const PROJECTS = [
   {
+    slug: "bloom-and-crumb",
+    status: "Concept build",
+    live: "https://bloom-and-crumb-demo.vercel.app",
+    title: "Bloom & Crumb — Bakery Storefront",
+    desc: "A fictional eggless-bakery storefront built as a portfolio concept: 24 products, category pages, cart, mock checkout with order confirmation, live order tracking and a WhatsApp-first order flow.",
+    tags: ["Next.js", "24 products", "Cart + checkout"],
+    image: "/images/bloom-and-crumb-preview.png",
+  },
+  {
     slug: "northwind",
     status: "Latest build",
     live: "https://northwind-demo-kb7spz3hh-mobpie.vercel.app",
