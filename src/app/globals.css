@@ -120,6 +120,35 @@ body {
   animation: wiggle 2.4s ease-in-out infinite;
 }
 
+@keyframes speed-dash {
+  0% {
+    stroke-dashoffset: 40;
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    stroke-dashoffset: -40;
+    opacity: 0.25;
+  }
+}
+.animate-speed-dash {
+  animation: speed-dash 1.2s linear infinite;
+}
+
+@keyframes key-glow {
+  0%, 100% {
+    transform: rotate(-3deg) scale(1);
+  }
+  50% {
+    transform: rotate(4deg) scale(1.08);
+  }
+}
+.animate-key-glow {
+  animation: key-glow 3s ease-in-out infinite;
+}
+
 @keyframes blink-eyes {
   0%,
   92%,
